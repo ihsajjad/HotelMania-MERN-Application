@@ -1,0 +1,5 @@
+.env
+.e2e.local
+node_modules
+
+dist
