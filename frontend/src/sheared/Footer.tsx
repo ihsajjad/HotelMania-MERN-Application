@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="bg-slate-900 text-base-200">
-      <div className="footer p-10 ">
+      <div className="footer p-10 custom-container">
         <div>
           <Link to="/" className=" text-xl font-bold text-[var(--main-color)]">
             Hotel<span>Mania</span>
@@ -25,11 +25,8 @@ const Footer = () => {
           <a className="link link-hover">Privacy policy</a>
           <a className="link link-hover">Cookie policy</a>
         </div>
-        <div>
-          <span className="footer-title">Payment Method</span>
-        </div>
       </div>
-      <div className="footer px-10 py-4 border-t border-[#8BCF17]">
+      <div className="footer custom-container py-4 border-t border-[#8BCF17]">
         <div className="items-center grid-flow-col">
           <p> Copyright &copy; 2023 || All right reserved</p>
         </div>

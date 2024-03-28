@@ -46,6 +46,9 @@ a {
   @apply scale-x-125;
 }
 
+.custom-container {
+  @apply lg:px-32;
+}
 /* ============================ Start Hero Section Background Shape ============================ */
 .hero-shape {
   position: absolute;

@@ -28,7 +28,7 @@ const NavBar = () => {
 
   const user = true;
   return (
-    <div className="navbar bg-slate-800 text-base-100 lg:px-32">
+    <div className="navbar bg-slate-800 text-base-100 custom-container">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
