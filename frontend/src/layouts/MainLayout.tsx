@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import NavBar from "../components/NavBar";
+import Footer from "../sheared/Footer";
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
@@ -14,7 +15,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
       </div>
 
       {children}
-      <div>Footer</div>
+      <Footer />
     </div>
   );
 };

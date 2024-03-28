@@ -15,42 +15,12 @@ const NavBar = () => {
       </li>
       <li>
         <NavLink
-          to="/book-now"
+          to="/search"
           className={({ isActive }) =>
             ` ${isActive ? "active-item" : ""} nav-item`
           }
         >
-          Book Now
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/blog"
-          className={({ isActive }) =>
-            ` ${isActive ? "active-item" : ""} nav-item`
-          }
-        >
-          Blog
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/contact"
-          className={({ isActive }) =>
-            ` ${isActive ? "active-item" : ""} nav-item`
-          }
-        >
-          Contact Us
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/dashboard"
-          className={({ isActive }) =>
-            ` ${isActive ? "active-item" : ""} nav-item`
-          }
-        >
-          Dashboard
+          Find Hotel
         </NavLink>
       </li>
     </>
