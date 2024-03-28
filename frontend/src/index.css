@@ -1,3 +1,107 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --bg-color: #1f244d;
+  --second-bg-color: #323946;
+  --text-color: #fff;
+  --main-color: #8bcf17;
+}
+
+a {
+  @apply hover:text-[var(--main-color)] duration-300;
+}
+
+.custom-btn {
+  /* text-white hover:bg-transparent text-main border-[text-main]*/
+  @apply py-1 px-2 border-2 text-white bg-[var(--main-color)] border-[var(--main-color)]  duration-500;
+}
+.custom-btn-outline {
+  /* text-white hover:bg-transparent text-main border-[text-main]*/
+  @apply py-1 px-2 border-2 text-white hover:bg-transparent text-[var(--main-color)] border-[var(--main-color)] hover:text-[var(--main-color)] duration-500;
+}
+
+.nav-item {
+  @apply font-bold;
+}
+
+.active-item {
+  @apply border-b-2 border-[var(--main-color)] text-[var(--main-color)];
+}
+
+.custom-card {
+  @apply p-2 border-2  rounded flex flex-col duration-500 overflow-hidden;
+}
+
+.custom-card:hover {
+  @apply bg-slate-200 scale-105 border-[var(--main-color)];
+}
+
+.custom-card img {
+  @apply duration-1000;
+}
+
+.custom-card:hover img {
+  @apply scale-x-125;
+}
+
+/* ============================ Start Hero Section Background Shape ============================ */
+.hero-shape {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.hero-shape svg {
+  position: relative;
+  display: block;
+  width: calc(120% + 1.3px);
+  height: 50px;
+}
+
+/* ============================ End Hero Section Background Shape ============================ */
+
+/* ============================ Start Feedback Section Background Shape ============================ */
+.feedback {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.feedback svg {
+  position: relative;
+  display: block;
+  width: calc(120% + 1.3px);
+  /* height: 50px; */
+  @apply md:h-12 h-0;
+}
+
+/* ======================= End Feedback Section Background Shape ====================== */
+
+.hero-shape .shape-fill,
+.feedback .shape-fill {
+  fill: #ffffff;
+}
+
+/* ============================ Start Custom Modal styles ============================ */
+.swiper-slide-thumb-inactive {
+  /* width: 25%;
+    height: 100%; */
+  opacity: 0.4;
+}
+
+.swiper-slide-thumb-active {
+  border: 2px solid #8bcf17;
+  opacity: 1;
+}
+
+/* ============================ End Custom Modal styles ============================ */
