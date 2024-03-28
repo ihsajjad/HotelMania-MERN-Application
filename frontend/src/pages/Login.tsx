@@ -63,7 +63,7 @@ const Login = () => {
         <div className="divider">OR</div>
         <p className="text-center mb-4">
           New to Hotel Mania? please{" "}
-          <Link to="/sign-up" className="underline text-[var(--main-color)]">
+          <Link to="/register" className="underline text-[var(--main-color)]">
             Register
           </Link>
         </p>
