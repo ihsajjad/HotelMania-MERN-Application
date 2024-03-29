@@ -1,6 +1,28 @@
 import { FaBars, FaShoppingCart } from "react-icons/fa";
+import { useMutation } from "react-query";
 import { Link, NavLink } from "react-router-dom";
+import { Bounce, toast } from "react-toastify";
+import * as apiClient from "../api-client";
+import { useAppContext } from "../contexts/UseContexts";
 const NavBar = () => {
+  const { isLogin, refetchUser } = useAppContext();
+  console.log(isLogin);
+  const { mutate: logOut } = useMutation("logoutUser", apiClient.logoutUser, {
+    onSuccess: () => {
+      refetchUser();
+      toast.success("Logout successful", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
+    },
+  });
   const options = (
     <>
       <li>
@@ -26,7 +48,6 @@ const NavBar = () => {
     </>
   );
 
-  const user = true;
   return (
     <div className="navbar bg-slate-800 text-base-100 custom-container">
       <div className="navbar-start">
@@ -50,7 +71,7 @@ const NavBar = () => {
         {/* menu */}
         <ul className="space-x-4 menu-horizontal px-1">{options}</ul>
       </div>
-
+      <button onClick={refetchUser}>refrth</button>
       <div className="navbar-end">
         <div className="flex space-x-4 items-center">
           <Link to="" className="indicator">
@@ -59,8 +80,8 @@ const NavBar = () => {
               8
             </span>
           </Link>
-          {user ? (
-            <button onClick={() => {}}>Logout</button>
+          {isLogin ? (
+            <button onClick={() => logOut()}>Logout</button>
           ) : (
             <Link to="/login" className="font-bold">
               Login

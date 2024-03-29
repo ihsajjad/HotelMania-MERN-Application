@@ -8,10 +8,9 @@ interface UserType {
   role: string;
 }
 export type ContextType = {
-  value: {
-    user: UserType;
-    isLogin: boolean;
-  };
+  user: UserType;
+  isLogin: boolean;
+  refetchUser: () => void;
 };
 
 export const AppContext = createContext<ContextType | undefined>(undefined);
@@ -24,20 +23,22 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
   });
   const [isLogin, setIsLogin] = useState<boolean>(false);
 
-  useQuery("fetchUserData", apiClient.fetchUserData, {
-    onSuccess: (data) => {
-      setUser(data);
-      setIsLogin(!!data.email);
-    },
-  });
-
-  const value = {
-    user,
-    isLogin,
-  };
+  const { refetch: refetchUser } = useQuery(
+    "fetchUserData",
+    apiClient.fetchUserData,
+    {
+      onSuccess: (data) => {
+        setUser(data);
+        setIsLogin(!!data.email);
+      },
+      retry: false,
+    }
+  );
 
   return (
-    <AppContext.Provider value={{ value }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ user, isLogin, refetchUser }}>
+      {children}
+    </AppContext.Provider>
   );
 };
 

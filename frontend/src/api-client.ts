@@ -39,3 +39,12 @@ export const userRegister = async (formData: FormData) => {
 
   return result;
 };
+
+export const logoutUser = async () => {
+  const res = await fetch(`${API_BASE_URL}/api/auth/logout`, {
+    method: "POST",
+    credentials: "include",
+  });
+
+  return res.json();
+};

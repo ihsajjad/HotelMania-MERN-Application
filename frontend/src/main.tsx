@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { RouterProvider } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { routes } from "./App.tsx";
-import { AppContextProvider } from "./contexts/AppContext.tsx";
+import AppContextProvider from "./contexts/AppContext.tsx";
 import "./index.css";
 
 const queryClient = new QueryClient();
