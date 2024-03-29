@@ -1,11 +1,13 @@
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import * as apiClient from "../api-client";
 
 type RegisterFormDataType = {
   name: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  confirmPassword?: string;
   profile: FileList;
 };
 
@@ -17,15 +19,27 @@ const Register = () => {
     watch,
   } = useForm<RegisterFormDataType>();
 
+  const { mutate: saveUser } = useMutation({
+    mutationFn: apiClient.userRegister,
+    onSuccess: () => {
+      console.log("Success");
+    },
+    onError: () => {
+      console.log("Failed");
+    },
+  });
+
   const currentPass = watch("password");
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async (data: RegisterFormDataType) => {
     const formData = new FormData();
 
     formData.append("name", data.name);
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("profile", data.profile[0]);
+
+    saveUser(formData);
   });
 
   const showError = (msg: string) => {

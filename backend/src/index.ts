@@ -3,6 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import express from "express";
 import mongoose from "mongoose";
+import authRoutes from "./routes/auth";
 import userRoutes from "./routes/users";
 const app = express();
 const port = 3000;
@@ -19,7 +20,7 @@ cloudinary.config({
 
 // middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({ credentials: true, origin: process.env.FRONTEND_URL }));
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -28,5 +29,6 @@ express.static(`${__dirname}/../../../frontend/dist`);
 // routes
 
 app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 
 app.listen(port, () => console.log(`server is running on port: ${port}`));

@@ -1,6 +1,6 @@
 import cloudinary from "cloudinary";
 import express, { Request, Response } from "express";
-import { check, validationResult } from "express-validator";
+import { body, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 import multer from "multer";
 import User from "../models/users";
@@ -13,13 +13,13 @@ const upload = multer({ storage, limits: { fileSize: 2 * 1024 * 1024 } });
 router.post(
   "/register",
   [
-    check("name").notEmpty().trim().withMessage("Name is required"),
-    check("email").notEmpty().trim().isEmail().withMessage("Email is required"),
-    check("password").notEmpty().trim().withMessage("Password is required"),
+    body("name").notEmpty().trim().withMessage("Name is required"),
+    body("email").notEmpty().trim().isEmail().withMessage("Email is required"),
+    body("password").notEmpty().trim().withMessage("Password is required"),
   ],
   upload.single("profile"),
   async (req: Request, res: Response) => {
-    const result = validationResult(req);
+    const result = validationResult(req.body);
 
     if (!result.isEmpty())
       return res.status(401).json({ message: result.array(), type: "ERROR" });
@@ -48,8 +48,12 @@ router.post(
         { expiresIn: "1d" }
       );
 
+      res.cookie("auth_token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 86400000,
+      });
       res
-        .cookie("auth_token", token)
         .status(200)
         .json({ message: "Account created successfully", type: "SUCCESS" });
     } catch (error) {
