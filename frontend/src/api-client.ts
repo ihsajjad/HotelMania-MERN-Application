@@ -10,9 +10,10 @@ export const userLogin = async (formData: LoginType) => {
     body: JSON.stringify(formData),
   });
 
-  if (!res.ok) throw new Error("Failed to login");
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message);
 
-  return res.json();
+  return result;
 };
 
 export const userRegister = async (formData: FormData) => {
@@ -22,7 +23,9 @@ export const userRegister = async (formData: FormData) => {
     body: formData,
   });
 
-  if (!res.ok) throw new Error("Failed to register");
+  const result = await res.json();
 
-  return res.json();
+  if (!res.ok) throw new Error(result.message);
+
+  return result;
 };

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { Bounce, toast } from "react-toastify";
 import * as apiClient from "../api-client";
 
 export interface LoginType {
@@ -21,10 +22,30 @@ const Login = () => {
   const { mutate: loginUser } = useMutation({
     mutationFn: apiClient.userLogin,
     onSuccess: () => {
-      console.log("Success");
+      toast.success("Login successful", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
     },
-    onError: () => {
-      console.log("Failed");
+    onError: (error: Error) => {
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
     },
   });
 
