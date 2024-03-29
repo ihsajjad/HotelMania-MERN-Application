@@ -1,7 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useMutation } from "react-query";
 import { Link } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
 import * as apiClient from "../api-client";
@@ -19,8 +19,7 @@ const Login = () => {
     formState: { errors },
   } = useForm<LoginType>();
 
-  const { mutate: loginUser } = useMutation({
-    mutationFn: apiClient.userLogin,
+  const { mutate: loginUser } = useMutation(apiClient.userLogin, {
     onSuccess: () => {
       toast.success("Login successful", {
         position: "top-right",

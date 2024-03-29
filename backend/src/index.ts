@@ -1,4 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import "dotenv/config";
 import express from "express";
@@ -20,8 +21,8 @@ cloudinary.config({
 
 // middleware
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors({ credentials: true, origin: process.env.FRONTEND_URL }));
-
 app.use(express.urlencoded({ extended: true }));
 
 express.static(`${__dirname}/../../../frontend/dist`);

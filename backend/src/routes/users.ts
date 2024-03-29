@@ -1,7 +1,7 @@
 import cloudinary from "cloudinary";
 import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import multer from "multer";
 import User from "../models/users";
 
@@ -9,6 +9,22 @@ const router = express.Router();
 const storage = multer.memoryStorage();
 
 const upload = multer({ storage, limits: { fileSize: 2 * 1024 * 1024 } });
+
+router.get("/me", async (req: Request, res: Response) => {
+  try {
+    const token = req.cookies["auth_token"];
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string);
+    const userId = (decoded as JwtPayload).userId;
+
+    const user = await User.findById(userId, "email profile role");
+    if (!user) return res.status(400).json({ message: "Something went wrong" });
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 router.post(
   "/register",
