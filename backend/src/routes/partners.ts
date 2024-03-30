@@ -76,4 +76,16 @@ router.post(
   }
 );
 
+router.get("/", async (req: Request, res: Response) => {
+  try {
+    const partners = await Partner.find();
+    if (!partners)
+      return res.status(300).json({ message: "Unavailable partner's data" });
+
+    res.status(200).json({ message: "Partner's data found", data: partners });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 export default router;
