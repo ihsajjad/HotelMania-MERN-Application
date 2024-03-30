@@ -30,11 +30,12 @@ export const userRegister = async (formData: FormData) => {
   const res = await fetch(`${API_BASE_URL}/api/users/register`, {
     method: "POST",
     credentials: "include",
+    // headers: { "Content-Type": "multipart/form-data" },
     body: formData,
   });
 
   const result = await res.json();
-
+  console.log(result);
   if (!res.ok) throw new Error(result.message);
 
   return result;

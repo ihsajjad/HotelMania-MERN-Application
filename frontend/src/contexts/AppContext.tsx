@@ -35,6 +35,7 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
     }
   );
 
+  console.log(user);
   return (
     <AppContext.Provider value={{ user, isLogin, refetchUser }}>
       {children}

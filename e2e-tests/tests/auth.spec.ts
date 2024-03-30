@@ -10,7 +10,7 @@ test("Should login user", async ({ page }) => {
   ).toBeVisible();
 
   await page.getByPlaceholder("Email").fill("1@1.com");
-  await page.getByPlaceholder("Password").fill("User100%");
+  await page.getByPlaceholder("Password").fill("password");
 
   await page.getByRole("button", { name: "Login" }).click();
   await expect(page.getByText("Login successful")).toBeVisible();

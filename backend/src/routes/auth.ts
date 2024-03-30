@@ -1,22 +1,23 @@
 import bcrypt from "bcryptjs";
 import express, { Request, Response } from "express";
-import { body, validationResult } from "express-validator";
-import jwt from "jsonwebtoken";
+import { check, validationResult } from "express-validator";
 import User from "../models/users";
+import { generateToken } from "../shared/utils";
 
 const router = express.Router();
 
 router.post(
   "/login",
   [
-    body("email").trim().isEmail().withMessage("Email is required"),
-    body("password").trim().isEmail().withMessage("Password is required"),
+    check("email", "Email is required").isEmail().trim(),
+    check("password", "Password is required").isString(),
   ],
   async (req: Request, res: Response) => {
-    const result = validationResult(req.body);
-
+    const result = validationResult(req);
     if (!result.isEmpty())
-      return res.status(400).json({ message: result.array() });
+      return res
+        .status(400)
+        .json({ message: "Invalid credentials", data: result.array() });
 
     try {
       const { email, password } = req.body;
@@ -29,13 +30,7 @@ router.post(
       if (!isMatch)
         return res.status(400).json({ message: "Invalid credentials" });
 
-      const token = jwt.sign(
-        { userId: user._id },
-        process.env.JWT_SECRET_KEY as string,
-        {
-          expiresIn: "1d",
-        }
-      );
+      const token = generateToken(user._id);
 
       res.cookie("auth_token", token, {
         httpOnly: true,

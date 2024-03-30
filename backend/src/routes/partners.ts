@@ -1,41 +1,35 @@
 import express, { Request, Response } from "express";
-import { body, validationResult } from "express-validator";
+import { check, validationResult } from "express-validator";
 import Partner from "../models/hotelOwners";
 import User from "../models/users";
 import { HotelOwnerType, UserType } from "../shared/types";
-import { upload, uploadProfile } from "../shared/utils";
+import { generateToken, upload, uploadProfile } from "../shared/utils";
 
 const router = express.Router();
 
 router.post(
   "/register",
   [
-    body("name").notEmpty().trim().withMessage("Name is required"),
-    body("email").notEmpty().trim().isEmail().withMessage("Email is required"),
-    body("phone").notEmpty().trim().withMessage("Phone is required"),
-    body("password").notEmpty().trim().withMessage("Password is required"),
-    body("bankName").notEmpty().trim().withMessage("Bnak Name is required"),
-    body("bankAddress")
-      .notEmpty()
-      .trim()
-      .withMessage("Bank Address is required"),
-    body("accountNumber")
-      .notEmpty()
-      .trim()
-      .withMessage("Account Number is required"),
-    body("country").notEmpty().trim().withMessage("Country is required"),
-    body("hotelAddress")
-      .notEmpty()
-      .trim()
-      .withMessage("Hotel Address is required"),
+    check("name", "Name is required").notEmpty().trim(),
+    check("email", "Email is required").notEmpty().isEmail().trim(),
+    check("phone", "Phone is required").notEmpty().trim(),
+    check("password", "Password is required").trim().isLength({ min: 6 }),
+    check("bankName", "Bnak Name is required").notEmpty().trim(),
+    check("bankAddress", "Bank Address is required").notEmpty().trim(),
+    check("accountNumber", "Account Number is required").notEmpty().trim(),
+    check("country", "Country is required").notEmpty().trim(),
+    check("hotelAddress", "Hotel Address is required").notEmpty().trim(),
   ],
   upload.single("profile"),
   async (req: Request, res: Response) => {
-    const result = validationResult(req);
     const file = req.file as Express.Multer.File;
+    // todo: validate the file type and secure it
 
-    if (!result.isEmpty() || !file) {
-      return res.status(400).json({ message: "Invalid user data" });
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      return res
+        .status(400)
+        .json({ message: "Invalid user data", data: result.array() });
     }
 
     const userData: UserType = {
@@ -47,16 +41,18 @@ router.post(
     };
 
     delete req.body.password;
-    const partnerData: HotelOwnerType = req.body;
+    const partnerData: HotelOwnerType = { ...req.body, profile: "" };
 
     try {
       const checkUser = await User.findOne({ email: partnerData.email });
       if (checkUser)
         return res.status(400).json({ message: "Email already in use!" });
 
-      const profileUrl = await uploadProfile(file);
-      userData.profile = profileUrl;
-      partnerData.profile = profileUrl;
+      if (file) {
+        const profileUrl = await uploadProfile(file);
+        userData.profile = profileUrl;
+        partnerData.profile = profileUrl;
+      }
 
       const user = new User(userData);
       const partner = new Partner(partnerData);
@@ -65,8 +61,16 @@ router.post(
       await user.save();
       await partner.save();
 
+      const token = generateToken(user._id);
+
+      res.cookie("auth_token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 86400000,
+      });
       res.status(200).json({ message: "Registration successful" });
     } catch (error: any) {
+      console.log(error);
       res.status(500).json({ message: "Internal server error" });
     }
   }

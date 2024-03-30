@@ -1,4 +1,5 @@
 import cloudinary from "cloudinary";
+import jwt from "jsonwebtoken";
 import multer from "multer";
 
 const storage = multer.memoryStorage();
@@ -13,3 +14,10 @@ export async function uploadProfile(profile: any) {
   const profileUrl = await cloudinary.v2.uploader.upload(dataURI);
   return profileUrl.url;
 }
+
+export const generateToken = (userId: any) => {
+  const token = jwt.sign({ userId }, process.env.JWT_SECRET_KEY as string, {
+    expiresIn: "1d",
+  });
+  return token;
+};
