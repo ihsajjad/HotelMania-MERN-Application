@@ -14,7 +14,7 @@ router.get("/me", async (req: Request, res: Response) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string);
     const userId = (decoded as JwtPayload).userId;
 
-    const user = await User.findById(userId, { email: 1, role: 1 });
+    const user = await User.findById(userId, { email: 1, role: 1, profile: 1 });
 
     if (!user) return res.status(400).json({ message: "Something went wrong" });
 

@@ -3,8 +3,9 @@ import { useQuery } from "react-query";
 import * as apiClient from "../api-client";
 
 interface UserType {
+  _id: string;
   email: string;
-  photo?: string | undefined;
+  profile?: string | undefined;
   role: string;
 }
 export type ContextType = {
@@ -17,8 +18,9 @@ export const AppContext = createContext<ContextType | undefined>(undefined);
 
 const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserType>({
+    _id: "",
     email: "",
-    photo: "",
+    profile: "",
     role: "",
   });
   const [isLogin, setIsLogin] = useState<boolean>(false);

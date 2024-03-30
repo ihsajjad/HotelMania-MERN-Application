@@ -1,14 +1,13 @@
-import { FaBars, FaShoppingCart } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { useMutation } from "react-query";
 import { Link, NavLink } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
 import * as apiClient from "../api-client";
 import { useAppContext } from "../contexts/UseContexts";
 const NavBar = () => {
-  const { isLogin, refetchUser } = useAppContext();
+  const { isLogin, user } = useAppContext();
   const { mutate: logOut } = useMutation("logoutUser", apiClient.logoutUser, {
     onSuccess: () => {
-      refetchUser();
       toast.success("Logout successful", {
         position: "top-right",
         autoClose: 3000,
@@ -22,6 +21,7 @@ const NavBar = () => {
       });
     },
   });
+
   const options = (
     <>
       <li>
@@ -70,23 +70,39 @@ const NavBar = () => {
         {/* menu */}
         <ul className="space-x-4 menu-horizontal px-1">{options}</ul>
       </div>
-      <button onClick={refetchUser}>refrth</button>
       <div className="navbar-end">
-        <div className="flex space-x-4 items-center">
-          <Link to="" className="indicator">
-            <FaShoppingCart className="text-2xl" />
-            <span className="badge badge-sm indicator-item text-slate-700 font-bold bg-slate-300">
-              8
-            </span>
+        {isLogin ? (
+          <div className="dropdown dropdown-end">
+            <div tabIndex={0} role="button" className="avatar">
+              <div className="w-10 rounded-full ring ring-[var(--main-color)] ring-offset-[black] ring-offset-2">
+                <img
+                  alt="Tailwind CSS Navbar component"
+                  src={`${user.profile ? user.profile : "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"}`}
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="mt-3 z-[1] p-2 shadow  dropdown-content bg-[var(--bg-color)] w-40"
+            >
+              <li>
+                <Link to="/dashboard">Dashboard</Link>
+              </li>
+              <li>
+                <a>Settings</a>
+              </li>
+              <li>
+                <button onClick={() => logOut()} className="custom-btn ">
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <Link to="/login" className="font-bold">
+            Login
           </Link>
-          {isLogin ? (
-            <button onClick={() => logOut()}>Logout</button>
-          ) : (
-            <Link to="/login" className="font-bold">
-              Login
-            </Link>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );
