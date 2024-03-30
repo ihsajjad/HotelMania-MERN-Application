@@ -11,6 +11,7 @@ interface UserType {
 export type ContextType = {
   user: UserType;
   isLogin: boolean;
+  isLoading: boolean;
   refetchUser: () => void;
 };
 
@@ -23,15 +24,13 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
     profile: "",
     role: "",
   });
-  const [isLogin, setIsLogin] = useState<boolean>(false);
 
-  const { refetch: refetchUser } = useQuery(
+  const { refetch: refetchUser, isLoading } = useQuery(
     "fetchUserData",
     apiClient.fetchUserData,
     {
       onSuccess: (data) => {
         setUser(data);
-        setIsLogin(!!data.email);
       },
       retry: false,
     }
@@ -39,7 +38,9 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
 
   console.log(user);
   return (
-    <AppContext.Provider value={{ user, isLogin, refetchUser }}>
+    <AppContext.Provider
+      value={{ user, isLogin: !!user.email, refetchUser, isLoading }}
+    >
       {children}
     </AppContext.Provider>
   );

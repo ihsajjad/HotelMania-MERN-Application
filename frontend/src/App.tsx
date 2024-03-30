@@ -5,6 +5,7 @@ import Error from "./pages/Error";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Partners from "./pages/dashboard/admin/Partners";
 
 export const routes = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ export const routes = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { path: "/dashboard", element: <div>Welcome to dashboard</div> },
+      { path: "/dashboard/partners", element: <Partners /> },
     ],
   },
 ]);
