@@ -6,7 +6,6 @@ import * as apiClient from "../api-client";
 import { useAppContext } from "../contexts/UseContexts";
 const NavBar = () => {
   const { isLogin, refetchUser } = useAppContext();
-  console.log(isLogin);
   const { mutate: logOut } = useMutation("logoutUser", apiClient.logoutUser, {
     onSuccess: () => {
       refetchUser();
