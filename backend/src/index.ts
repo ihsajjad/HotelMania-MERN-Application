@@ -5,6 +5,7 @@ import "dotenv/config";
 import express from "express";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth";
+import partnerRoutes from "./routes/partners";
 import userRoutes from "./routes/users";
 const app = express();
 const port = 3000;
@@ -31,5 +32,6 @@ express.static(`${__dirname}/../../../frontend/dist`);
 
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/partners", partnerRoutes);
 
 app.listen(port, () => console.log(`server is running on port: ${port}`));

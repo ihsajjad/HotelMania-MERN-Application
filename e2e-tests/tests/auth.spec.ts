@@ -33,7 +33,7 @@ test("Should register user", async ({ page }) => {
   await page.getByPlaceholder("Confirm Password").fill("password");
   await page
     .locator('[name="profile"]')
-    .setInputFiles(path.join(__dirname, "files/sajjad1.png"));
+    .setInputFiles(path.join(__dirname as string, "files/sajjad1.png"));
   await page.getByRole("button", { name: "Register" }).click();
 
   await expect(page.getByText("Registration successful")).toBeVisible();

@@ -1,14 +1,10 @@
-import cloudinary from "cloudinary";
 import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import multer from "multer";
 import User from "../models/users";
+import { upload, uploadProfile } from "./../shared/utils";
 
 const router = express.Router();
-const storage = multer.memoryStorage();
-
-const upload = multer({ storage, limits: { fileSize: 2 * 1024 * 1024 } });
 
 router.get("/me", async (req: Request, res: Response) => {
   try {
@@ -35,10 +31,10 @@ router.post(
   ],
   upload.single("profile"),
   async (req: Request, res: Response) => {
-    const result = validationResult(req.body);
+    const result = validationResult(req);
 
     if (!result.isEmpty())
-      return res.status(401).json({ message: result.array(), type: "ERROR" });
+      return res.status(400).json({ message: result.array(), type: "ERROR" });
 
     try {
       const userData = req.body;
@@ -48,7 +44,7 @@ router.post(
       if (haveUser)
         return res
           .status(400)
-          .json({ message: "User already exists!", type: "ERROR" });
+          .json({ message: "Email already in use!", type: "ERROR" });
 
       if (profile) {
         userData.profile = await uploadProfile(profile);
@@ -78,10 +74,4 @@ router.post(
   }
 );
 
-async function uploadProfile(profile: any) {
-  const b64 = Buffer.from(profile.buffer).toString("base64");
-  const dataURI = "data:" + profile.mimetype + ";base64," + b64;
-  const profileUrl = await cloudinary.v2.uploader.upload(dataURI);
-  return profileUrl.url;
-}
 export default router;
