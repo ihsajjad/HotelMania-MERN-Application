@@ -78,11 +78,14 @@ router.post(
 
 router.get("/", async (req: Request, res: Response) => {
   try {
-    const partners = await Partner.find();
+    const partners = await Partner.find(
+      {},
+      { name: 1, profile: 1, country: 1, isVerified: 1 }
+    );
     if (!partners)
       return res.status(300).json({ message: "Unavailable partner's data" });
 
-    res.status(200).json({ message: "Partner's data found", data: partners });
+    res.status(200).json(partners);
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }

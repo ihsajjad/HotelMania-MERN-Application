@@ -1,4 +1,5 @@
 import { LoginType } from "./pages/Login";
+import { PartnerType } from "./sheared/Types";
 
 const API_BASE_URL = "http://localhost:3000";
 
@@ -46,6 +47,16 @@ export const logoutUser = async () => {
     method: "POST",
     credentials: "include",
   });
+
+  return res.json();
+};
+
+export const fetchAllPartners = async (): Promise<PartnerType[]> => {
+  const res = await fetch(`${API_BASE_URL}/api/partners`, {
+    credentials: "include",
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch partners");
 
   return res.json();
 };

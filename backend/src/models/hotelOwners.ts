@@ -11,7 +11,7 @@ const hotelOwnerSchema = new mongoose.Schema<HotelOwnerType>({
   profile: { type: String, required: false },
   hotelAddress: { type: String, required: true },
   country: { type: String, required: true },
-  isVarified: { type: Boolean, default: false },
+  isVerified: { type: Boolean, default: false },
 });
 
 const Partner = mongoose.model<HotelOwnerType>("Partner", hotelOwnerSchema);

@@ -58,7 +58,7 @@ const LeftSideBar = () => {
         <ul className=" p-4 w-60 text-white bg-[var(--bg-color)] flex-grow">
           {navLinks &&
             navLinks.map((item) => (
-              <li>
+              <li key={item.link}>
                 <Link to={item.link}>{item.label}</Link>
               </li>
             ))}

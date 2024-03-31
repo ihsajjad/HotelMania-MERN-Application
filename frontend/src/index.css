@@ -15,7 +15,7 @@ a {
 
 .custom-btn {
   /* text-white hover:bg-transparent text-main border-[text-main]*/
-  @apply py-1 px-2 border-2 text-white bg-[var(--main-color)] border-[var(--main-color)]  duration-500;
+  @apply py-1 px-2 text-white bg-[var(--main-color)]  duration-500;
 }
 .custom-btn-outline {
   /* text-white hover:bg-transparent text-main border-[text-main]*/

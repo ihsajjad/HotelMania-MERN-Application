@@ -16,5 +16,5 @@ export type HotelOwnerType = {
   accountNumber: string;
   country: string;
   hotelAddress: string;
-  isVarified: boolean;
+  isVerified: boolean;
 };
