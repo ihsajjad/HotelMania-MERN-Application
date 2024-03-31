@@ -1,7 +1,7 @@
 import { LoginType } from "./pages/Login";
 import { PartnerType } from "./sheared/Types";
 
-const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 export const fetchUserData = async () => {
   const res = await fetch(`${API_BASE_URL}/api/users/me`, {

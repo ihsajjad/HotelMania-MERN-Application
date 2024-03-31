@@ -2,8 +2,9 @@ import { v2 as cloudinary } from "cloudinary";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import "dotenv/config";
-import express from "express";
+import express, { Request, Response } from "express";
 import mongoose from "mongoose";
+import path from "path";
 import authRoutes from "./routes/auth";
 import partnerRoutes from "./routes/partners";
 import userRoutes from "./routes/users";
@@ -28,10 +29,16 @@ app.use(cors({ credentials: true, origin: process.env.FRONTEND_URL }));
 
 // express.static(`${__dirname}/../../../frontend/dist`);
 
+app.use(express.static(path.join(__dirname, "../../frontend/dist/index.html")));
+
 // routes
 
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/partners", partnerRoutes);
+
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+});
 
 app.listen(port, () => console.log(`server is running on port: ${port}`));
