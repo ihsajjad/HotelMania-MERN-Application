@@ -2,11 +2,11 @@ import Lottie from "lottie-react";
 import { Link, useRouteError } from "react-router-dom";
 import animation from "../assets/404.json";
 
-// type Type = {
-//     error: {message: string}
-// }
-const Error = () => {
-  const errorData = useRouteError();
+interface RouterError extends Error {
+  error: { message: string };
+}
+const Error: React.FC = () => {
+  const errorData: RouterError = useRouteError() as RouterError;
   const { error } = errorData;
 
   return (
