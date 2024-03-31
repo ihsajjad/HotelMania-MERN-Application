@@ -32,6 +32,15 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
       onSuccess: (data) => {
         setUser(data);
       },
+      onError: (error) => {
+        console.log(error);
+        setUser({
+          _id: "",
+          email: "",
+          profile: "",
+          role: "",
+        });
+      },
       retry: false,
     }
   );

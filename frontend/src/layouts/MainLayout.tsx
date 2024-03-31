@@ -2,7 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Header from "../components/Header";
 import NavBar from "../components/NavBar";
-import Footer from "../sheared/Footer";
+import Footer from "../shared/Footer";
 
 const MainLayout = () => {
   const location = useLocation();

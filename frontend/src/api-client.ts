@@ -1,5 +1,5 @@
 import { LoginType } from "./pages/Login";
-import { PartnerType } from "./sheared/Types";
+import { PartnerType } from "./shared/Types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
@@ -31,13 +31,12 @@ export const userRegister = async (formData: FormData) => {
   const res = await fetch(`${API_BASE_URL}/api/users/register`, {
     method: "POST",
     credentials: "include",
-    // headers: { "Content-Type": "multipart/form-data" },
     body: formData,
   });
 
   const result = await res.json();
   console.log(result);
-  if (!res.ok) throw new Error(result.message);
+  // if (!res.ok) throw new Error(result.message);
 
   return result;
 };

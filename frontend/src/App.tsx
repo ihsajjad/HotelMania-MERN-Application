@@ -4,6 +4,7 @@ import MainLayout from "./layouts/MainLayout";
 import Error from "./pages/Error";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import PartnerRegister from "./pages/PartnerRegister";
 import Register from "./pages/Register";
 import Partners from "./pages/dashboard/admin/Partners";
 
@@ -14,8 +15,9 @@ export const routes = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "login", element: <Login /> },
-      { path: "register", element: <Register /> },
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
+      { path: "/partner/register", element: <PartnerRegister /> },
     ],
   },
   {

@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { Link } from "react-router-dom";
-import { Bounce, toast } from "react-toastify";
 import * as apiClient from "../api-client";
+import { errorToast, successToast } from "../shared/utils";
 
 type RegisterFormDataType = {
   name: string;
@@ -22,30 +22,10 @@ const Register = () => {
 
   const { mutate: saveUser } = useMutation(apiClient.userRegister, {
     onSuccess: () => {
-      toast.success("Registration successful", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-      });
+      successToast("Registration successful");
     },
     onError: (error: Error) => {
-      toast.error(error.message, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-      });
+      errorToast(error.message);
     },
   });
 

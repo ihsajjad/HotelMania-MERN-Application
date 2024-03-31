@@ -2,7 +2,7 @@ import Lottie from "lottie-react";
 import { Link, useRouteError } from "react-router-dom";
 import animation from "../assets/404.json";
 
-interface RouterError extends Error {
+interface RouterError {
   error: { message: string };
 }
 const Error: React.FC = () => {

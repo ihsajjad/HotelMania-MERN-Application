@@ -1,4 +1,4 @@
-import { PartnerType } from "../sheared/Types";
+import { PartnerType } from "../shared/Types";
 
 interface Props {
   partner: PartnerType;

@@ -27,14 +27,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({ credentials: true, origin: process.env.FRONTEND_URL }));
 
-// express.static(`${__dirname}/../../../frontend/dist`);
-
 app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
-app.use((req, res, next) => {
-  res.type("text/javascript");
-  next();
-});
+// app.use((req, res, next) => {
+//   res.type("text/javascript");
+//   next();
+// });
 
 // routes
 app.use("/api/users", userRoutes);

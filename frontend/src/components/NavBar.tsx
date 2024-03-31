@@ -5,7 +5,7 @@ import { Bounce, toast } from "react-toastify";
 import * as apiClient from "../api-client";
 import { useAppContext } from "../contexts/UseContexts";
 const NavBar = () => {
-  const { isLogin, user } = useAppContext();
+  const { isLogin, user } = useAppContext() || {};
   const { mutate: logOut } = useMutation("logoutUser", apiClient.logoutUser, {
     onSuccess: () => {
       toast.success("Logout successful", {

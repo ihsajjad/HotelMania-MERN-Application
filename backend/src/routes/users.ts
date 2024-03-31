@@ -20,6 +20,7 @@ router.get("/me", async (req: Request, res: Response) => {
 
     res.status(200).json(user);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
@@ -65,6 +66,7 @@ router.post(
       });
       res.status(200).json({ message: "Account created successfully" });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ message: "Internal server error" });
     }
   }

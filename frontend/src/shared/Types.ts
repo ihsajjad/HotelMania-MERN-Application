@@ -5,3 +5,10 @@ export type PartnerType = {
   isVerified: boolean;
   country: string;
 };
+
+export type FormInputProps = {
+  label: string;
+  type: string;
+  placeholder: string;
+  property: string;
+};
