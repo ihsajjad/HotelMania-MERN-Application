@@ -1,5 +1,11 @@
+import OurPartners from "../components/OurPartners";
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <OurPartners />
+    </div>
+  );
 };
 
 export default Home;
