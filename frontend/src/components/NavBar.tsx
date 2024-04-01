@@ -48,15 +48,15 @@ const NavBar = () => {
   );
 
   return (
-    <div className="navbar bg-slate-800 text-base-100 custom-container">
+    <div className="navbar bg-[var(--bg-color)] text-base-100 custom-container">
       <div className="navbar-start">
         <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
+          <label tabIndex={0} className="lg:hidden flex items-center mr-4">
             <FaBars />
           </label>
           <ul
             tabIndex={0}
-            className="text-black menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52"
+            className="text-white dropdown-content mt-4 z-10 p-2 space-y-2 shadow bg-[var(--bg-color)] w-40"
           >
             {options}
           </ul>
