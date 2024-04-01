@@ -18,3 +18,19 @@ export type HotelOwnerType = {
   hotelAddress: string;
   isVerified: boolean;
 };
+
+export type HotelDataType = {
+  userId: string;
+  name: string;
+  description: string;
+  city: string;
+  country: string;
+  type: string;
+  pricePerNight: number;
+  starRating: number;
+  adultCount: number;
+  childCount: number;
+  facilities: string[];
+  images: { label: string; image: string }[];
+  lastUpdated: Date;
+};
