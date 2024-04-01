@@ -1,30 +1,39 @@
-# React + TypeScript + Vite
+# Hotel Mania
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Technologies:
 
-Currently, two official plugins are available:
+#### Frontend:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React.js
+- TypeScript
+- TailwindCSS
+- Daisy UI
+- Stripe
+- React Query
 
-## Expanding the ESLint configuration
+#### Backend:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Node.js
+- Express.js
+- TypeScript
+- MongoDB
+- Mongoose
+- Multer
+- JWT
+- Cloudinary
 
-- Configure the top-level `parserOptions` property like this:
+This will be a hotel booking website. There will be three types of users Admin, Hotel Manager, and Users.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### Admin:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Only the website owner can use the admin account. Also, he can create as many as sub-admins to maintain the website. Admins can approve hotel onboarding requests.
+
+### Hotel Account:
+
+Any hotel wanting to become an onboarded partner will sign up here with the needed data. While an admin approves the hotel accounts, they can add room packages.
+
+### User:
+
+Anyone can visit room packages but only one can book a room with being a user. Users can book a room and watch the previous bookings.
+
+Live link: https://hotelmania.onrender.com
