@@ -26,12 +26,12 @@ const Footer = () => {
           <a className="link link-hover">Cookie policy</a>
         </div>
       </div>
-      <div className="footer custom-container py-4 border-t border-[#8BCF17]">
-        <div className="items-center grid-flow-col">
+      <div className="flex gap-2 sm:flex-row flex-col-reverse sm:justify-between custom-container py-4 border-t border-[#8BCF17]">
+        <div className="text-slate-300 md:text-left text-center text-sm">
           <p> Copyright &copy; 2023 || All right reserved</p>
         </div>
-        <div className="md:place-self-center md:justify-self-end">
-          <div className="grid grid-flow-col gap-4">
+        <div className="md:place-self-center md:justify-self-end ">
+          <div className="flex flex-row gap-4 justify-center">
             <a>
               <FaTwitter className="w-6 h-6" />
             </a>

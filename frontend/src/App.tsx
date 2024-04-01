@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import PartnerRegister from "./pages/PartnerRegister";
 import Register from "./pages/Register";
+import MyHotels from "./pages/dashboard/Partner/MyHotels";
 import Partners from "./pages/dashboard/admin/Partners";
 
 export const routes = createBrowserRouter([
@@ -27,6 +28,7 @@ export const routes = createBrowserRouter([
     children: [
       { path: "/dashboard", element: <div>Welcome to dashboard</div> },
       { path: "/dashboard/partners", element: <Partners /> },
+      { path: "/dashboard/my-hotels", element: <MyHotels /> },
     ],
   },
 ]);

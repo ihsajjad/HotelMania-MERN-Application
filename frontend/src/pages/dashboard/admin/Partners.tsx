@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
 import * as apiClient from "../../../api-client";
+import PageTitle from "../../../components/PageTitle";
 import PartnersTableItem from "../../../components/PartnersTableItem";
 
 const Partners = () => {
@@ -10,9 +11,7 @@ const Partners = () => {
   console.log(partners);
   return (
     <div>
-      <div className="text-2xl font-bold text-center text-[var(--bg-color)] border border-b-2 border-[var(--bg-color)] py-1">
-        Hotel Partners
-      </div>
+      <PageTitle title="Hotel Partners" />
 
       <div className="overflow-x-auto p-5 bg-slate-50">
         <table className="table bg-white shadow-xl shadow-[#00000044] text-center">
@@ -34,6 +33,7 @@ const Partners = () => {
               ))}
           </tbody>
         </table>
+        pP
       </div>
     </div>
   );

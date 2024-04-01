@@ -1,5 +1,5 @@
 import { LoginType } from "./pages/Login";
-import { PartnerType } from "./shared/Types";
+import { HotelDataType, PartnerType } from "./shared/Types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
@@ -48,7 +48,6 @@ export const partnerRegister = async (formData: FormData) => {
   });
 
   const result = await res.json();
-  console.log(result);
 
   if (!res.ok) throw new Error(result.message);
 
@@ -64,12 +63,30 @@ export const logoutUser = async () => {
   return res.json();
 };
 
+/**================================================================================
+                                    Admin Functions
+ ================================================================================*/
+
 export const fetchAllPartners = async (): Promise<PartnerType[]> => {
   const res = await fetch(`${API_BASE_URL}/api/partners`, {
     credentials: "include",
   });
 
   if (!res.ok) throw new Error("Failed to fetch partners");
+
+  return res.json();
+};
+
+/**================================================================================
+                                    Partner Functions
+ ================================================================================*/
+
+export const fetchMyHotels = async (id: string): Promise<HotelDataType[]> => {
+  const res = await fetch(`${API_BASE_URL}/api/hotels/${id}`, {
+    credentials: "include",
+  });
+
+  if (!res.ok) throw new Error("Something went wrong");
 
   return res.json();
 };
