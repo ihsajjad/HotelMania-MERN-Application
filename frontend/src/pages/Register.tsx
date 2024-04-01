@@ -31,7 +31,7 @@ const Register = () => {
 
   const currentPass = watch("password");
 
-  const onSubmit = handleSubmit(async (data: RegisterFormDataType) => {
+  const onSubmit = handleSubmit((data: RegisterFormDataType) => {
     const formData = new FormData();
 
     formData.append("name", data.name);

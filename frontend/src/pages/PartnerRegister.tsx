@@ -1,7 +1,14 @@
 import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
 import { Link } from "react-router-dom";
-import { FormInputProps } from "../shared/Types";
-import { countries, showInputError } from "../shared/utils";
+import * as apiClient from "../api-client";
+import { PartnerFormData } from "../shared/Types";
+import {
+  countries,
+  errorToast,
+  showInputError,
+  successToast,
+} from "../shared/utils";
 
 const PartnerRegister = () => {
   const {
@@ -9,31 +16,38 @@ const PartnerRegister = () => {
     formState: { errors },
     handleSubmit,
     watch,
-  } = useForm();
+  } = useForm<PartnerFormData>();
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const { mutate: registerPartner } = useMutation(apiClient.partnerRegister, {
+    onSuccess: (result) => {
+      console.log(result);
+      successToast(result.message);
+    },
+    onError: (error: Error) => {
+      console.log(error);
+      errorToast(error.message);
+    },
+  });
 
-  const formInput = ({
-    label,
-    type,
-    placeholder,
-    property,
-  }: FormInputProps) => (
-    <div className="form-control">
-      <label className="label">
-        <span className="label-text">{label}*</span>
-      </label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        {...register(property, { required: "This field is required" })}
-        className="input input-bordered"
-      />
-      {errors?.[property] && showInputError("This field is required")}
-    </div>
-  );
+  const onSubmit = handleSubmit((data: PartnerFormData) => {
+    const formData = new FormData();
+
+    formData.append("name", data.name);
+    formData.append("phone", data.phone);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    formData.append("country", data.country);
+    formData.append("bankName", data.bankName);
+    formData.append("bankAddress", data.bankAddress);
+    formData.append("accountNumber", data.accountNumber);
+    formData.append("profile", data.profile[0]);
+
+    registerPartner(formData);
+  });
 
   const password = watch("password");
+  const country = watch("country");
+  console.log(country);
 
   return (
     <div className="hero min-h-screen bg-base-200 md:py-12 p-5">
@@ -48,36 +62,73 @@ const PartnerRegister = () => {
           encType="multipart/form-data"
         >
           <div className="grid md:grid-cols-2 grid-cols-1 md:gap-x-4">
-            {formInput({
-              label: "Full Name",
-              type: "text",
-              placeholder: "Full Name",
-              property: "name",
-            })}
-            {formInput({
-              label: "Hotel Address",
-              type: "text",
-              placeholder: "Hotel Address",
-              property: "hotelAddress",
-            })}
-            {formInput({
-              label: "Phone",
-              type: "text",
-              placeholder: "Phone Number",
-              property: "phone",
-            })}
-            {formInput({
-              label: "Email",
-              type: "email",
-              placeholder: "example@gmail.com",
-              property: "email",
-            })}
-            {formInput({
-              label: "Password",
-              type: "password",
-              placeholder: "Password",
-              property: "password",
-            })}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Full Name*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Full Name"
+                {...register("name", { required: true })}
+                className="input input-bordered"
+              />
+              {errors?.name && showInputError("This field is required")}
+            </div>{" "}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Country*</span>
+              </label>
+              <select
+                {...register("country", { required: true })}
+                className="select select-bordered w-full"
+              >
+                <option value="" disabled selected>
+                  Country
+                </option>
+                {countries.map((country) => (
+                  <option value={country} key={country}>
+                    {country}
+                  </option>
+                ))}
+              </select>
+              {errors?.country && showInputError("This field is required")}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Email*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="example@gmail.com"
+                {...register("email", { required: true })}
+                className="input input-bordered"
+              />
+              {errors?.email && showInputError("This field is required")}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Phone*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Phone Number"
+                {...register("phone", { required: true })}
+                className="input input-bordered"
+              />
+              {errors?.phone && showInputError("This field is required")}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Password*</span>
+              </label>
+              <input
+                type="password"
+                placeholder="Password"
+                {...register("password", { required: true })}
+                className="input input-bordered"
+              />
+              {errors?.password && showInputError("This field is required")}
+            </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Confirm Password*</span>
@@ -93,41 +144,45 @@ const PartnerRegister = () => {
                 className="input input-bordered"
               />
               {errors?.confirmPassword &&
-                showInputError(errors.confirmPassword.message as string)}
+                showInputError(errors.confirmPassword.message)}
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Country*</span>
+                <span className="label-text">Bank Name*</span>
               </label>
-              <select className="select select-bordered w-full">
-                <option disabled selected>
-                  Country
-                </option>
-                {countries.map((country) => (
-                  <option value={country} key={country}>
-                    {country}
-                  </option>
-                ))}
-              </select>
+              <input
+                type="text"
+                placeholder="Bank Name"
+                {...register("bankName", { required: true })}
+                className="input input-bordered"
+              />
+              {errors?.bankName && showInputError("This field is required")}
             </div>
-            {formInput({
-              label: "Bank Name",
-              type: "text",
-              placeholder: "Bank Name",
-              property: "bankName",
-            })}
-            {formInput({
-              label: "Bank Address",
-              type: "text",
-              placeholder: "Bank Address",
-              property: "bankAddress",
-            })}
-            {formInput({
-              label: "Account Number",
-              type: "text",
-              placeholder: "Bank Account Number",
-              property: "accountNumber",
-            })}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Bank Address*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Bank Address"
+                {...register("bankAddress", { required: true })}
+                className="input input-bordered"
+              />
+              {errors?.bankAddress && showInputError("This field is required")}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Account Number*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Account Number"
+                {...register("accountNumber", { required: true })}
+                className="input input-bordered"
+              />
+              {errors?.accountNumber &&
+                showInputError("This field is required")}
+            </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Select Profile</span>
@@ -135,13 +190,10 @@ const PartnerRegister = () => {
               <input
                 type="file"
                 className="file-input w-full max-w-xs"
-                multiple
                 accept="image/*"
-                // {...register("profile")}
+                {...register("profile", { required: true })}
               />
-              {/* {errors.image && (
-                  <span className="text-red-500">Image is required</span>
-                )} */}
+              {errors?.profile && showInputError("This field is required")}
             </div>
           </div>
           <div className="form-control mb-0">

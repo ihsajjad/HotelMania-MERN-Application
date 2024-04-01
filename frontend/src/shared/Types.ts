@@ -12,3 +12,16 @@ export type FormInputProps = {
   placeholder: string;
   property: string;
 };
+
+export type PartnerFormData = {
+  name: string;
+  phone: string;
+  email: string;
+  password: string;
+  confirmPassword?: string;
+  country: string;
+  bankName: string;
+  bankAddress: string;
+  accountNumber: string;
+  profile: FileList;
+};

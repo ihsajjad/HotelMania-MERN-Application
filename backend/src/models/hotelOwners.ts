@@ -8,8 +8,7 @@ const hotelOwnerSchema = new mongoose.Schema<HotelOwnerType>({
   bankName: { type: String, required: true },
   bankAddress: { type: String, required: true },
   accountNumber: { type: String, required: true },
-  profile: { type: String, required: false },
-  hotelAddress: { type: String, required: true },
+  profile: { type: String, required: true },
   country: { type: String, required: true },
   isVerified: { type: Boolean, default: false },
 });

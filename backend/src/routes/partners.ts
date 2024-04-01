@@ -25,7 +25,7 @@ router.post(
     const file = req.file as Express.Multer.File;
     // todo: validate the file type and secure it
 
-    const result = validationResult(req);
+    const result = validationResult(req.body);
     if (!result.isEmpty()) {
       return res
         .status(400)

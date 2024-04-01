@@ -35,8 +35,22 @@ export const userRegister = async (formData: FormData) => {
   });
 
   const result = await res.json();
+  if (!res.ok) throw new Error(result.message);
+
+  return result;
+};
+
+export const partnerRegister = async (formData: FormData) => {
+  const res = await fetch(`${API_BASE_URL}/api/partners/register`, {
+    method: "POST",
+    credentials: "include",
+    body: formData,
+  });
+
+  const result = await res.json();
   console.log(result);
-  // if (!res.ok) throw new Error(result.message);
+
+  if (!res.ok) throw new Error(result.message);
 
   return result;
 };
