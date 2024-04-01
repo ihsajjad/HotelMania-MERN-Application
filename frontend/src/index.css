@@ -47,7 +47,7 @@ a {
 }
 
 .custom-container {
-  @apply lg:px-32;
+  @apply xl:px-32 lg:px-20 px-4;
 }
 /* ============================ Start Hero Section Background Shape ============================ */
 .hero-shape {

@@ -13,7 +13,12 @@ const hotelSchema = new mongoose.Schema<HotelDataType>({
   pricePerNight: { type: Number, required: true },
   starRating: { type: Number, required: true },
   facilities: [{ type: String, required: true }],
-  images: [{ label: String, image: String, required: true }],
+  images: [
+    {
+      label: { type: String, required: true },
+      image: { type: String, required: true },
+    },
+  ],
   lastUpdated: { type: Date, required: true },
 });
 

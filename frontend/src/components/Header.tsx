@@ -7,45 +7,45 @@ const Header = () => {
           Where Comfort Meets Luxury and Every Moment Counts
         </p>
       </div>
-      <div className="bg-slate-700 w-full -mt-10 lg:mx-32 max-w-screen-lg grid grid-cols-[1fr_1fr_1fr_1fr] gap-3 p-4">
+      <div className="bg-slate-700 -mt-10 xl:mx-32 lg:mx-20 max-w-screen-lg grid lg:grid-cols-[1fr_1fr_1fr_1fr] md:grid-cols-[2fr_2fr] gap-3 p-4">
         <input
           type="text"
           placeholder="Where are you going?"
           className="p-2 outline-none"
         />
         <div className="flex gap-2 bg-white ">
-          <label className="flex bg-white gap-2 items-center p-2">
+          <label className="flex-1 flex bg-white gap-2 items-center p-2">
             Adults:
             <input
               type="number"
               min={1}
               defaultValue={1}
-              className="outline-none w-14"
+              className="outline-none w-8"
             />
           </label>
-          <label className="flex bg-white gap-2 items-center p-2">
+          <label className="flex-1 flex bg-white gap-2 items-center p-2">
             Children:
             <input
               type="number"
               min={1}
               defaultValue={1}
-              className="outline-none w-14"
+              className="outline-none w-8"
             />
           </label>
         </div>
         <div className="flex gap-2">
-          <label>
+          <label className="flex-1">
             <input
               type="date"
               placeholder="Check-in Date"
-              className="outline-none p-2"
+              className="outline-none p-2 w-full"
             />
           </label>
-          <label>
+          <label className="flex-1">
             <input
               type="date"
               placeholder="Check-out Date"
-              className="outline-none p-2"
+              className="outline-none p-2 w-full"
             />
           </label>
         </div>

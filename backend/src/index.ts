@@ -6,6 +6,7 @@ import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import path from "path";
 import authRoutes from "./routes/auth";
+import hotelRoutes from "./routes/hotels";
 import partnerRoutes from "./routes/partners";
 import userRoutes from "./routes/users";
 const app = express();
@@ -29,15 +30,11 @@ app.use(cors({ credentials: true, origin: process.env.FRONTEND_URL }));
 
 app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
-// app.use((req, res, next) => {
-//   res.type("text/javascript");
-//   next();
-// });
-
 // routes
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/partners", partnerRoutes);
+app.use("/api/hotels", hotelRoutes);
 
 app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
