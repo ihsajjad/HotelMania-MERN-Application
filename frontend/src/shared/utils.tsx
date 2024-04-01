@@ -29,7 +29,11 @@ export const errorToast = (msg: string) => {
 };
 
 export const showInputError = (msg?: string) => {
-  return <span className="text-red-500 text-sm mt-0.5">{msg}</span>;
+  return (
+    <span className="text-red-500 text-sm mt-0.5">
+      {msg ? msg : "This field is required"}
+    </span>
+  );
 };
 
 export const countries = [

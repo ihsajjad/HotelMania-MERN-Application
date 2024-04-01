@@ -72,7 +72,7 @@ const PartnerRegister = () => {
                 {...register("name", { required: true })}
                 className="input input-bordered"
               />
-              {errors?.name && showInputError("This field is required")}
+              {errors?.name && showInputError()}
             </div>{" "}
             <div className="form-control">
               <label className="label">
@@ -91,7 +91,7 @@ const PartnerRegister = () => {
                   </option>
                 ))}
               </select>
-              {errors?.country && showInputError("This field is required")}
+              {errors?.country && showInputError()}
             </div>
             <div className="form-control">
               <label className="label">
@@ -103,7 +103,7 @@ const PartnerRegister = () => {
                 {...register("email", { required: true })}
                 className="input input-bordered"
               />
-              {errors?.email && showInputError("This field is required")}
+              {errors?.email && showInputError()}
             </div>
             <div className="form-control">
               <label className="label">
@@ -115,7 +115,7 @@ const PartnerRegister = () => {
                 {...register("phone", { required: true })}
                 className="input input-bordered"
               />
-              {errors?.phone && showInputError("This field is required")}
+              {errors?.phone && showInputError()}
             </div>
             <div className="form-control">
               <label className="label">
@@ -127,7 +127,7 @@ const PartnerRegister = () => {
                 {...register("password", { required: true })}
                 className="input input-bordered"
               />
-              {errors?.password && showInputError("This field is required")}
+              {errors?.password && showInputError()}
             </div>
             <div className="form-control">
               <label className="label">
@@ -156,7 +156,7 @@ const PartnerRegister = () => {
                 {...register("bankName", { required: true })}
                 className="input input-bordered"
               />
-              {errors?.bankName && showInputError("This field is required")}
+              {errors?.bankName && showInputError()}
             </div>
             <div className="form-control">
               <label className="label">
@@ -168,7 +168,7 @@ const PartnerRegister = () => {
                 {...register("bankAddress", { required: true })}
                 className="input input-bordered"
               />
-              {errors?.bankAddress && showInputError("This field is required")}
+              {errors?.bankAddress && showInputError()}
             </div>
             <div className="form-control">
               <label className="label">
@@ -180,8 +180,7 @@ const PartnerRegister = () => {
                 {...register("accountNumber", { required: true })}
                 className="input input-bordered"
               />
-              {errors?.accountNumber &&
-                showInputError("This field is required")}
+              {errors?.accountNumber && showInputError()}
             </div>
             <div className="form-control">
               <label className="label">
@@ -193,7 +192,7 @@ const PartnerRegister = () => {
                 accept="image/*"
                 {...register("profile", { required: true })}
               />
-              {errors?.profile && showInputError("This field is required")}
+              {errors?.profile && showInputError()}
             </div>
           </div>
           <div className="form-control mb-0">
