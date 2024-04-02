@@ -3,6 +3,7 @@ import { BsBuilding, BsMap } from "react-icons/bs";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import * as apiClient from "../../../api-client";
+import Modal from "../../../components/Modal";
 import PageTitle from "../../../components/PageTitle";
 import { useAppContext } from "../../../contexts/UseContexts";
 const MyHotels = () => {
@@ -13,13 +14,27 @@ const MyHotels = () => {
     () => apiClient.fetchMyHotels(user._id),
     { enabled: !!user._id }
   );
-  console.log(hotels);
+
+  const handleShowModal = document.getElementById(
+    "add_hotel_modal"
+  ) as HTMLDialogElement;
+
   return (
-    <div>
+    <div className="relative">
       <PageTitle title="My Hotels" />
+
+      <div className="flex justify-end py-1 pr-4 border-b border-zinc-300">
+        <button
+          className="custom-btn"
+          onClick={() => handleShowModal.showModal()}
+        >
+          Add Hotel
+        </button>
+        <Modal />
+      </div>
       <div className="p-4">
         <h2 className="text-xl">You have added {hotels?.length} hotels</h2>
-        <div className="flex flex-col gap-4 items-center ">
+        <div className="flex flex-col gap-6 items-center py-5">
           {hotels &&
             hotels.map((hotel) => (
               <div
@@ -78,5 +93,16 @@ const MyHotels = () => {
     </div>
   );
 };
+
+{
+  /* You can open the modal using document.getElementById('ID').showModal() method */
+}
+{
+  /* <button
+  className="btn"
+>
+  open modal
+</button>; */
+}
 
 export default MyHotels;
