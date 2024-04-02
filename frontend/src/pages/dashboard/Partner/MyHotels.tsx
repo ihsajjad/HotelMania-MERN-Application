@@ -19,16 +19,25 @@ const MyHotels = () => {
       <PageTitle title="My Hotels" />
       <div className="p-4">
         <h2 className="text-xl">You have added {hotels?.length} hotels</h2>
-        <div className="flex flex-col gap-4 items-center">
+        <div className="flex flex-col gap-4 items-center ">
           {hotels &&
             hotels.map((hotel) => (
               <div
                 key={hotel._id}
-                className="flex gap-4 flex-col w-full p-4 rounded border border-zinc-300"
+                className="flex gap-4 flex-col w-full p-4 rounded border border-zinc-300 shadow-lg shadow-slate-300"
               >
                 <h2 className="text-2xl font-bold">{hotel.name}</h2>
-                <div className="whitespace-pre-line line-clamp-3">
-                  {hotel.description}
+                <div className="flex md:flex-row flex-col gap-4">
+                  <img
+                    src={hotel.images[0].image}
+                    alt=""
+                    className="h-64 flex-1 object-cover object-center rounded"
+                  />
+                  <div className="flex-1 bg-slate-200 rounded p-4">
+                    <p className="md:line-clamp-[7] line-clamp-3 w-full text-justify">
+                      {hotel.description}
+                    </p>
+                  </div>
                 </div>
                 <div className="grid xl:grid-cols-[2fr_1fr_2fr_2fr_2fr] md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">
                   <div className="border text-sm border-slate-300 rounded-sm p-3 flex items-center gap-1">
