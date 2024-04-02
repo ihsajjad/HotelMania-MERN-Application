@@ -21,15 +21,8 @@ const MyHotels = () => {
             hotels.map((hotel) => (
               <div
                 key={hotel._id}
-                className="flex md:flex-row flex-col w-full border border-zinc-300"
-              >
-                <div className="flex-1">
-                  <img src={hotel.images[0].image} alt="" className="h-40" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-bold">{hotel.name}</h3>
-                </div>
-              </div>
+                className="flex gap-4 md:flex-row flex-col w-full p-4 rounded md:h-80 border border-zinc-300"
+              ></div>
             ))}
         </div>
       </div>
