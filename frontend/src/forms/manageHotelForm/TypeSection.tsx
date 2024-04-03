@@ -1,11 +1,21 @@
+import { useFormContext } from "react-hook-form";
 import { hotelTypes } from "../../config/config.hotel-option";
+import { HotelFormData } from "../../shared/Types";
+import { showInputError } from "../../shared/utils";
 
 const TypeSection = () => {
-  const typeWatch = "watch(type)";
+  const {
+    register,
+    watch,
+    formState: { errors },
+  } = useFormContext<HotelFormData>();
+
+  const typeWatch = watch("type");
+
   return (
     <div>
       <h2 className="text-2xl font-bold mb-3">Type</h2>
-      <div className="grid grid-cols-5 gap-2">
+      <div className="grid md:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-2">
         {hotelTypes.map((type) => (
           <label
             className={
@@ -18,12 +28,13 @@ const TypeSection = () => {
             <input
               type="radio"
               value={type}
-              // {...register("type", { required: "This field is required" })}
+              {...register("type", { required: true })}
               className="hidden"
             />
             <span>{type}</span>
           </label>
         ))}
+        {errors.type && showInputError()}
       </div>
     </div>
   );

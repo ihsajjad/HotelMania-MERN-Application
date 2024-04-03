@@ -42,3 +42,17 @@ export type HotelDataType = {
   images: { label: string; image: string }[];
   lastUpdated: Date;
 };
+
+export type HotelFormData = {
+  name: string;
+  description: string;
+  city: string;
+  country: string;
+  type: string;
+  pricePerNight: number;
+  starRating: number;
+  adultCount: number;
+  childCount: number;
+  facilities: string[];
+  images: { label: string; image: string }[];
+};

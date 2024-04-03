@@ -15,7 +15,7 @@ a {
 
 .custom-btn {
   /* text-white hover:bg-transparent text-main border-[text-main]*/
-  @apply py-1 px-2 text-white bg-[var(--main-color)] duration-500 rounded font-bold flex items-center justify-center hover:text-white;
+  @apply py-1 px-2 text-white bg-[var(--main-color)] duration-500 rounded font-bold flex items-center justify-center hover:text-white cursor-pointer;
 }
 .custom-btn-outline {
   /* text-white hover:bg-transparent text-main border-[text-main]*/
@@ -49,6 +49,7 @@ a {
 .custom-container {
   @apply xl:px-32 lg:px-20 md:px-10 px-4;
 }
+
 /* ============================ Start Hero Section Background Shape ============================ */
 .hero-shape {
   position: absolute;

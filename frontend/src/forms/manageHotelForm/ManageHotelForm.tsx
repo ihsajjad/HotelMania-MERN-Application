@@ -1,5 +1,5 @@
-import { ChangeEvent } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { HotelFormData } from "../../shared/Types";
 import DetailsSection from "./DetailsSection";
 import FacitiliesSection from "./FacitiliesSection";
 import GuestsSection from "./GuestsSection";
@@ -7,14 +7,14 @@ import ImagesSection from "./ImagesSection";
 import TypeSection from "./TypeSection";
 
 const ManageHotelForm = () => {
-  const methods = useForm();
-  const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
+  const methods = useForm<HotelFormData>();
+  const onSubmit = methods.handleSubmit((data: HotelFormData) => {
+    console.log(data);
+  });
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="flex flex-col gap-4 p-4">
         <DetailsSection />
         <TypeSection />
         <FacitiliesSection />

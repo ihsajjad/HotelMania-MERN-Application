@@ -7,12 +7,10 @@ const Modal = () => {
   //     formState: { errors },
   //   } = useFormContext();
 
-  console.log("Rendered");
-
   return (
     <dialog id="add_hotel_modal" className="modal">
       <div className="relative w-11/12 max-w-5xl bg-white rounded">
-        <h3 className="font-bold text-2xl text-[var(--main-color)] border-b border-[var(--main-color)] p-4 shadow-lg z-10 shadow-[#0000005e]">
+        <h3 className="font-bold text-2xl text-[var(--main-color)] border-b border-[var(--main-color)] p-4">
           Add New Hotel
         </h3>
         {/* Modal body here */}
