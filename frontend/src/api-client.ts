@@ -66,6 +66,7 @@ export const logoutUser = async () => {
 export const uploadImage = async (file: FormData): Promise<{ url: string }> => {
   const res = await fetch(`${API_BASE_URL}/api/hotels/upload-image`, {
     method: "POST",
+    credentials: "include",
     body: file,
   });
 
@@ -98,6 +99,18 @@ export const fetchMyHotels = async (id: string): Promise<HotelDataType[]> => {
   });
 
   if (!res.ok) throw new Error("Something went wrong");
+
+  return res.json();
+};
+
+export const addMyHotel = async (formData: FormData) => {
+  const res = await fetch(`${API_BASE_URL}/api/hotels/add-hotel`, {
+    method: "POST",
+    credentials: "include",
+    body: formData,
+  });
+
+  if (!res.ok) throw new Error("Failed to add hoteli");
 
   return res.json();
 };

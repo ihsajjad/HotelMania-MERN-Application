@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
+import verifyToken from "../middleware/auth";
 import Hotel from "../models/hotel";
 import { HotelDataType } from "../shared/types";
 import { upload, uploadProfile } from "../shared/utils";
@@ -9,7 +10,6 @@ const router = express.Router();
 router.post(
   "/add-hotel",
   [
-    check("userId", "User Id is rquired").notEmpty().trim(),
     check("name", "Name is rquired").notEmpty().trim(),
     check("description", "Description is rquired").notEmpty(),
     check("city", "City is rquired").notEmpty().trim(),
@@ -22,9 +22,10 @@ router.post(
     check("facilities", "Facilities are rquired").isArray(),
     check("images", "Images are rquired").isArray(),
   ],
+  verifyToken,
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
-
+    console.log(req.body, req.userId, req.role);
     if (!errors.isEmpty())
       return res
         .status(400)
@@ -33,7 +34,7 @@ router.post(
     try {
       const hotelData: HotelDataType = {
         ...req.body,
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: new Date(),
       };
 
       const newHotel = new Hotel(hotelData);
