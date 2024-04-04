@@ -63,6 +63,17 @@ export const logoutUser = async () => {
   return res.json();
 };
 
+export const uploadImage = async (file: FormData): Promise<{ url: string }> => {
+  const res = await fetch(`${API_BASE_URL}/api/hotels/upload-image`, {
+    method: "POST",
+    body: file,
+  });
+
+  if (!res.ok) throw new Error("Failed to upload the image");
+
+  return res.json();
+};
+
 /**================================================================================
                                     Admin Functions
  ================================================================================*/

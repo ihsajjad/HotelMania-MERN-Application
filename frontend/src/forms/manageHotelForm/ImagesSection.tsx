@@ -1,5 +1,8 @@
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { BiTrash } from "react-icons/bi";
+import { useMutation } from "react-query";
+import * as apiClient from "../../api-client";
 import skelaton from "../../assets/image.png";
 import { HotelFormData } from "../../shared/Types";
 import { showInputError } from "../../shared/utils";
@@ -10,20 +13,26 @@ const ImagesSection = () => {
     formState: { errors },
     watch,
   } = useFormContext<HotelFormData>();
+
+  const [image, setImage] = useState<{ url: string; label: string }>({
+    url: "",
+    label: "",
+  });
   const images = watch("images");
 
+  const { mutate: uploadImage } = useMutation(apiClient.uploadImage, {
+    onSuccess: (result) => {
+      console.log(result);
+      setImage((pre) => ({ ...pre, url: result.url }));
+    },
+    onError: (error) => console.log(error),
+  });
+
   const handleUploadImage = async (e: FileList) => {
-    console.log(e[0]);
-    const form = new FormData();
-    form.append("file", e[0]);
+    const formData = new FormData();
+    formData.append("file", e[0]);
 
-    const res = await fetch("http://localhost:3000/api/hotels/upload-image", {
-      method: "Post",
-      body: form,
-    });
-
-    const result = await res.json();
-    console.log(result);
+    uploadImage(formData);
   };
 
   const handleAddImage = () => {
@@ -31,18 +40,19 @@ const ImagesSection = () => {
       setValue("images", [
         ...images,
         {
-          image: "https://ih-sajjad.netlify.app/assets/sajjad-5c02d570.png",
-          label: "label 3",
+          image: image.url,
+          label: image.label,
         },
       ]);
     } else {
       setValue("images", [
         {
-          image: "https://ih-sajjad.netlify.app/assets/sajjad-5c02d570.png",
-          label: "label",
+          image: image.url,
+          label: image.label,
         },
       ]);
     }
+    setImage({ url: "", label: "" });
   };
 
   const handleDeleteImage = (url: string) => {
@@ -68,7 +78,7 @@ const ImagesSection = () => {
               className="w-full text-gray-700 font-normal hidden"
             />
             <img
-              src={skelaton}
+              src={image.url ? image.url : skelaton}
               alt=""
               className="h-32 w-full rounded bg-black"
             />
@@ -76,15 +86,24 @@ const ImagesSection = () => {
           <input
             type="text"
             placeholder="Label for the image"
+            value={image.label}
+            onChange={(e) => setImage((p) => ({ ...p, label: e.target.value }))}
             className="px-2 py-1 border border-slate-300 rounded"
-            required
           />
-          <div onClick={handleAddImage} className="custom-btn">
+          <button
+            type="button"
+            onClick={handleAddImage}
+            disabled={image.url === ""}
+            className="custom-btn disabled:bg-gray-400 disabled:pointer-events-none"
+          >
             Add
-          </div>{" "}
+          </button>
         </div>
         {images?.map((item) => (
-          <div className="flex flex-col gap-4 border border-[var(--main-color)] bg-slate-200 rounded h-fit relative cursor-pointer">
+          <div
+            key={item.image}
+            className="flex flex-col gap-4 border border-[var(--main-color)] bg-slate-200 rounded h-fit relative cursor-pointer"
+          >
             <img
               src={item.image}
               alt=""
