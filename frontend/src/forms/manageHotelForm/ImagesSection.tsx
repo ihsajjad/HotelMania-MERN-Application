@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { BiTrashAlt } from "react-icons/bi";
+import { BiTrash } from "react-icons/bi";
 import skelaton from "../../assets/image.png";
 import { HotelFormData } from "../../shared/Types";
 import { showInputError } from "../../shared/utils";
@@ -12,8 +12,18 @@ const ImagesSection = () => {
   } = useFormContext<HotelFormData>();
   const images = watch("images");
 
-  const handleUploadImage = (e: FileList) => {
+  const handleUploadImage = async (e: FileList) => {
     console.log(e[0]);
+    const form = new FormData();
+    form.append("file", e[0]);
+
+    const res = await fetch("http://localhost:3000/api/hotels/upload-image", {
+      method: "Post",
+      body: form,
+    });
+
+    const result = await res.json();
+    console.log(result);
   };
 
   const handleAddImage = () => {
@@ -66,7 +76,7 @@ const ImagesSection = () => {
           <input
             type="text"
             placeholder="Label for the image"
-            className="p-2 border border-slate-300 rounded"
+            className="px-2 py-1 border border-slate-300 rounded"
             required
           />
           <div onClick={handleAddImage} className="custom-btn">
@@ -80,14 +90,14 @@ const ImagesSection = () => {
               alt=""
               className="h-40 object-cover object-center"
             />
-            <span className="font-bold text-slate-600 text-center">
+            <span className="font-bold text-slate-600 text-center text-xl pb-1">
               {item.label}
             </span>
             <div
               onClick={() => handleDeleteImage(item.image)}
               className="absolute top-0 left-0 text-transparent hover:text-white hover:bg-red-500/30 w-full h-full z-10 flex items-center justify-center gap-0.5 font-bold"
             >
-              <BiTrashAlt size={40} />
+              <BiTrash size={40} />
             </div>
           </div>
         ))}

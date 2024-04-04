@@ -8,11 +8,11 @@ export const upload = multer({
   limits: { fileSize: 2 * 1024 * 1024 },
 });
 
-export async function uploadProfile(profile: any) {
-  const b64 = Buffer.from(profile.buffer).toString("base64");
-  const dataURI = "data:" + profile.mimetype + ";base64," + b64;
-  const profileUrl = await cloudinary.v2.uploader.upload(dataURI);
-  return profileUrl.url;
+export async function uploadProfile(file: any) {
+  const b64 = Buffer.from(file.buffer).toString("base64");
+  const dataURI = "data:" + file.mimetype + ";base64," + b64;
+  const fileUrl = await cloudinary.v2.uploader.upload(dataURI);
+  return fileUrl.url;
 }
 
 export const generateToken = (userId: any) => {

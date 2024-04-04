@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
 import Hotel from "../models/hotel";
 import { HotelDataType } from "../shared/types";
+import { upload, uploadProfile } from "../shared/utils";
 
 const router = express.Router();
 
@@ -63,6 +64,24 @@ router.get(
       if (!hotels) return res.json({ message: "Hotel not found" });
 
       res.json(hotels);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
+// upload image
+router.post(
+  "/upload-image",
+  upload.single("file"),
+  async (req: Request, res: Response) => {
+    try {
+      const imageUrl = await uploadProfile(req.file);
+
+      if (!imageUrl)
+        res.status(500).json({ message: "Failed to upload image" });
+
+      res.json({ url: imageUrl });
     } catch (error) {
       res.status(500).json({ message: "Internal server error" });
     }
