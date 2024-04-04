@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { HotelOwnerType } from "../shared/types";
 
-const hotelOwnerSchema = new mongoose.Schema<HotelOwnerType>({
+const partnerSchema = new mongoose.Schema<HotelOwnerType>({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   phone: { type: String, required: true },
@@ -13,6 +13,6 @@ const hotelOwnerSchema = new mongoose.Schema<HotelOwnerType>({
   isVerified: { type: Boolean, default: false },
 });
 
-const Partner = mongoose.model<HotelOwnerType>("Partner", hotelOwnerSchema);
+const Partner = mongoose.model<HotelOwnerType>("Partner", partnerSchema);
 
 export default Partner;

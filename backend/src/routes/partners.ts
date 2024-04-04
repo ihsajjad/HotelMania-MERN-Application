@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
-import Partner from "../models/hotelOwners";
+import Partner from "../models/partners";
 import User from "../models/users";
 import { HotelOwnerType, UserType } from "../shared/types";
 import { generateToken, upload, uploadProfile } from "../shared/utils";
