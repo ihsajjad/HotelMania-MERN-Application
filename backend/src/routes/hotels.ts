@@ -81,10 +81,12 @@ router.delete(
       const id = req.params.id;
 
       const hotel = await Hotel.findById(id);
+      if (!hotel)
+        return res.status(400).json({ message: "Hotel doesn't exist" });
 
       if (hotel?.userId === req.userId) {
-        hotel.deleteOne();
-        res.json({ message: "Hotel deleted successfully" });
+        await hotel.deleteOne();
+        return res.json({ message: "Hotel deleted successfully" });
       }
 
       res.status(401).json({ message: "Unauthorized access" });

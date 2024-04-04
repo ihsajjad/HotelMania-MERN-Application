@@ -93,8 +93,10 @@ export const fetchAllPartners = async (): Promise<PartnerType[]> => {
                                     Partner Functions
  ================================================================================*/
 
-export const fetchMyHotels = async (id: string): Promise<HotelDataType[]> => {
-  const res = await fetch(`${API_BASE_URL}/api/hotels/${id}`, {
+export const fetchMyHotels = async (
+  userId: string
+): Promise<HotelDataType[]> => {
+  const res = await fetch(`${API_BASE_URL}/api/hotels/${userId}`, {
     credentials: "include",
   });
 
@@ -112,7 +114,18 @@ export const addMyHotel = async (formData: HotelFormData) => {
   });
 
   const result = await res.json();
-  console.log(result);
+  if (!res.ok) throw new Error(result.message);
+
+  return result;
+};
+
+export const deleteSingleHotel = async (hotelId: string) => {
+  const res = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+
+  const result = await res.json();
   if (!res.ok) throw new Error(result.message);
 
   return result;

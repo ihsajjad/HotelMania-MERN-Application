@@ -1,19 +1,30 @@
 import { BiHotel, BiMoney, BiStar } from "react-icons/bi";
 import { BsBuilding, BsMap } from "react-icons/bs";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import * as apiClient from "../../../api-client";
 import AddHotelModal from "../../../components/AddHotelModal";
 import PageTitle from "../../../components/PageTitle";
 import { useAppContext } from "../../../contexts/UseContexts";
+import { errorToast, successToast } from "../../../shared/utils";
 const MyHotels = () => {
   const { user } = useAppContext() || {};
 
-  const { data: hotels } = useQuery(
+  const { data: hotels, refetch: refetchHotels } = useQuery(
     "fetchMyHotels",
     () => apiClient.fetchMyHotels(user._id),
     { enabled: !!user._id }
   );
+
+  const { mutate: deleteHotel } = useMutation(apiClient.deleteSingleHotel, {
+    onSuccess: () => {
+      refetchHotels();
+      successToast("Hotel deleted successfully");
+    },
+    onError: (err: Error) => {
+      errorToast(err.message);
+    },
+  });
 
   const handleShowModal = document.getElementById(
     "add_hotel_modal"
@@ -76,7 +87,10 @@ const MyHotels = () => {
                   </div>
                 </div>
                 <span className="flex gap-3 justify-center sm:justify-end">
-                  <button className="bg-red-500 text-white py-1.5 px-3 rounded font-bold">
+                  <button
+                    onClick={() => deleteHotel(hotel._id)}
+                    className="bg-red-500 hover:bg-red-400 text-white py-1.5 px-3 rounded font-bold"
+                  >
                     Delete
                   </button>
                   <button className="bg-orange-500 text-white py-1.5 px-3 rounded font-bold">
