@@ -3,7 +3,7 @@ import { BsBuilding, BsMap } from "react-icons/bs";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import * as apiClient from "../../../api-client";
-import Modal from "../../../components/Modal";
+import AddHotelModal from "../../../components/AddHotelModal";
 import PageTitle from "../../../components/PageTitle";
 import { useAppContext } from "../../../contexts/UseContexts";
 const MyHotels = () => {
@@ -30,7 +30,7 @@ const MyHotels = () => {
         >
           Add Hotel
         </button>
-        <Modal />
+        <AddHotelModal />
       </div>
       <div className="p-4">
         <h2 className="text-xl">You have added {hotels?.length} hotels</h2>

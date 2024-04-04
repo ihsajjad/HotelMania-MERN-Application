@@ -1,5 +1,6 @@
 import { IoMdMenu } from "react-icons/io";
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import LeftSideBar from "../components/LeftSideBar";
 import { useAppContext } from "../contexts/UseContexts";
 
@@ -21,7 +22,21 @@ const DashboardLayout = () => {
         </div>
 
         {/* Page content here */}
+
         <Outlet />
+
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </div>
       <LeftSideBar />
     </div>

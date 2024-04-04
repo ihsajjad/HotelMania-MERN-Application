@@ -25,6 +25,7 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
     role: "",
   });
 
+  // todo: fix the unnecessary fetching
   const { refetch: refetchUser, isLoading } = useQuery(
     "fetchUserData",
     apiClient.fetchUserData,
@@ -45,7 +46,6 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
     }
   );
 
-  console.log(user);
   return (
     <AppContext.Provider
       value={{ user, isLogin: !!user.email, refetchUser, isLoading }}

@@ -1,32 +1,41 @@
+import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { useMutation } from "react-query";
-import * as apiClient from "../../api-client";
-import { HotelFormData } from "../../shared/Types";
+import { HotelDataType, HotelFormData } from "../../shared/Types";
 import DetailsSection from "./DetailsSection";
 import FacitiliesSection from "./FacitiliesSection";
 import GuestsSection from "./GuestsSection";
 import ImagesSection from "./ImagesSection";
 import TypeSection from "./TypeSection";
 
-const ManageHotelForm = () => {
+type ManageHotelProps = {
+  onSave: (data: HotelFormData) => void;
+  hotel?: HotelDataType;
+  isLoading: boolean;
+};
+
+const ManageHotelForm = ({ onSave, hotel, isLoading }: ManageHotelProps) => {
   const methods = useForm<HotelFormData>();
 
-  const { mutate: addHotel } = useMutation(apiClient.addMyHotel, {
-    onSuccess: (result) => console.log(result),
-    onError: (error) => console.log(error),
-  });
+  useEffect(() => {
+    methods.reset(hotel);
+  }, [hotel, methods]);
 
-  const onSubmit = methods.handleSubmit((data: HotelFormData) => {
-    console.log(data.images);
-    if (data.images === undefined || data.images?.length < 3)
+  const onSubmit = methods.handleSubmit((formData: HotelFormData) => {
+    const hotelData = { ...formData };
+
+    if (formData.images === undefined || formData.images?.length < 3)
       return methods.setError("images", {
         message: "Minimum 3 images required!",
       });
 
-    // addHotel(data);
-  });
+    if (hotel) {
+      hotelData._id = hotel._id;
+      hotelData.userId = hotel.userId;
+    }
 
-  console.log(methods.formState.errors);
+    onSave(hotelData);
+    methods.reset();
+  });
 
   return (
     <FormProvider {...methods}>
@@ -37,7 +46,12 @@ const ManageHotelForm = () => {
         <GuestsSection />
         <ImagesSection />
         <div className="flex justify-center mt-4">
-          <button className="custom-btn w-full text-xl">Add Hotel</button>
+          <button
+            className="custom-btn w-full text-xl disabled:bg-orange-400"
+            disabled={isLoading}
+          >
+            {isLoading ? "Adding Hotel..." : "Add Hotel"}
+          </button>
         </div>
       </form>
     </FormProvider>

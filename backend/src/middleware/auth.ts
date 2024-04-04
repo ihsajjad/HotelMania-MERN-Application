@@ -18,7 +18,11 @@ declare global {
 
 type VerifyError = JsonWebTokenError | NotBeforeError | TokenExpiredError;
 
-const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+export const verifyToken = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const token = req.cookies["auth_token"];
 
   try {
@@ -46,4 +50,13 @@ const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default verifyToken;
+export const verifyHotelOwner = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (req.role !== "Hotel")
+    return res.status(401).json({ message: "Unauthorized access" });
+
+  next();
+};

@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
-import verifyToken from "../middleware/auth";
+import { verifyHotelOwner, verifyToken } from "../middleware/auth";
 import Hotel from "../models/hotel";
 import { HotelDataType } from "../shared/types";
 import { upload, uploadProfile } from "../shared/utils";
@@ -22,6 +22,7 @@ router.post(
     check("images", "Images are rquired").isArray(),
   ],
   verifyToken,
+  verifyHotelOwner,
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
 

@@ -11,10 +11,15 @@ router.get("/me", async (req: Request, res: Response) => {
   try {
     const token = req.cookies["auth_token"];
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string);
-    const userId = (decoded as JwtPayload).userId;
+    if (!token) return res.status(401).json({ message: "Unauthorized access" });
 
-    const user = await User.findById(userId, { email: 1, role: 1, profile: 1 });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string);
+    const userId = await (decoded as JwtPayload).userId;
+    const user = await User.findById(userId, {
+      email: 1,
+      role: 1,
+      profile: 1,
+    });
 
     if (!user) return res.status(400).json({ message: "Something went wrong" });
 

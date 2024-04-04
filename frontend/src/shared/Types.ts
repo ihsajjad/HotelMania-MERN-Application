@@ -44,6 +44,8 @@ export type HotelDataType = {
 };
 
 export type HotelFormData = {
+  _id?: string;
+  userId?: string;
   name: string;
   description: string;
   city: string;

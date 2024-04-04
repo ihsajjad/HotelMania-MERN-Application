@@ -71,7 +71,7 @@ const ImagesSection = () => {
       ]);
     }
     setImage({ url: "", label: "", err: "" });
-    if (images.length >= 2) delete errors.images;
+    if (images?.length >= 2) delete errors.images;
   };
 
   const handleDeleteImage = (url: string) => {
