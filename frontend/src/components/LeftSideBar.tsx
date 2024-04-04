@@ -8,7 +8,7 @@ interface NavItemType {
   icon: React.ReactElement;
 }
 const LeftSideBar = () => {
-  const { user } = useAppContext();
+  const { user } = useAppContext() || {};
 
   let navLinks: NavItemType[] = [];
 

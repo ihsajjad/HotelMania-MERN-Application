@@ -50,7 +50,6 @@ export type HotelFormData = {
   country: string;
   type: string;
   pricePerNight: number;
-  starRating: number;
   adultCount: number;
   childCount: number;
   facilities: string[];

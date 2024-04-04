@@ -15,31 +15,18 @@ const ManageHotelForm = () => {
     onSuccess: (result) => console.log(result),
     onError: (error) => console.log(error),
   });
+
   const onSubmit = methods.handleSubmit((data: HotelFormData) => {
-    console.log(data);
-    const formData = new FormData();
-
-    formData.append("name", data.name);
-    formData.append("description", data.description);
-    formData.append("city", data.city);
-    formData.append("country", data.country);
-    formData.append("type", data.type);
-    formData.append("pricePerNight", data.pricePerNight.toString());
-    formData.append("starRating", data.starRating.toString());
-    formData.append("adultCount", data.adultCount.toString());
-    formData.append("childCount", data.childCount.toString());
-
-    data.facilities.forEach((facility, i) => {
-      formData.append(`facilities[${i}]`, facility);
-    });
-
-    if (data.images)
-      data.images.forEach((image, i) => {
-        formData.append(`images[${i}]`, JSON.stringify(image));
+    console.log(data.images);
+    if (data.images === undefined || data.images?.length < 3)
+      return methods.setError("images", {
+        message: "Minimum 3 images required!",
       });
 
-    addHotel(formData);
+    // addHotel(data);
   });
+
+  console.log(methods.formState.errors);
 
   return (
     <FormProvider {...methods}>

@@ -16,7 +16,6 @@ router.post(
     check("country", "Country is rquired").notEmpty().trim(),
     check("type", "Type is rquired").notEmpty().trim(),
     check("pricePerNight", "Price per night is rquired").isNumeric().trim(),
-    check("starRating", "Star Rating is rquired").isNumeric().trim(),
     check("adultCount", "Adult count is rquired").isNumeric().trim(),
     check("childCount", "Child count is rquired").isNumeric().trim(),
     check("facilities", "Facilities are rquired").isArray(),
@@ -25,7 +24,7 @@ router.post(
   verifyToken,
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
-    console.log(req.body, req.userId, req.role);
+
     if (!errors.isEmpty())
       return res
         .status(400)
@@ -34,6 +33,7 @@ router.post(
     try {
       const hotelData: HotelDataType = {
         ...req.body,
+        userId: req.userId,
         lastUpdated: new Date(),
       };
 

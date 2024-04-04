@@ -14,23 +14,41 @@ const ImagesSection = () => {
     watch,
   } = useFormContext<HotelFormData>();
 
-  const [image, setImage] = useState<{ url: string; label: string }>({
+  const [image, setImage] = useState<{
+    url: string;
+    label: string;
+    err?: string;
+  }>({
     url: "",
     label: "",
+    err: "",
   });
   const images = watch("images");
 
   const { mutate: uploadImage } = useMutation(apiClient.uploadImage, {
     onSuccess: (result) => {
-      console.log(result);
       setImage((pre) => ({ ...pre, url: result.url }));
     },
-    onError: (error) => console.log(error),
+    onError: () => {
+      setImage({
+        url: "",
+        label: "",
+        err: "",
+      });
+    },
   });
 
   const handleUploadImage = async (e: FileList) => {
+    setImage({ url: "", label: "", err: "" });
     const formData = new FormData();
     formData.append("file", e[0]);
+    if (e[0].size > 1024 * 1024) {
+      return setImage({
+        err: "Maximum 1 MB",
+        url: "",
+        label: "",
+      });
+    }
 
     uploadImage(formData);
   };
@@ -52,7 +70,8 @@ const ImagesSection = () => {
         },
       ]);
     }
-    setImage({ url: "", label: "" });
+    setImage({ url: "", label: "", err: "" });
+    if (images.length >= 2) delete errors.images;
   };
 
   const handleDeleteImage = (url: string) => {
@@ -63,7 +82,6 @@ const ImagesSection = () => {
   return (
     <div className="relative">
       <h2 className="text-2xl font-bold mb-3">Images</h2>
-      {/* <div className="flex md:flex-row flex-col-reverse gap-2 "> */}
       <div className="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 w-full gap-4">
         <div className="flex flex-col gap-2">
           <label
@@ -80,9 +98,12 @@ const ImagesSection = () => {
             <img
               src={image.url ? image.url : skelaton}
               alt=""
-              className="h-32 w-full rounded bg-black"
+              className="h-32 w-full rounded cursor-pointer"
             />
           </label>
+          {image.err && (
+            <span className="text-red-400 text-xs">{image.err}</span>
+          )}
           <input
             type="text"
             placeholder="Label for the image"
@@ -90,6 +111,7 @@ const ImagesSection = () => {
             onChange={(e) => setImage((p) => ({ ...p, label: e.target.value }))}
             className="px-2 py-1 border border-slate-300 rounded"
           />
+
           <button
             type="button"
             onClick={handleAddImage}
@@ -122,8 +144,7 @@ const ImagesSection = () => {
         ))}
       </div>
 
-      {errors.images && showInputError()}
-      {/* </div> */}
+      {errors.images && showInputError(errors.images.message)}
     </div>
   );
 };

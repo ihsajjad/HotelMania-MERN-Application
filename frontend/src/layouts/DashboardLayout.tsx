@@ -4,7 +4,7 @@ import LeftSideBar from "../components/LeftSideBar";
 import { useAppContext } from "../contexts/UseContexts";
 
 const DashboardLayout = () => {
-  const { user } = useAppContext();
+  const { user } = useAppContext() || {};
 
   return (
     <div className="drawer lg:drawer-open">
