@@ -14,7 +14,6 @@ const LeftSideBar = () => {
 
   if (user.role === "User") {
     navLinks = [
-      { label: "Dashboard", link: "/dashboard", icon: <AiFillDashboard /> },
       {
         label: "My Bookings",
         link: "/dashboard/my-bookings",
@@ -24,7 +23,6 @@ const LeftSideBar = () => {
     ];
   } else if (user.role === "Admin") {
     navLinks = [
-      { label: "Dashboard", link: "/dashboard", icon: <AiFillDashboard /> },
       {
         label: "Partners",
         link: "/dashboard/partners",
@@ -34,7 +32,6 @@ const LeftSideBar = () => {
     ];
   } else if (user.role === "Hotel") {
     navLinks = [
-      { label: "Dashboard", link: "/dashboard", icon: <AiFillDashboard /> },
       {
         label: "My Hotels",
         link: "/dashboard/my-hotels",
@@ -43,6 +40,13 @@ const LeftSideBar = () => {
       //   { label: "Dashboard", link: "/dashboard", icon: <AiFillDashboard /> },
     ];
   }
+
+  navLinks.unshift({
+    label: "Dashboard",
+    link: "/dashboard",
+    icon: <AiFillDashboard />,
+  });
+
   return (
     <div className="drawer-side shadow-2xl shadow-[#000000af]">
       <label
