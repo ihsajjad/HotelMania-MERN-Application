@@ -50,6 +50,10 @@ a {
   @apply xl:px-32 lg:px-20 md:px-10 px-4;
 }
 
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
 /* ============================ Start Hero Section Background Shape ============================ */
 .hero-shape {
   position: absolute;
