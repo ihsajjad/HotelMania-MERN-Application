@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { hotelTypes } from "../../config/config.hotel-option";
-import { HotelFormData } from "../../shared/Types";
+import { HotelDataType } from "../../shared/Types";
 import { showInputError } from "../../shared/utils";
 
 const TypeSection = () => {
@@ -8,9 +8,9 @@ const TypeSection = () => {
     register,
     watch,
     formState: { errors },
-  } = useFormContext<HotelFormData>();
+  } = useFormContext<HotelDataType>();
 
-  const typeWatch = watch("type");
+  const typeWatch = watch("type") || "";
 
   return (
     <div>

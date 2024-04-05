@@ -4,7 +4,7 @@ import { BiTrash } from "react-icons/bi";
 import { useMutation } from "react-query";
 import * as apiClient from "../../api-client";
 import skelaton from "../../assets/image.png";
-import { HotelFormData } from "../../shared/Types";
+import { HotelDataType } from "../../shared/Types";
 import { showInputError } from "../../shared/utils";
 
 const ImagesSection = () => {
@@ -12,7 +12,7 @@ const ImagesSection = () => {
     setValue,
     formState: { errors },
     watch,
-  } = useFormContext<HotelFormData>();
+  } = useFormContext<HotelDataType>();
 
   const [image, setImage] = useState<{
     url: string;

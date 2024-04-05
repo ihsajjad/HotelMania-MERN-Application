@@ -1,12 +1,12 @@
 import { useFormContext } from "react-hook-form";
-import { HotelFormData } from "../../shared/Types";
+import { HotelDataType } from "../../shared/Types";
 import { showInputError } from "../../shared/utils";
 
 const GuestsSection = () => {
   const {
     register,
     formState: { errors },
-  } = useFormContext<HotelFormData>();
+  } = useFormContext<HotelDataType>();
   return (
     <div>
       <h2 className="text-2xl font-bold mb-3">Guests</h2>

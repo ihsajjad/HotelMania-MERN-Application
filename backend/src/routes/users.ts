@@ -14,7 +14,11 @@ router.get("/me", async (req: Request, res: Response) => {
     if (!token) return res.status(401).json({ message: "Unauthorized access" });
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string);
-    const userId = await (decoded as JwtPayload).userId;
+    const userId = await (decoded as JwtPayload)?.userId;
+
+    if (!userId)
+      return res.status(401).json({ message: "Unauthorized access" });
+
     const user = await User.findById(userId, {
       email: 1,
       role: 1,

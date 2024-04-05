@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BiHotel, BiMoney, BiStar } from "react-icons/bi";
 import { BsBuilding, BsMap } from "react-icons/bs";
 import { useMutation, useQuery } from "react-query";
@@ -5,11 +6,13 @@ import { Link } from "react-router-dom";
 import * as apiClient from "../../../api-client";
 import AddHotelModal from "../../../components/AddHotelModal";
 import PageTitle from "../../../components/PageTitle";
+import UpdateHotelModal from "../../../components/UpdateHotelModal";
 import { useAppContext } from "../../../contexts/UseContexts";
+import { HotelDataType } from "../../../shared/Types";
 import { errorToast, successToast } from "../../../shared/utils";
 const MyHotels = () => {
   const { user } = useAppContext() || {};
-
+  const [hotelData, setHotelData] = useState<HotelDataType>();
   const { data: hotels, refetch: refetchHotels } = useQuery(
     "fetchMyHotels",
     apiClient.fetchMyHotels,
@@ -30,8 +33,9 @@ const MyHotels = () => {
     "add_hotel_modal"
   ) as HTMLDialogElement;
 
-  const updateModal = (id: string) => {
-    return document.getElementById(id) as HTMLDialogElement;
+  const updateModal = (hotel: HotelDataType) => {
+    setHotelData(hotel);
+    return document.getElementById("update_modal") as HTMLDialogElement;
   };
 
   return (
@@ -46,6 +50,7 @@ const MyHotels = () => {
           Add Hotel
         </button>
         <AddHotelModal />
+        <UpdateHotelModal hotel={hotelData} />
       </div>
       <div className="p-4">
         <h2 className="text-xl">You have added {hotels?.length} hotels</h2>
@@ -92,31 +97,18 @@ const MyHotels = () => {
                 </div>
                 <span className="flex gap-3 justify-center sm:justify-end">
                   <button
-                    onClick={() => deleteHotel(hotel._id)}
+                    onClick={() => deleteHotel(hotel._id as string)}
                     className="bg-red-500 hover:bg-red-400 text-white py-1.5 px-3 rounded font-bold"
                   >
                     Delete
                   </button>
                   <button
-                    onClick={() => updateModal(hotel._id).showModal()}
+                    onClick={() => updateModal(hotel).showModal()}
+                    // onClick={() => handleShowModal.showModal()}
                     className="bg-orange-500 text-white py-1.5 px-3 rounded font-bold"
                   >
                     Edit
                   </button>
-                  {/* You can open the modal using document.getElementById('ID').showModal() method */}
-
-                  <dialog id={hotel._id} className="modal">
-                    <div className="modal-box w-11/12 max-w-5xl">
-                      <h3 className="font-bold text-lg">{hotel.name}</h3>
-                      <p className="py-4">Click the button below to close</p>
-                      <div className="modal-action">
-                        <form method="dialog">
-                          {/* if there is a button, it will close the modal */}
-                          <button className="btn">Close</button>
-                        </form>
-                      </div>
-                    </div>
-                  </dialog>
                   <Link to={`/details/${hotel._id}`} className="custom-btn">
                     View Details
                   </Link>

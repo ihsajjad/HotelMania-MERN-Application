@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { HotelDataType, HotelFormData } from "../../shared/Types";
+import { HotelDataType } from "../../shared/Types";
 import DetailsSection from "./DetailsSection";
 import FacitiliesSection from "./FacitiliesSection";
 import GuestsSection from "./GuestsSection";
@@ -8,29 +8,34 @@ import ImagesSection from "./ImagesSection";
 import TypeSection from "./TypeSection";
 
 type ManageHotelProps = {
-  onSave: (data: HotelFormData) => void;
+  onSave: (data: HotelDataType) => void;
   hotel?: HotelDataType;
   isLoading: boolean;
 };
 
 const ManageHotelForm = ({ onSave, hotel, isLoading }: ManageHotelProps) => {
-  const methods = useForm<HotelFormData>();
+  const methods = useForm<HotelDataType>({ defaultValues: hotel });
+
+  const { reset, handleSubmit } = methods;
 
   useEffect(() => {
-    methods.reset(hotel);
-  }, [hotel, methods]);
+    reset(hotel);
+  }, [hotel, reset]);
 
-  const onSubmit = methods.handleSubmit((formData: HotelFormData) => {
+  const onSubmit = handleSubmit((formData: HotelDataType) => {
     const hotelData = { ...formData };
 
+    // validating images length
     if (formData.images === undefined || formData.images?.length < 3)
       return methods.setError("images", {
         message: "Minimum 3 images required!",
       });
 
+    // adding existing properties for update hotel
     if (hotel) {
       hotelData._id = hotel._id;
       hotelData.userId = hotel.userId;
+      hotelData.starRating = hotel.starRating;
     }
 
     onSave(hotelData);
@@ -50,7 +55,13 @@ const ManageHotelForm = ({ onSave, hotel, isLoading }: ManageHotelProps) => {
             className="custom-btn w-full text-xl disabled:bg-orange-400"
             disabled={isLoading}
           >
-            {isLoading ? "Adding Hotel..." : "Add Hotel"}
+            {hotel?._id
+              ? isLoading
+                ? "Updating..."
+                : "Update"
+              : isLoading
+                ? "Adding..."
+                : "Add"}
           </button>
         </div>
       </form>

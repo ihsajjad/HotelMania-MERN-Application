@@ -1,5 +1,5 @@
 import { LoginType } from "./pages/Login";
-import { HotelDataType, HotelFormData, PartnerType } from "./shared/Types";
+import { HotelDataType, PartnerType } from "./shared/Types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
@@ -75,6 +75,15 @@ export const uploadImage = async (file: FormData): Promise<{ url: string }> => {
   return res.json();
 };
 
+export const fetchSingleHotel = async (
+  hotelId: string
+): Promise<HotelDataType> => {
+  const res = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`);
+  if (!res.ok) throw new Error("Failed to fetch hotel");
+
+  return res.json();
+};
+
 /**================================================================================
                                     Admin Functions
  ================================================================================*/
@@ -103,7 +112,7 @@ export const fetchMyHotels = async (): Promise<HotelDataType[]> => {
   return res.json();
 };
 
-export const addMyHotel = async (formData: HotelFormData) => {
+export const addMyHotel = async (formData: HotelDataType) => {
   const res = await fetch(`${API_BASE_URL}/api/hotels/add-hotel`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -115,6 +124,19 @@ export const addMyHotel = async (formData: HotelFormData) => {
   if (!res.ok) throw new Error(result.message);
 
   return result;
+};
+
+export const updateHotel = async (hotelData: HotelDataType) => {
+  const res = await fetch(`${API_BASE_URL}/api/hotels/${hotelData._id}`, {
+    credentials: "include",
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(hotelData),
+  });
+
+  if (!res.ok) throw new Error("Failed to update hotel");
+
+  return res.json();
 };
 
 export const deleteSingleHotel = async (hotelId: string) => {

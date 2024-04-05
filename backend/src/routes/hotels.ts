@@ -25,22 +25,17 @@ router.get(
 );
 
 // get individual hotel
-router.get(
-  ":hotelId",
-  verifyToken,
-  verifyHotelOwner,
-  async (req: Request, res: Response) => {
-    const hotelId = req.params.hotelId;
-    try {
-      const hotel = await Hotel.findById(hotelId);
-      if (!hotel) return res.status(400).json({ message: "Hotel not found" });
+router.get("/:hotelId", async (req: Request, res: Response) => {
+  const hotelId = req.params.hotelId;
+  try {
+    const hotel = await Hotel.findById(hotelId);
+    if (!hotel) return res.status(400).json({ message: "Hotel not found" });
 
-      res.json(hotel);
-    } catch (error) {
-      res.status(500).json({ message: "Internal server error" });
-    }
+    res.json(hotel);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
   }
-);
+});
 
 router.post(
   "/add-hotel",

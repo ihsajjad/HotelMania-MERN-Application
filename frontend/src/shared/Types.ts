@@ -27,24 +27,7 @@ export type PartnerFormData = {
 };
 
 export type HotelDataType = {
-  _id: string;
-  userId: string;
-  name: string;
-  description: string;
-  city: string;
-  country: string;
-  type: string;
-  pricePerNight: number;
-  starRating: number;
-  adultCount: number;
-  childCount: number;
-  facilities: string[];
-  images: { label: string; image: string }[];
-  lastUpdated: Date;
-};
-
-export type HotelFormData = {
-  _id?: string;
+  _id?: string | undefined;
   userId?: string;
   name: string;
   description: string;
@@ -52,8 +35,10 @@ export type HotelFormData = {
   country: string;
   type: string;
   pricePerNight: number;
+  starRating?: number;
   adultCount: number;
   childCount: number;
   facilities: string[];
   images: { label: string; image: string }[];
+  lastUpdated?: Date;
 };
