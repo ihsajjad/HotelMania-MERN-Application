@@ -7,11 +7,8 @@ const FacitiliesSection = () => {
   const {
     register,
     formState: { errors },
-    watch,
   } = useFormContext<HotelDataType>();
 
-  const watchFac = watch("facilities");
-  console.log(watchFac);
   return (
     <div>
       <h2 className="text-3xl font-bold mb-3">Facilities</h2>

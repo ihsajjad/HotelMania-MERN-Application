@@ -8,7 +8,7 @@ interface NavItemType {
   icon: React.ReactElement;
 }
 const LeftSideBar = () => {
-  const { user } = useAppContext() || {};
+  const { isLogin, user, logOut } = useAppContext() || {};
 
   let navLinks: NavItemType[] = [];
 
@@ -63,7 +63,11 @@ const LeftSideBar = () => {
               </li>
             ))}
         </ul>
-        <div className="text-white">Logout</div>
+        {isLogin && (
+          <button onClick={() => logOut()} className="custom-btn-outline">
+            Logout
+          </button>
+        )}
       </div>
     </div>
   );

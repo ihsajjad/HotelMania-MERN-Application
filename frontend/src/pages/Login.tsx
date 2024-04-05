@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useMutation } from "react-query";
-import { Link } from "react-router-dom";
-import { Bounce, toast } from "react-toastify";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as apiClient from "../api-client";
+import { errorToast, successToast } from "../shared/utils";
 
 export interface LoginType {
   email: string;
@@ -18,33 +18,17 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginType>();
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  // todo: fix the redirect and move it to the appContext
   const { mutate: loginUser } = useMutation(apiClient.userLogin, {
     onSuccess: () => {
-      toast.success("Login successful", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-      });
+      successToast("Login successful");
+      navigate(location.state.from || "/");
     },
     onError: (error: Error) => {
-      toast.error(error.message, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-      });
+      errorToast(error.message);
     },
   });
 
