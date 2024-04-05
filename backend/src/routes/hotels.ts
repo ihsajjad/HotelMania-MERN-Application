@@ -19,6 +19,7 @@ router.get(
 
       res.json(hotels);
     } catch (error) {
+      console.log(__filename, error);
       res.status(500).json({ message: "Internal server error" });
     }
   }
@@ -33,6 +34,7 @@ router.get("/:hotelId", async (req: Request, res: Response) => {
 
     res.json(hotel);
   } catch (error) {
+    console.log(__filename, error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
@@ -73,7 +75,7 @@ router.post(
 
       res.status(200).json({ message: "Hotel added successfully" });
     } catch (error) {
-      console.log(error);
+      console.log(__filename, error);
       res.status(500).json({ message: "Internal server error" });
     }
   }
@@ -121,6 +123,7 @@ router.put(
 
       res.json({ message: "Hotel updated successfully" });
     } catch (error) {
+      console.log(__filename, error);
       res.status(500).json({ message: "Internal server error" });
     }
   }
@@ -145,6 +148,7 @@ router.delete(
 
       res.status(401).json({ message: "Unauthorized access" });
     } catch (error) {
+      console.log(__filename, error);
       res.status(500).json({ message: "Internal server error" });
     }
   }
@@ -163,6 +167,7 @@ router.post(
 
       res.json({ url: imageUrl });
     } catch (error) {
+      console.log(__filename, error);
       res.status(500).json({ message: "Internal server error" });
     }
   }

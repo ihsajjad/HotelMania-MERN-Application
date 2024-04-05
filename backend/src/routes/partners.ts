@@ -1,11 +1,27 @@
 import express, { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
+import { verifyToken } from "../middleware/auth";
 import Partner from "../models/partners";
 import User from "../models/users";
 import { HotelOwnerType, UserType } from "../shared/types";
 import { generateToken, upload, uploadProfile } from "../shared/utils";
 
 const router = express.Router();
+
+router.get("/", async (req: Request, res: Response) => {
+  try {
+    const partners = await Partner.find(
+      {},
+      { name: 1, profile: 1, country: 1, isVerified: 1 }
+    );
+    if (!partners)
+      return res.status(300).json({ message: "Unavailable partner's data" });
+
+    res.status(200).json(partners);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 router.post(
   "/register",
@@ -76,19 +92,16 @@ router.post(
   }
 );
 
-router.get("/", async (req: Request, res: Response) => {
+// get individual partner's data
+router.get("/:userId", verifyToken, async (req: Request, res: Response) => {
   try {
-    const partners = await Partner.find(
-      {},
-      { name: 1, profile: 1, country: 1, isVerified: 1 }
-    );
-    if (!partners)
-      return res.status(300).json({ message: "Unavailable partner's data" });
+    const partner = await Partner.findById(req.params.userId);
+    if (!partner)
+      return res.status(400).json({ message: "Partner doesn't exist" });
 
-    res.status(200).json(partners);
+    res.json(partner);
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
 });
-
 export default router;

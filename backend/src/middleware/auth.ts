@@ -33,9 +33,11 @@ export const verifyToken = async (
         error: VerifyError | null,
         decoded: JwtPayload | string | undefined
       ) => {
-        if (error) res.status(401).json({ message: "Unauthorized access" });
+        if (error)
+          return res.status(401).json({ message: "Unauthorized access" });
 
-        const userId = (decoded as JwtPayload).userId;
+        const userId = await (decoded as JwtPayload)?.userId;
+
         req.userId = userId;
         const user = await User.findById(userId);
         if (!user)
@@ -46,6 +48,7 @@ export const verifyToken = async (
       }
     );
   } catch (error) {
+    console.log(__filename, error);
     res.status(500).json({ message: "Internal server error" });
   }
 };

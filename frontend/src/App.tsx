@@ -8,7 +8,6 @@ import PartnerRegister from "./pages/PartnerRegister";
 import Register from "./pages/Register";
 import MyHotels from "./pages/dashboard/Partner/MyHotels";
 import Partners from "./pages/dashboard/admin/Partners";
-import PrivateRoute from "./routes/PrivateRoute";
 
 export const routes = createBrowserRouter([
   {
@@ -25,9 +24,9 @@ export const routes = createBrowserRouter([
   {
     path: "/dashboard",
     element: (
-      <PrivateRoute>
-        <DashboardLayout />
-      </PrivateRoute>
+      // <PrivateRoute>
+      <DashboardLayout />
+      // </PrivateRoute>
     ),
     errorElement: <Error />,
     children: [
