@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { Link } from "react-router-dom";
 import * as apiClient from "../api-client";
-import { errorToast, successToast } from "../shared/utils";
+import { errorToast, showInputError, successToast } from "../shared/utils";
 
 type RegisterFormDataType = {
   name: string;
@@ -42,11 +42,8 @@ const Register = () => {
     saveUser(formData);
   });
 
-  const showError = (msg: string) => {
-    return <span className="text-red-500 text-sm mt-0.5">{msg}</span>;
-  };
   return (
-    <div className="hero min-h-screen bg-base-200 md:py-12 p-5">
+    <div className="hero bg-base-200 py-12 px-4">
       <div className="card md:w-1/3 w-full shadow-2xl bg-base-100 border-[var(--main-color)] border-2">
         <h2 className="text-3xl font-bold text-center mt-8">
           Please Register!
@@ -64,10 +61,10 @@ const Register = () => {
               <input
                 type="text"
                 placeholder="Full Name"
-                {...register("name", { required: "This field is required" })}
+                {...register("name", { required: true })}
                 className="input input-bordered"
               />
-              {errors.name && showError(errors.name.message as string)}
+              {errors.name && showInputError()}
             </div>
             <div className="form-control">
               <label className="label">
@@ -76,10 +73,10 @@ const Register = () => {
               <input
                 type="email"
                 placeholder="Email"
-                {...register("email", { required: "This field is required" })}
+                {...register("email", { required: true })}
                 className="input input-bordered"
               />
-              {errors.email && showError(errors.email.message as string)}
+              {errors.email && showInputError()}
             </div>
             <div className="form-control">
               <label className="label">
@@ -89,14 +86,14 @@ const Register = () => {
                 type="password"
                 placeholder="password"
                 {...register("password", {
-                  required: "Password is required",
+                  required: true,
                   // minLength: 6,
                   // maxLength: 20,
                   // pattern: /(?=.*[A-Z])(?=.*[!@#$&%*])(?=.*[0-9])(?=.*[a-z])/,
                 })}
                 className="input input-bordered"
               />
-              {errors.password && showError(errors.password.message as string)}
+              {errors.password && showInputError()}
             </div>
             <div className="form-control">
               <label className="label">
@@ -114,7 +111,7 @@ const Register = () => {
               />
             </div>
             {errors.confirmPassword &&
-              showError(errors.confirmPassword.message as string)}
+              showInputError(errors.confirmPassword.message as string)}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Select Profile</span>

@@ -1,10 +1,10 @@
 import { LoginType } from "./pages/Login";
-import { HotelDataType, PartnerType } from "./shared/Types";
+import { AuthUserType, HotelDataType, PartnerType } from "./shared/Types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
-export const fetchUserData = async () => {
-  const res = await fetch(`${API_BASE_URL}/api/users/me`, {
+export const fetchMe = async (): Promise<AuthUserType> => {
+  const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
     credentials: "include",
   });
 
@@ -13,7 +13,7 @@ export const fetchUserData = async () => {
   return res.json();
 };
 
-export const userLogin = async (formData: LoginType) => {
+export const userLogin = async (formData: LoginType): Promise<AuthUserType> => {
   const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
     method: "POST",
     credentials: "include",
@@ -22,6 +22,7 @@ export const userLogin = async (formData: LoginType) => {
   });
 
   const result = await res.json();
+
   if (!res.ok) throw new Error(result.message);
 
   return result;

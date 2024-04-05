@@ -42,3 +42,10 @@ export type HotelDataType = {
   images: { label: string; image: string }[];
   lastUpdated?: Date;
 };
+
+export type AuthUserType = {
+  _id: string;
+  email: string;
+  role: string;
+  profile: string;
+};

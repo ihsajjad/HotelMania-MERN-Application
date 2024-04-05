@@ -1,7 +1,8 @@
 import { ReactNode, createContext, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import * as apiClient from "../api-client";
-import { successToast } from "../shared/utils";
+import { LoginType } from "../pages/Login";
+import { errorToast, successToast } from "../shared/utils";
 
 interface UserType {
   _id: string;
@@ -14,6 +15,7 @@ export type ContextType = {
   isLogin: boolean;
   isLoading: boolean;
   logOut: () => void;
+  loginUser: (data: LoginType) => void;
   refetchUser: () => void;
 };
 
@@ -30,13 +32,12 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
   // todo: fix the unnecessary fetching
   const { refetch: refetchUser, isLoading } = useQuery(
     "fetchUserData",
-    apiClient.fetchUserData,
+    apiClient.fetchMe,
     {
       onSuccess: (data) => {
         setUser(data);
       },
-      onError: (error) => {
-        console.log(error);
+      onError: () => {
         setUser({
           _id: "",
           email: "",
@@ -60,9 +61,26 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
     },
   });
 
+  const { mutate: loginUser } = useMutation(apiClient.userLogin, {
+    onSuccess: (data) => {
+      setUser(data);
+      successToast("Login successful");
+    },
+    onError: (error: Error) => {
+      errorToast(error.message);
+    },
+  });
+
   return (
     <AppContext.Provider
-      value={{ user, isLogin: !!user.email, refetchUser, isLoading, logOut }}
+      value={{
+        user,
+        isLogin: !!user.email,
+        refetchUser,
+        isLoading,
+        logOut,
+        loginUser,
+      }}
     >
       {children}
     </AppContext.Provider>

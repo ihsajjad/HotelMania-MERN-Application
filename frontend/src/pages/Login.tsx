@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useMutation } from "react-query";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import * as apiClient from "../api-client";
-import { errorToast, successToast } from "../shared/utils";
+import { Link } from "react-router-dom";
+import { useAppContext } from "../contexts/UseContexts";
 
 export interface LoginType {
   email: string;
@@ -18,26 +16,15 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginType>();
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  // todo: fix the redirect and move it to the appContext
-  const { mutate: loginUser } = useMutation(apiClient.userLogin, {
-    onSuccess: () => {
-      successToast("Login successful");
-      navigate(location.state.from || "/");
-    },
-    onError: (error: Error) => {
-      errorToast(error.message);
-    },
-  });
+  const { loginUser } = useAppContext();
 
   const onSubmit = handleSubmit((data: LoginType) => {
     loginUser(data);
+    // todo: fix the navigate user
   });
 
   return (
-    <div className="hero min-h-screen bg-base-200 md:py-12 py-5">
+    <div className="hero bg-base-200 py-12">
       <div className="card w-full max-w-sm shadow-2xl bg-base-100 border-[var(--main-color)] border-2">
         <form onSubmit={onSubmit} className="card-body">
           <h2 className="text-3xl font-bold text-center">Please Login!</h2>

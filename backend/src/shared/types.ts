@@ -1,4 +1,5 @@
 export type UserType = {
+  _id?: string;
   name: string;
   email: string;
   password: string;
@@ -7,6 +8,7 @@ export type UserType = {
 };
 
 export type HotelOwnerType = {
+  _id?: string;
   name: string;
   email: string;
   phone: string;
@@ -27,7 +29,7 @@ export type HotelDataType = {
   country: string;
   type: string;
   pricePerNight: number;
-  starRating: number;
+  starRating?: number;
   adultCount: number;
   childCount: number;
   facilities: string[];
