@@ -12,7 +12,7 @@ const MyHotels = () => {
 
   const { data: hotels, refetch: refetchHotels } = useQuery(
     "fetchMyHotels",
-    () => apiClient.fetchMyHotels(user._id),
+    apiClient.fetchMyHotels,
     { enabled: !!user._id }
   );
 

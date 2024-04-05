@@ -9,21 +9,33 @@ const router = express.Router();
 
 // get all the hotels for individual user
 router.get(
-  "/:id",
-  [check("id", "Invalid user id").notEmpty().trim()],
+  "/my-hotels",
+  verifyToken,
+  verifyHotelOwner,
   async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res
-        .status(400)
-        .json({ message: "Invalid user id", data: errors.array() });
-
     try {
-      const hotels = await Hotel.find({ userId: req.params.id });
-      if (!hotels) return res.json({ message: "Hotel not found" });
+      const hotels = await Hotel.find({ userId: req.userId });
+      if (!hotels) return res.json({ message: "Hotels not found" });
 
       res.json(hotels);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
+// get individual hotel
+router.get(
+  ":hotelId",
+  verifyToken,
+  verifyHotelOwner,
+  async (req: Request, res: Response) => {
+    const hotelId = req.params.hotelId;
+    try {
+      const hotel = await Hotel.findById(hotelId);
+      if (!hotel) return res.status(400).json({ message: "Hotel not found" });
+
+      res.json(hotel);
     } catch (error) {
       res.status(500).json({ message: "Internal server error" });
     }

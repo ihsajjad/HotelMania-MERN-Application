@@ -93,10 +93,8 @@ export const fetchAllPartners = async (): Promise<PartnerType[]> => {
                                     Partner Functions
  ================================================================================*/
 
-export const fetchMyHotels = async (
-  userId: string
-): Promise<HotelDataType[]> => {
-  const res = await fetch(`${API_BASE_URL}/api/hotels/${userId}`, {
+export const fetchMyHotels = async (): Promise<HotelDataType[]> => {
+  const res = await fetch(`${API_BASE_URL}/api/hotels/my-hotels`, {
     credentials: "include",
   });
 
