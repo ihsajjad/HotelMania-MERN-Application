@@ -1,3 +1,4 @@
+import { HotelOwnerType } from "../../backend/src/shared/types";
 import { LoginType } from "./pages/Login";
 import { AuthUserType, HotelDataType, PartnerType } from "./shared/Types";
 
@@ -111,6 +112,20 @@ export const fetchMyHotels = async (): Promise<HotelDataType[]> => {
   if (!res.ok) throw new Error("Something went wrong");
 
   return res.json();
+};
+
+export const fetchPartnerData = async (
+  userId: string
+): Promise<HotelOwnerType> => {
+  const res = await fetch(`${API_BASE_URL}/api/partners/${userId}`, {
+    credentials: "include",
+  });
+
+  const result = await res.json();
+
+  if (!res.ok) throw new Error(result.message);
+
+  return result;
 };
 
 export const addMyHotel = async (formData: HotelDataType) => {

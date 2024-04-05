@@ -37,6 +37,11 @@ const LeftSideBar = () => {
         link: "/dashboard/my-hotels",
         icon: <AiFillDashboard />,
       },
+      {
+        label: "My Profile",
+        link: `/dashboard/partner-profile/${user?._id}`,
+        icon: <AiFillDashboard />,
+      },
       //   { label: "Dashboard", link: "/dashboard", icon: <AiFillDashboard /> },
     ];
   }

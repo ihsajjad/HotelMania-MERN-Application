@@ -101,6 +101,7 @@ router.get("/:userId", verifyToken, async (req: Request, res: Response) => {
 
     res.json(partner);
   } catch (error) {
+    console.log(__filename, error);
     res.status(500).json({ message: "Internal server error" });
   }
 });

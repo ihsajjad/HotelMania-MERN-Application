@@ -19,7 +19,7 @@ router.get("/me", async (req: Request, res: Response) => {
     if (!userId)
       return res.status(401).json({ message: "Unauthorized access" });
 
-    const user = await User.findById(userId).select("-password -_id -name");
+    const user = await User.findById(userId).select("-password -name");
     if (!user) return res.status(400).json({ message: "Something went wrong" });
 
     res.status(200).json(user);

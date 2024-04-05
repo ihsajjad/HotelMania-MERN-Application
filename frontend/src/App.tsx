@@ -4,6 +4,7 @@ import MainLayout from "./layouts/MainLayout";
 import Error from "./pages/Error";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import PartnerProfile from "./pages/PartnerProfile";
 import PartnerRegister from "./pages/PartnerRegister";
 import Register from "./pages/Register";
 import MyHotels from "./pages/dashboard/Partner/MyHotels";
@@ -33,6 +34,10 @@ export const routes = createBrowserRouter([
       { path: "/dashboard", element: <div>Welcome to dashboard</div> },
       { path: "/dashboard/partners", element: <Partners /> },
       { path: "/dashboard/my-hotels", element: <MyHotels /> },
+      {
+        path: "/dashboard/partner-profile/:userId",
+        element: <PartnerProfile />,
+      },
     ],
   },
 ]);

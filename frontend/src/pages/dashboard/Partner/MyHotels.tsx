@@ -104,7 +104,6 @@ const MyHotels = () => {
                   </button>
                   <button
                     onClick={() => updateModal(hotel).showModal()}
-                    // onClick={() => handleShowModal.showModal()}
                     className="bg-orange-500 text-white py-1.5 px-3 rounded font-bold"
                   >
                     Edit
