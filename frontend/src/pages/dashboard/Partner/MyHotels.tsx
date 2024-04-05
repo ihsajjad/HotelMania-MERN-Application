@@ -30,6 +30,10 @@ const MyHotels = () => {
     "add_hotel_modal"
   ) as HTMLDialogElement;
 
+  const updateModal = (id: string) => {
+    return document.getElementById(id) as HTMLDialogElement;
+  };
+
   return (
     <div className="relative">
       <PageTitle title="My Hotels" />
@@ -93,9 +97,26 @@ const MyHotels = () => {
                   >
                     Delete
                   </button>
-                  <button className="bg-orange-500 text-white py-1.5 px-3 rounded font-bold">
+                  <button
+                    onClick={() => updateModal(hotel._id).showModal()}
+                    className="bg-orange-500 text-white py-1.5 px-3 rounded font-bold"
+                  >
                     Edit
                   </button>
+                  {/* You can open the modal using document.getElementById('ID').showModal() method */}
+
+                  <dialog id={hotel._id} className="modal">
+                    <div className="modal-box w-11/12 max-w-5xl">
+                      <h3 className="font-bold text-lg">{hotel.name}</h3>
+                      <p className="py-4">Click the button below to close</p>
+                      <div className="modal-action">
+                        <form method="dialog">
+                          {/* if there is a button, it will close the modal */}
+                          <button className="btn">Close</button>
+                        </form>
+                      </div>
+                    </div>
+                  </dialog>
                   <Link to={`/details/${hotel._id}`} className="custom-btn">
                     View Details
                   </Link>

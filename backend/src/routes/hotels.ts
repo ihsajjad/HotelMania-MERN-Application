@@ -72,6 +72,53 @@ router.post(
   }
 );
 
+router.put(
+  "/:hotelId",
+  [
+    check("name", "Name is rquired").notEmpty().trim(),
+    check("description", "Description is rquired").notEmpty(),
+    check("city", "City is rquired").notEmpty().trim(),
+    check("country", "Country is rquired").notEmpty().trim(),
+    check("type", "Type is rquired").notEmpty().trim(),
+    check("pricePerNight", "Price per night is rquired").isNumeric().trim(),
+    check("adultCount", "Adult count is rquired").isNumeric().trim(),
+    check("childCount", "Child count is rquired").isNumeric().trim(),
+    check("facilities", "Facilities are rquired").isArray(),
+    check("images", "Images are rquired").isArray(),
+  ],
+  verifyToken,
+  verifyHotelOwner,
+  async (req: Request, res: Response) => {
+    const hotelId = req.params.hotelId;
+    const userId = req.userId;
+    const updatedHotel: HotelDataType = {
+      ...req.body,
+      lastUpdated: new Date(),
+    };
+
+    const errors = validationResult(req.body);
+
+    if (!errors.isEmpty())
+      return res
+        .status(400)
+        .json({ message: "Invalid hotel data", data: errors.array() });
+
+    try {
+      const hotel = await Hotel.findOneAndUpdate(
+        { _id: hotelId, userId },
+        updatedHotel
+      );
+
+      if (!hotel)
+        return res.status(400).json({ message: "Hotel doesn't exist" });
+
+      res.json({ message: "Hotel updated successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
 router.delete(
   "/:id",
   verifyToken,
