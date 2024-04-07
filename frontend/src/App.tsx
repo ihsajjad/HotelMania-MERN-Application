@@ -35,7 +35,7 @@ export const routes = createBrowserRouter([
       { path: "/dashboard/partners", element: <Partners /> },
       { path: "/dashboard/my-hotels", element: <MyHotels /> },
       {
-        path: "/dashboard/partner-profile/:userId",
+        path: "/dashboard/partners/:userId",
         element: <PartnerProfile />,
       },
     ],

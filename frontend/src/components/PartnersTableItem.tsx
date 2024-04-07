@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { PartnerType } from "../shared/Types";
 
 interface Props {
@@ -7,11 +8,12 @@ interface Props {
 
 const PartnersTableItem = ({ partner, i }: Props) => {
   return (
-    <tr className="hover">
+    <tr className="hover ">
       <th>{i + 1}</th>
       <td>
         <div className="avatar">
           <div className="mask mask-squircle w-12 h-12">
+            {/* todo: change the default image */}
             <img
               src={
                 partner?.profile ||
@@ -26,15 +28,18 @@ const PartnersTableItem = ({ partner, i }: Props) => {
       <td>{partner.country}</td>
       <td>
         <span
-          className={`${partner.isVerified ? "bg-green-400" : "bg-red-300"} inline-block w-24 font-semibold text-white text-xs py-1 px-2 rounded`}
+          className={`${partner.isVerified ? "bg-green-400" : "bg-red-300"} inline-block w-[82px] font-semibold text-white text-xs py-1 px-2 rounded`}
         >
           {partner.isVerified ? "Verified" : "Not Verified"}
         </span>
       </td>
-      <td>
-        <button className="custom-btn w-24 inline-block font-semibold">
+      <td className="flex justify-center py-6">
+        <Link
+          to={`/dashboard/partners/${partner._id}`}
+          className="custom-btn w-[100px]  font-semibold"
+        >
           View Details
-        </button>
+        </Link>
       </td>
     </tr>
   );

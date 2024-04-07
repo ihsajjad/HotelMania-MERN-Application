@@ -39,7 +39,7 @@ const LeftSideBar = () => {
       },
       {
         label: "My Profile",
-        link: `/dashboard/partner-profile/${user?._id}`,
+        link: `/dashboard/partners/${user?._id}`,
         icon: <AiFillDashboard />,
       },
       //   { label: "Dashboard", link: "/dashboard", icon: <AiFillDashboard /> },

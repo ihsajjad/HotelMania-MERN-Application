@@ -9,17 +9,16 @@ const PartnerProfile = () => {
     apiClient.fetchPartnerData(userId as string)
   );
 
-  console.log(partner);
   return (
     <div className="">
       <PageTitle title="Profile" />
       <div className="flex-center md:mt-32 mt-20 p-3">
-        <div className="bg-gradient-to-r from-[var(--main-color)] bg-opacity-20 to-white border-2 border-[var(--main-color)] md:w-3/4 rounded-lg md:px-6 px-2 pb-6 shadow-lg shadow-slate-300">
+        <div className="bg-gradient-to-r from-[var(--main-color)] bg-opacity-20 to-white border-2 border-[var(--bg-color)] md:w-3/4 rounded-lg md:px-6 px-2 pb-6 shadow-lg shadow-slate-300">
           <div className="flex-center flex-col gap-2">
             <img
               src={partner?.profile}
               alt=""
-              className="md:h-40 md:w-40 h-32 w-32 rounded-full md:-mt-20 -mt-16 border-2 border-[var(--main-color)] bg-white"
+              className="md:h-40 md:w-40 h-32 w-32 rounded-full md:-mt-20 -mt-16 border-2 border-[var(--bg-color)] bg-white"
             />
             <h3 className="text-2xl font-bold text-center text-[var(--second-bg-color)] mb-3">
               {partner?.name}

@@ -8,7 +8,7 @@ const Partners = () => {
     "fetchAllPartners",
     apiClient.fetchAllPartners
   );
-  console.log(partners);
+
   return (
     <div>
       <PageTitle title="Hotel Partners" />
@@ -33,7 +33,6 @@ const Partners = () => {
               ))}
           </tbody>
         </table>
-        pP
       </div>
     </div>
   );
