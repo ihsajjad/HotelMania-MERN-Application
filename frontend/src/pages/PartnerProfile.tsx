@@ -1,18 +1,32 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import * as apiClient from "../api-client";
 import PageTitle from "../components/PageTitle";
+import { errorToast, successToast } from "../shared/utils";
 
 const PartnerProfile = () => {
   const { userId } = useParams();
   const { handleSubmit, register, setValue } = useForm();
 
-  const { data: partner } = useQuery(
+  const { data: partner, refetch } = useQuery(
     "fetchPartnerData",
     () => apiClient.fetchPartnerData(userId as string),
     { enabled: !!userId }
+  );
+
+  const { mutate: changeStatus } = useMutation(
+    apiClient.changeIsVerifiedStatus,
+    {
+      onSuccess: () => {
+        refetch();
+        successToast("Status changed successfully");
+      },
+      onError: (result: Error) => {
+        errorToast(result.message);
+      },
+    }
   );
 
   useEffect(() => {
@@ -20,11 +34,7 @@ const PartnerProfile = () => {
   }, [setValue, partner]);
 
   const handleStatus = handleSubmit((data) => {
-    if (data.status === "true") {
-      console.log("success");
-    } else if (data.status === "false") {
-      console.log("failed");
-    }
+    changeStatus({ userId: userId as string, status: data.status });
   });
 
   return (
@@ -101,7 +111,10 @@ const PartnerProfile = () => {
               <option value="true">Verified</option>
               <option value="false">Not Verified</option>
             </select>
-            <button type="submit" className="custom-btn">
+            <button
+              type="submit"
+              className="custom-btn shadow-lg shadow-slate-300"
+            >
               Save
             </button>
           </form>

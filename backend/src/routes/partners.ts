@@ -111,7 +111,7 @@ router.put("/:userId", async (req: Request, res: Response) => {
     }
 
     partner.save();
-    res.sendStatus(200);
+    res.json({ message: "Status changed successfully" });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }

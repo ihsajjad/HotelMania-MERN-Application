@@ -100,6 +100,24 @@ export const fetchAllPartners = async (): Promise<PartnerType[]> => {
   return res.json();
 };
 
+export const changeIsVerifiedStatus = async ({
+  userId,
+  status,
+}: {
+  userId: string;
+  status: string;
+}) => {
+  const res = await fetch(
+    `${API_BASE_URL}/api/partners/${userId}?isVerified=${status}`,
+    { credentials: "include", method: "PUT" }
+  );
+
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message);
+
+  return result;
+};
+
 /**================================================================================
                                     Partner Functions
  ================================================================================*/
