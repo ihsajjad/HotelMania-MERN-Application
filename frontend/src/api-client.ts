@@ -1,6 +1,6 @@
-import { HotelOwnerType } from "../../backend/src/shared/types";
+import { AuthUserType, HotelOwnerType } from "../../backend/src/shared/types";
 import { LoginType } from "./pages/Login";
-import { AuthUserType, HotelDataType, PartnerType } from "./shared/Types";
+import { HotelDataType, PartnerType } from "./shared/Types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 

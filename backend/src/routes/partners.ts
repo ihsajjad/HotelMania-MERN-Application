@@ -9,20 +9,25 @@ import { generateToken, upload, uploadProfile } from "../shared/utils";
 const router = express.Router();
 
 // get all the partners
-router.get("/", async (req: Request, res: Response) => {
-  try {
-    const partners = await Partner.find(
-      {},
-      { name: 1, profile: 1, country: 1, isVerified: 1 }
-    );
-    if (!partners)
-      return res.status(300).json({ message: "Unavailable partner's data" });
+router.get(
+  "/",
+  verifyToken,
+  verifyAdmin,
+  async (req: Request, res: Response) => {
+    try {
+      const partners = await Partner.find(
+        {},
+        { name: 1, profile: 1, country: 1, isVerified: 1 }
+      );
+      if (!partners)
+        return res.status(300).json({ message: "Unavailable partner's data" });
 
-    res.status(200).json(partners);
-  } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
+      res.status(200).json(partners);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
   }
-});
+);
 
 // register partners
 router.post(
@@ -94,7 +99,7 @@ router.post(
   }
 );
 
-// update isVerification status
+// update isVerified status
 router.put(
   "/:userId",
   verifyToken,

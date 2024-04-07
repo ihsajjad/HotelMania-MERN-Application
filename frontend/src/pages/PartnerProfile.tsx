@@ -4,11 +4,13 @@ import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import * as apiClient from "../api-client";
 import PageTitle from "../components/PageTitle";
+import { useAppContext } from "../contexts/UseContexts";
 import { errorToast, successToast } from "../shared/utils";
 
 const PartnerProfile = () => {
   const { userId } = useParams();
   const { handleSubmit, register, setValue } = useForm();
+  const { user } = useAppContext();
 
   const { data: partner, refetch } = useQuery(
     "fetchPartnerData",
@@ -37,6 +39,7 @@ const PartnerProfile = () => {
     changeStatus({ userId: userId as string, status: data.status });
   });
 
+  console.log(user);
   return (
     <div className="">
       <PageTitle title="Profile" />
@@ -100,24 +103,26 @@ const PartnerProfile = () => {
             </div>
           </div>
 
-          <form
-            className="flex items-center justify-between mt-3 p-2 rounded border border-[var(--bg-color)]"
-            onSubmit={handleStatus}
-          >
-            <select
-              {...register("status")}
-              className="py-1 px-2 focus:outline-slate-400 rounded"
+          {user.role === "Admin" && (
+            <form
+              className="flex items-center justify-between mt-3 p-2 rounded border border-[var(--bg-color)]"
+              onSubmit={handleStatus}
             >
-              <option value="true">Verified</option>
-              <option value="false">Not Verified</option>
-            </select>
-            <button
-              type="submit"
-              className="custom-btn shadow-lg shadow-slate-300"
-            >
-              Save
-            </button>
-          </form>
+              <select
+                {...register("status")}
+                className="py-1 px-2 focus:outline-slate-400 rounded"
+              >
+                <option value="true">Verified</option>
+                <option value="false">Not Verified</option>
+              </select>
+              <button
+                type="submit"
+                className="custom-btn shadow-lg shadow-slate-300"
+              >
+                Save
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </div>

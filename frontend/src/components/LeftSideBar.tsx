@@ -1,4 +1,6 @@
-import { AiFillDashboard } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
+import { RiHotelLine } from "react-icons/ri";
+import { RxDashboard } from "react-icons/rx";
 import { Link, useLocation } from "react-router-dom";
 import { useAppContext } from "../contexts/UseContexts";
 
@@ -18,39 +20,39 @@ const LeftSideBar = () => {
       {
         label: "My Bookings",
         link: "/dashboard/my-bookings",
-        icon: <AiFillDashboard />,
+        icon: <RxDashboard />,
       },
-      //   { label: "Dashboard", link: "/dashboard", icon: <AiFillDashboard /> },
+      //   { label: "Dashboard", link: "/dashboard", icon: <RxDashboard /> },
     ];
   } else if (user.role === "Admin") {
     navLinks = [
       {
         label: "Partners",
         link: "/dashboard/partners",
-        icon: <AiFillDashboard />,
+        icon: <RxDashboard />,
       },
-      //   { label: "Dashboard", link: "/dashboard", icon: <AiFillDashboard /> },
+      //   { label: "Dashboard", link: "/dashboard", icon: <RxDashboard /> },
     ];
   } else if (user.role === "Hotel") {
     navLinks = [
       {
         label: "My Hotels",
         link: "/dashboard/my-hotels",
-        icon: <AiFillDashboard />,
+        icon: <RiHotelLine size={18} />,
       },
       {
         label: "My Profile",
         link: `/dashboard/partners/${user?._id}`,
-        icon: <AiFillDashboard />,
+        icon: <CgProfile size={18} />,
       },
-      //   { label: "Dashboard", link: "/dashboard", icon: <AiFillDashboard /> },
+      //   { label: "Dashboard", link: "/dashboard", icon: <RxDashboard /> },
     ];
   }
 
   navLinks.unshift({
     label: "Dashboard",
     link: "/dashboard",
-    icon: <AiFillDashboard size={23} />,
+    icon: <RxDashboard size={16} />,
   });
 
   return (

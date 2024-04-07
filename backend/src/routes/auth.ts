@@ -2,7 +2,9 @@ import bcrypt from "bcryptjs";
 import express, { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import Partner from "../models/partners";
 import User from "../models/users";
+import { AuthUserType } from "../shared/types";
 import { generateToken } from "../shared/utils";
 
 const router = express.Router();
@@ -10,19 +12,29 @@ const router = express.Router();
 router.get("/me", async (req: Request, res: Response) => {
   try {
     const token = req.cookies["auth_token"];
-
     if (!token) return res.status(401).json({ message: "Unauthorized access" });
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string);
     const userId = await (decoded as JwtPayload)?.userId;
-
     if (!userId)
       return res.status(401).json({ message: "Unauthorized access" });
 
     const user = await User.findById(userId).select("-password -name");
     if (!user) return res.status(400).json({ message: "Something went wrong" });
 
-    res.status(200).json(user);
+    let userData: AuthUserType = {
+      email: user.email,
+      role: user.role,
+      profile: user.profile,
+      _id: user._id,
+    };
+
+    const partner = await Partner.findById(userId);
+    if (partner) {
+      userData.isVerified = partner.isVerified;
+    }
+
+    res.status(200).json(userData);
   } catch (error) {
     console.log(__filename, error);
     res.status(500).json({ message: "Internal server error" });

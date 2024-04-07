@@ -9,6 +9,8 @@ import PartnerRegister from "./pages/PartnerRegister";
 import Register from "./pages/Register";
 import MyHotels from "./pages/dashboard/Partner/MyHotels";
 import Partners from "./pages/dashboard/admin/Partners";
+import PartnerRoute from "./routes/PartnerRoute";
+import PrivateRoute from "./routes/PrivateRoute";
 
 export const routes = createBrowserRouter([
   {
@@ -25,15 +27,22 @@ export const routes = createBrowserRouter([
   {
     path: "/dashboard",
     element: (
-      // <PrivateRoute>
-      <DashboardLayout />
-      // </PrivateRoute>
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
     ),
     errorElement: <Error />,
     children: [
       { path: "/dashboard", element: <div>Welcome to dashboard</div> },
       { path: "/dashboard/partners", element: <Partners /> },
-      { path: "/dashboard/my-hotels", element: <MyHotels /> },
+      {
+        path: "/dashboard/my-hotels",
+        element: (
+          <PartnerRoute>
+            <MyHotels />
+          </PartnerRoute>
+        ),
+      },
       {
         path: "/dashboard/partners/:userId",
         element: <PartnerProfile />,

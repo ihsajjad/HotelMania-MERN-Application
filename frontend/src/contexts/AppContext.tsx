@@ -1,17 +1,19 @@
 import { ReactNode, createContext, useState } from "react";
 import { useMutation, useQuery } from "react-query";
+import { AuthUserType } from "../../../backend/src/shared/types";
 import * as apiClient from "../api-client";
 import { LoginType } from "../pages/Login";
 import { errorToast, successToast } from "../shared/utils";
 
-interface UserType {
-  _id: string;
-  email: string;
-  profile?: string | undefined;
-  role: string;
-}
+// interface UserType {
+//   _id: string;
+//   email: string;
+//   profile?: string | undefined;
+//   role: string;
+//   isVerified?: boolean;
+// }
 export type ContextType = {
-  user: UserType;
+  user: AuthUserType;
   isLogin: boolean;
   isLoading: boolean;
   logOut: () => void;
@@ -22,7 +24,7 @@ export type ContextType = {
 export const AppContext = createContext<ContextType | undefined>(undefined);
 
 const AppContextProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<UserType>({
+  const [user, setUser] = useState<AuthUserType>({
     _id: "",
     email: "",
     profile: "",
