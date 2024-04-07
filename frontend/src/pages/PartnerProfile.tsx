@@ -8,12 +8,17 @@ const PartnerProfile = () => {
   const { data: partner } = useQuery("fetchPartnerData", () =>
     apiClient.fetchPartnerData(userId as string)
   );
-
+  console.log(partner);
   return (
     <div className="">
       <PageTitle title="Profile" />
-      <div className="flex-center md:mt-32 mt-20 p-3">
-        <div className="bg-gradient-to-r from-[var(--main-color)] bg-opacity-20 to-white border-2 border-[var(--bg-color)] md:w-3/4 rounded-lg md:px-6 px-2 pb-6 shadow-lg shadow-slate-300">
+      <div className="flex-center flex-col md:mt-32 mt-20 p-3">
+        <div className="bg-gradient-to-r from-[var(--main-color)] bg-opacity-20 to-white border-2 border-[var(--bg-color)] md:w-3/4 rounded-lg md:px-6 px-2 pb-6 shadow-lg shadow-slate-300 relative">
+          <span
+            className={`${partner?.isVerified ? "bg-green-500" : "bg-red-500"} font-bold text-lg py-1 px-3 text-white rounded-lg mt-3 absolute top-0 right-3 shadow-md shadow-[#0000004e]`}
+          >
+            {partner?.isVerified ? "Verified" : "Not Verified"}
+          </span>
           <div className="flex-center flex-col gap-2">
             <img
               src={partner?.profile}
