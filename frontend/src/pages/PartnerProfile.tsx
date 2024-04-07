@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import * as apiClient from "../api-client";
@@ -5,17 +7,33 @@ import PageTitle from "../components/PageTitle";
 
 const PartnerProfile = () => {
   const { userId } = useParams();
-  const { data: partner } = useQuery("fetchPartnerData", () =>
-    apiClient.fetchPartnerData(userId as string)
+  const { handleSubmit, register, setValue } = useForm();
+
+  const { data: partner } = useQuery(
+    "fetchPartnerData",
+    () => apiClient.fetchPartnerData(userId as string),
+    { enabled: !!userId }
   );
-  console.log(partner);
+
+  useEffect(() => {
+    setValue("status", partner?.isVerified);
+  }, [setValue, partner]);
+
+  const handleStatus = handleSubmit((data) => {
+    if (data.status === "true") {
+      console.log("success");
+    } else if (data.status === "false") {
+      console.log("failed");
+    }
+  });
+
   return (
     <div className="">
       <PageTitle title="Profile" />
-      <div className="flex-center flex-col md:mt-32 mt-20 p-3">
-        <div className="bg-gradient-to-r from-[var(--main-color)] bg-opacity-20 to-white border-2 border-[var(--bg-color)] md:w-3/4 rounded-lg md:px-6 px-2 pb-6 shadow-lg shadow-slate-300 relative">
+      <div className="flex-center flex-col md:mt-24 mt-20 p-3">
+        <div className="bg-gradient-to-r from-[var(--main-color)] bg-opacity-20 to-white border-2 border-[var(--bg-color)] sm:w-3/4 w-full rounded-lg md:px-3 px-2 pb-6 shadow-lg shadow-slate-300 relative">
           <span
-            className={`${partner?.isVerified ? "bg-green-500" : "bg-red-500"} font-bold text-lg py-1 px-3 text-white rounded-lg mt-3 absolute top-0 right-3 shadow-md shadow-[#0000004e]`}
+            className={`${partner?.isVerified ? "bg-green-500" : "bg-red-500"} font-bold md:text-lg text-sm py-1 md:px-3 px-2 text-white rounded mt-3 absolute top-0 md:right-3 right-2 shadow-md shadow-[#0000004e]`}
           >
             {partner?.isVerified ? "Verified" : "Not Verified"}
           </span>
@@ -71,6 +89,22 @@ const PartnerProfile = () => {
               </div>
             </div>
           </div>
+
+          <form
+            className="flex items-center justify-between mt-3 p-2 rounded border border-[var(--bg-color)]"
+            onSubmit={handleStatus}
+          >
+            <select
+              {...register("status")}
+              className="py-1 px-2 focus:outline-slate-400 rounded"
+            >
+              <option value="true">Verified</option>
+              <option value="false">Not Verified</option>
+            </select>
+            <button type="submit" className="custom-btn">
+              Save
+            </button>
+          </form>
         </div>
       </div>
     </div>
