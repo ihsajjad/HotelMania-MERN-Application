@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
-import { verifyToken } from "../middleware/auth";
+import { verifyAdmin, verifyToken } from "../middleware/auth";
 import Partner from "../models/partners";
 import User from "../models/users";
 import { HotelOwnerType, UserType } from "../shared/types";
@@ -95,27 +95,32 @@ router.post(
 );
 
 // update isVerification status
-router.put("/:userId", async (req: Request, res: Response) => {
-  const userId = req.params.userId;
-  const isVerified = req.query.isVerified;
+router.put(
+  "/:userId",
+  verifyToken,
+  verifyAdmin,
+  async (req: Request, res: Response) => {
+    const userId = req.params.userId;
+    const isVerified = req.query.isVerified;
 
-  try {
-    const partner = await Partner.findById(userId);
-    if (!partner)
-      return res.status(400).json({ message: "Partner doesn't exist" });
+    try {
+      const partner = await Partner.findById(userId);
+      if (!partner)
+        return res.status(400).json({ message: "Partner doesn't exist" });
 
-    if (isVerified === "true") {
-      partner.isVerified = true;
-    } else if (isVerified === "false") {
-      partner.isVerified = false;
+      if (isVerified === "true") {
+        partner.isVerified = true;
+      } else if (isVerified === "false") {
+        partner.isVerified = false;
+      }
+
+      partner.save();
+      res.json({ message: "Status changed successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
     }
-
-    partner.save();
-    res.json({ message: "Status changed successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
   }
-});
+);
 
 // get individual partner's data
 router.get("/:userId", verifyToken, async (req: Request, res: Response) => {

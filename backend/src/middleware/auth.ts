@@ -63,3 +63,14 @@ export const verifyHotelOwner = async (
 
   next();
 };
+
+export const verifyAdmin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const isAdmin = req.role === "Admin";
+  if (!isAdmin) return res.status(401).json({ message: "Unauthorized access" });
+
+  next();
+};
