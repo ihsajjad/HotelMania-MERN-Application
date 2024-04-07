@@ -1,5 +1,5 @@
 import { AiFillDashboard } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAppContext } from "../contexts/UseContexts";
 
 interface NavItemType {
@@ -9,6 +9,7 @@ interface NavItemType {
 }
 const LeftSideBar = () => {
   const { isLogin, user, logOut } = useAppContext() || {};
+  const location = useLocation();
 
   let navLinks: NavItemType[] = [];
 
@@ -49,7 +50,22 @@ const LeftSideBar = () => {
   navLinks.unshift({
     label: "Dashboard",
     link: "/dashboard",
-    icon: <AiFillDashboard />,
+    icon: <AiFillDashboard size={23} />,
+  });
+  navLinks.unshift({
+    label: "Dashboard One",
+    link: "/dashboard1",
+    icon: <AiFillDashboard size={23} />,
+  });
+  navLinks.unshift({
+    label: "Dashboard Two",
+    link: "/dashboard2",
+    icon: <AiFillDashboard size={23} />,
+  });
+  navLinks.unshift({
+    label: "Dashboard Three",
+    link: "/dashboard3",
+    icon: <AiFillDashboard size={23} />,
   });
 
   return (
@@ -59,16 +75,26 @@ const LeftSideBar = () => {
         aria-label="close sidebar"
         className="drawer-overlay"
       ></label>
-      <div className="menu h-full bg-[var(--bg-color)] flex flex-col">
-        <h3 className="text-2xl font-bold p-2  text-[var(--main-color)] ">
-          Hotel Mania
-        </h3>
-        <hr />
-        <ul className=" p-4 w-60 text-white bg-[var(--bg-color)] flex-grow">
+      <div className="h-full bg-[var(--bg-color)] flex flex-col p-0">
+        <Link
+          to="/"
+          className="text-2xl font-bold p-3 text-[var(--main-color)] "
+        >
+          Hotel<span className="text-slate-100">Mania</span>
+        </Link>
+        <hr className="border-1 border-slate-400" />
+        <ul className=" w-56 text-white bg-[var(--bg-color)] flex-grow">
           {navLinks &&
             navLinks.map((item) => (
-              <li key={item.link}>
+              <li
+                key={item.link}
+                className={`flex flex-row gap-1 items-center relative overflow-hidden text-lg p-3 pl-4 ${location.pathname === item.link ? "bg-[var(--main-color)] text-black" : ""}`}
+              >
+                <span>{item.icon}</span>
                 <Link to={item.link}>{item.label}</Link>
+                <div
+                  className={`bg-purple-700 h-10 w-10 -right-6 rotate-45 ${location.pathname === item.link ? "absolute" : "hidden"}`}
+                ></div>
               </li>
             ))}
         </ul>

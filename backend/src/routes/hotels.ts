@@ -39,6 +39,7 @@ router.get("/:hotelId", async (req: Request, res: Response) => {
   }
 });
 
+// add hotel
 router.post(
   "/add-hotel",
   [
@@ -81,6 +82,7 @@ router.post(
   }
 );
 
+// update hotel
 router.put(
   "/:hotelId",
   [
@@ -129,6 +131,7 @@ router.put(
   }
 );
 
+// delete hotel
 router.delete(
   "/:id",
   verifyToken,

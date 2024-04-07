@@ -9,9 +9,13 @@
   --main-color: #8bcf17;
 }
 
-a {
-  @apply hover:text-[var(--main-color)] duration-300;
+* {
+  @apply p-0 m-0;
 }
+
+/* a {
+  @apply hover:text-[var(--main-color)]  duration-300;
+} */
 
 .custom-btn {
   /* text-white hover:bg-transparent text-main border-[text-main]*/

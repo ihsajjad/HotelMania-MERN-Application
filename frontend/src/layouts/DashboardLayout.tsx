@@ -12,7 +12,7 @@ const DashboardLayout = () => {
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         <div className="sticky top-0 left-0 z-10 shadow-lg shadow-[#0000004f]">
-          <div className="relative  bg-[var(--bg-color)] text-white flex items-center justify-center min-h-12 text-2xl font-bold">
+          <div className="relative bg-[var(--bg-color)] text-white flex items-center justify-center md:min-h-14 min-h-12 text-2xl font-bold">
             <label
               htmlFor="my-drawer-2"
               className="p-2 text-white drawer-button lg:hidden absolute top-1 left-1 "

@@ -8,6 +8,7 @@ import { generateToken, upload, uploadProfile } from "../shared/utils";
 
 const router = express.Router();
 
+// get all the partners
 router.get("/", async (req: Request, res: Response) => {
   try {
     const partners = await Partner.find(
@@ -23,6 +24,7 @@ router.get("/", async (req: Request, res: Response) => {
   }
 });
 
+// register partners
 router.post(
   "/register",
   [
