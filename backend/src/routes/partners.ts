@@ -94,6 +94,29 @@ router.post(
   }
 );
 
+// update isVerification status
+router.put("/:userId", async (req: Request, res: Response) => {
+  const userId = req.params.userId;
+  const isVerified = req.query.isVerified;
+
+  try {
+    const partner = await Partner.findById(userId);
+    if (!partner)
+      return res.status(400).json({ message: "Partner doesn't exist" });
+
+    if (isVerified === "true") {
+      partner.isVerified = true;
+    } else if (isVerified === "false") {
+      partner.isVerified = false;
+    }
+
+    partner.save();
+    res.sendStatus(200);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // get individual partner's data
 router.get("/:userId", verifyToken, async (req: Request, res: Response) => {
   try {

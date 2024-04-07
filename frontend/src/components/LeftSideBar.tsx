@@ -52,21 +52,6 @@ const LeftSideBar = () => {
     link: "/dashboard",
     icon: <AiFillDashboard size={23} />,
   });
-  navLinks.unshift({
-    label: "Dashboard One",
-    link: "/dashboard1",
-    icon: <AiFillDashboard size={23} />,
-  });
-  navLinks.unshift({
-    label: "Dashboard Two",
-    link: "/dashboard2",
-    icon: <AiFillDashboard size={23} />,
-  });
-  navLinks.unshift({
-    label: "Dashboard Three",
-    link: "/dashboard3",
-    icon: <AiFillDashboard size={23} />,
-  });
 
   return (
     <div className="drawer-side shadow-2xl shadow-[#000000af]">
@@ -99,7 +84,7 @@ const LeftSideBar = () => {
             ))}
         </ul>
         {isLogin && (
-          <button onClick={() => logOut()} className="custom-btn-outline">
+          <button onClick={() => logOut()} className="custom-btn-outline m-2">
             Logout
           </button>
         )}
