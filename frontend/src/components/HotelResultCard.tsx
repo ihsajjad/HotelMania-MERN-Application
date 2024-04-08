@@ -1,7 +1,6 @@
 import { AiFillStar } from "react-icons/ai";
-import { BiHotel } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import { HotelDataType } from "../shared/Types";
+import { HotelDataType } from "../../../backend/src/shared/types";
 
 const HotelResultCard = ({ hotel }: { hotel: HotelDataType }) => {
   return (
@@ -28,28 +27,25 @@ const HotelResultCard = ({ hotel }: { hotel: HotelDataType }) => {
           <h3 className="text-lg font-bold">{hotel.name}</h3>
         </div>
         <div className="flex-grow">
-          <p className="text-justify text-slate-500 md:line-clamp-5 line-clamp-2">
+          <p className="text-justify text-slate-500 md:line-clamp-6 line-clamp-2">
             {hotel.description}
           </p>
         </div>
-        <div className="border text-sm border-slate-300 rounded-sm p-3 flex items-center gap-1 w-fit">
-          <BiHotel />
-          {hotel.adultCount} adults, {hotel.childCount} children
+
+        <div className="sm:block hidden">
+          {hotel?.facilities?.slice(0, 1)?.map((facility: string) => (
+            <span
+              key={facility}
+              className="text-sm bg-slate-200 rounded py-0.5 px-1"
+            >
+              {facility}
+            </span>
+          ))}
+          {hotel.facilities.length > 1 && (
+            <span> +{hotel.facilities.length - 1} more facilities</span>
+          )}
         </div>
         <div className="flex items-center justify-between">
-          <div className="sm:block hidden">
-            {hotel?.facilities?.slice(0, 1)?.map((facility) => (
-              <span
-                key={facility}
-                className="text-sm bg-slate-200 rounded py-0.5 px-1"
-              >
-                {facility}
-              </span>
-            ))}
-            {hotel.facilities.length > 1 && (
-              <span> +{hotel.facilities.length - 1} more</span>
-            )}
-          </div>
           <div>
             <span className="text-2xl font-bold">${hotel.pricePerNight}</span>
             <span>/Per night</span>

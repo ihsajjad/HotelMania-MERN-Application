@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { BiTrash } from "react-icons/bi";
 import { useMutation } from "react-query";
+import { HotelDataType } from "../../../../backend/src/shared/types";
 import * as apiClient from "../../api-client";
 import skelaton from "../../assets/image.png";
-import { HotelDataType } from "../../shared/Types";
 import { showInputError } from "../../shared/utils";
 
 const ImagesSection = () => {

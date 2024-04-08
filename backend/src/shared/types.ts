@@ -24,6 +24,7 @@ export type HotelOwnerType = {
 };
 
 export type HotelDataType = {
+  _id?: string;
   userId: string;
   name: string;
   description: string;

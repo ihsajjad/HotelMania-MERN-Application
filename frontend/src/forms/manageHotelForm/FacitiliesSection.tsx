@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
+import { HotelDataType } from "../../../../backend/src/shared/types";
 import { hotelFacilities } from "../../config/config.hotel-option";
-import { HotelDataType } from "../../shared/Types";
 import { showInputError } from "../../shared/utils";
 
 const FacitiliesSection = () => {

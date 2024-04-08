@@ -1,3 +1,5 @@
+import { HotelDataType } from "../../../backend/src/shared/types";
+
 export type PartnerType = {
   _id: string;
   name: string;
@@ -26,19 +28,28 @@ export type PartnerFormData = {
   profile: FileList;
 };
 
-export type HotelDataType = {
-  _id?: string | undefined;
-  userId?: string;
-  name: string;
-  description: string;
-  city: string;
-  country: string;
-  type: string;
-  pricePerNight: number;
-  starRating?: number;
-  adultCount: number;
-  childCount: number;
-  facilities: string[];
-  images: { label: string; image: string }[];
-  lastUpdated?: Date;
+// export type HotelDataType = {
+//   _id?: string | undefined;
+//   userId?: string;
+//   name: string;
+//   description: string;
+//   city: string;
+//   country: string;
+//   type: string;
+//   pricePerNight: number;
+//   starRating?: number;
+//   adultCount: number;
+//   childCount: number;
+//   facilities: string[];
+//   images: { label: string; image: string }[];
+//   lastUpdated?: Date;
+// };
+
+export type HotelsResponse = {
+  data: HotelDataType[];
+  pagination: {
+    total: number;
+    page: number;
+    pages: number;
+  };
 };

@@ -1,8 +1,21 @@
-import { AuthUserType, HotelOwnerType } from "../../backend/src/shared/types";
+import {
+  AuthUserType,
+  HotelDataType,
+  HotelOwnerType,
+} from "../../backend/src/shared/types";
 import { LoginType } from "./pages/Login";
-import { HotelDataType, PartnerType } from "./shared/Types";
+
+import { HotelsResponse, PartnerType } from "./shared/Types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+
+export const fetchAllHotels = async (): Promise<HotelsResponse> => {
+  const res = await fetch(`${API_BASE_URL}/api/hotels/search`);
+
+  if (!res) throw new Error("Some thing went wrong");
+
+  return res.json();
+};
 
 export const fetchMe = async (): Promise<AuthUserType> => {
   const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
