@@ -5,13 +5,13 @@ import NavBar from "../components/NavBar";
 import Footer from "../shared/Footer";
 
 const MainLayout = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   return (
     <div className="flex flex-col min-h-screen justify-between max-w-screen-xl mx-auto">
       <div>
         <NavBar />
-        {location.pathname === ("/" || "/search") && <Header />}
+        {(pathname === "/" || pathname === "/search") && <Header />}
       </div>
       <ToastContainer
         position="top-right"

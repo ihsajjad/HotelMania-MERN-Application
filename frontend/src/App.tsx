@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "./layouts/DashboardLayout";
 import MainLayout from "./layouts/MainLayout";
 import Error from "./pages/Error";
+import FindHotels from "./pages/FindHotels";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import PartnerProfile from "./pages/PartnerProfile";
@@ -19,6 +20,7 @@ export const routes = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { path: "/", element: <Home /> },
+      { path: "/search", element: <FindHotels /> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
       { path: "/partner/register", element: <PartnerRegister /> },
