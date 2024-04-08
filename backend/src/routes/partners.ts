@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
+import mongoose from "mongoose";
 import { verifyAdmin, verifyToken } from "../middleware/auth";
 import Partner from "../models/partners";
 import User from "../models/users";
@@ -80,7 +81,8 @@ router.post(
       const user = new User(userData);
       const partner = new Partner(partnerData);
 
-      partner._id = user._id;
+      partner._id = new mongoose.Types.ObjectId(user._id);
+      console.log(user, partner);
       await user.save();
       await partner.save();
 

@@ -1,5 +1,5 @@
 .env
 .e2e.local
 node_modules
-
+.env.e2e
 dist

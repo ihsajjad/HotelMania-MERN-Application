@@ -7,6 +7,34 @@ import { upload, uploadProfile } from "../shared/utils";
 
 const router = express.Router();
 
+// getting all hotels
+router.get("/search", async (req: Request, res: Response) => {
+  try {
+    const pageSize = 3;
+    const pageNumber = parseInt(
+      req.query.page ? req.query.page.toString() : "0"
+    );
+
+    const skip = pageNumber * pageSize;
+
+    const hotels = await Hotel.find().skip(skip).limit(pageSize);
+
+    const total = await Hotel.countDocuments();
+
+    const response = {
+      data: hotels,
+      pagination: {
+        total,
+        page: pageNumber,
+        pages: Math.ceil(total / pageSize),
+      },
+    };
+    res.json(response);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // get all the hotels for individual user
 router.get(
   "/my-hotels",

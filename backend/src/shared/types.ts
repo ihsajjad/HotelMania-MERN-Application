@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 export type UserType = {
   _id?: string;
   name: string;
@@ -8,7 +10,7 @@ export type UserType = {
 };
 
 export type HotelOwnerType = {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   name: string;
   email: string;
   phone: string;

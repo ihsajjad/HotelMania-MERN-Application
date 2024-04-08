@@ -19,7 +19,7 @@ const MyHotels = () => {
   const { data: hotels, refetch: refetchHotels } = useQuery(
     "fetchMyHotels",
     apiClient.fetchMyHotels,
-    { enabled: !!user._id }
+    { enabled: !!user._id, onError: (error) => console.log(error) }
   );
 
   const { mutate: deleteHotel } = useMutation(apiClient.deleteSingleHotel, {
@@ -66,11 +66,11 @@ const MyHotels = () => {
               >
                 <h2 className="text-2xl font-bold">{hotel.name}</h2>
                 <div className="flex md:flex-row flex-col gap-4 relative">
-                  <div className="flex-1">
+                  <div className="h-full flex-1">
                     <img
                       src={hotel.images[0].image}
                       alt=""
-                      className="h-64 w-full object-cover object-center rounded"
+                      className="h-full w-full object-cover object-center rounded"
                     />
                   </div>
                   <span className="hotel-type-btn">
