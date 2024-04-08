@@ -10,12 +10,12 @@ const router = express.Router();
 // getting all hotels
 router.get("/search", async (req: Request, res: Response) => {
   try {
-    const pageSize = 3;
+    const pageSize = 5;
     const pageNumber = parseInt(
-      req.query.page ? req.query.page.toString() : "0"
+      req.query.page ? req.query.page.toString() : "1"
     );
 
-    const skip = pageNumber * pageSize;
+    const skip = (pageNumber - 1) * pageSize;
 
     const hotels = await Hotel.find().skip(skip).limit(pageSize);
 

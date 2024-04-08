@@ -25,9 +25,12 @@ const HotelResultCard = ({ hotel }: { hotel: HotelDataType }) => {
             ))}
           </div>
           <h3 className="text-lg font-bold">{hotel.name}</h3>
+          <span>
+            {hotel.city}, {hotel.country}
+          </span>
         </div>
         <div className="flex-grow">
-          <p className="text-justify text-slate-500 md:line-clamp-6 line-clamp-2">
+          <p className="text-justify text-slate-500 md:line-clamp-5 line-clamp-2">
             {hotel.description}
           </p>
         </div>

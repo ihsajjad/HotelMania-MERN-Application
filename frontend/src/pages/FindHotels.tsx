@@ -4,14 +4,22 @@ import * as apiClient from "../api-client";
 import HotelResultCard from "../components/HotelResultCard";
 
 const FindHotels = () => {
-  const { data } = useQuery("fetchAllHotels", apiClient.fetchAllHotels, {
-    onSuccess: () => {},
-    onError: () => {},
-  });
+  const { data, isLoading } = useQuery(
+    "fetchAllHotels",
+    apiClient.fetchAllHotels,
+    {
+      onSuccess: () => {},
+      onError: () => {},
+    }
+  );
+
+  if (isLoading) return <span>Loading</span>;
 
   let hotels: HotelDataType[] = [];
-
-  if (data) hotels = data?.data;
+  //   let pagination: Pagination;
+  if (data) {
+    hotels = data?.data;
+  }
 
   return (
     <div className="custom-container min-h-screen">
@@ -26,6 +34,24 @@ const FindHotels = () => {
           <div className="flex flex-col gap-4">
             {hotels?.map((hotel) => <HotelResultCard hotel={hotel} />)}
           </div>
+        </div>
+      </div>
+
+      {/* pagination */}
+      <div className="flex items-center justify-center">
+        <div className="join gap-2 my-4">
+          {Array(data?.pagination?.pages || 0)
+            .fill(undefined)
+            .map((_, i) => {
+              const value = i + 1;
+              return (
+                <button
+                  className={`h-8 w-8 text-lg flex-center font-bold rounded ${data?.pagination?.page === value ? "bg-[var(--main-color)] text-white" : "bg-slate-300 "}`}
+                >
+                  {value}
+                </button>
+              );
+            })}
         </div>
       </div>
     </div>
