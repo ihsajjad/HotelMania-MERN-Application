@@ -21,7 +21,6 @@ const FacitiliesSection = () => {
                 value={facility}
                 {...register("facilities", {
                   validate: (facilities) => {
-                    console.log(facilities);
                     if (facilities && facilities.length > 0) return true;
                     else return "At least one facility is required!";
                   },

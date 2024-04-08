@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { BiHotel, BiMoney, BiStar } from "react-icons/bi";
 import { BsBuilding, BsMap } from "react-icons/bs";
+import { FaEdit, FaEye } from "react-icons/fa";
+import { IoTrashSharp } from "react-icons/io5";
 import { useMutation, useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import * as apiClient from "../../../api-client";
@@ -10,6 +12,7 @@ import UpdateHotelModal from "../../../components/UpdateHotelModal";
 import { useAppContext } from "../../../contexts/UseContexts";
 import { HotelDataType } from "../../../shared/Types";
 import { errorToast, successToast } from "../../../shared/utils";
+
 const MyHotels = () => {
   const { user } = useAppContext() || {};
   const [hotelData, setHotelData] = useState<HotelDataType>();
@@ -62,54 +65,60 @@ const MyHotels = () => {
                 className="flex gap-4 flex-col w-full p-4 rounded border border-zinc-300 shadow-lg shadow-slate-300"
               >
                 <h2 className="text-2xl font-bold">{hotel.name}</h2>
-                <div className="flex md:flex-row flex-col gap-4">
-                  <img
-                    src={hotel.images[0].image}
-                    alt=""
-                    className="h-64 flex-1 object-cover object-center rounded"
-                  />
-                  <div className="flex-1 bg-slate-200 rounded p-4">
-                    <p className="md:line-clamp-[7] line-clamp-3 w-full text-justify">
-                      {hotel.description}
-                    </p>
+                <div className="flex md:flex-row flex-col gap-4 relative">
+                  <div className="flex-1">
+                    <img
+                      src={hotel.images[0].image}
+                      alt=""
+                      className="h-64 w-full object-cover object-center rounded"
+                    />
                   </div>
-                </div>
-                <div className="grid xl:grid-cols-[2fr_1fr_2fr_2fr_2fr] md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">
-                  <div className="border text-sm border-slate-300 rounded-sm p-3 flex items-center gap-1">
-                    <BsMap />
-                    {hotel.city}, {hotel.country}
-                  </div>
-                  <div className="border text-sm border-slate-300 rounded-sm p-3 flex items-center gap-1">
+                  <span className="hotel-type-btn">
                     <BsBuilding />
                     {hotel.type}
-                  </div>
-                  <div className="border text-sm border-slate-300 rounded-sm p-3 flex items-center gap-1">
-                    <BiMoney />${hotel.pricePerNight} per night
-                  </div>
-                  <div className="border text-sm border-slate-300 rounded-sm p-3 flex items-center gap-1">
-                    <BiHotel />
-                    {hotel.adultCount} adults, {hotel.childCount} children
-                  </div>
-                  <div className="border text-sm border-slate-300 rounded-sm p-3 flex items-center gap-1">
-                    <BiStar />
-                    {hotel.starRating} Star Rating
+                  </span>
+                  <div className="flex-1 rounded p-4 border border-slate-300 flex flex-col">
+                    <div className="flex-grow">
+                      <p className="line-clamp-5 text-justify ">
+                        {hotel.description}
+                      </p>
+                    </div>
+                    <div className="grid md:grid-cols-[1fr_1fr] sm:grid-cols-2 grid-cols-1 gap-2 mt-4">
+                      <div className="border text-sm border-slate-300 rounded-sm p-3 flex items-center gap-1">
+                        <BsMap />
+                        {hotel.city}, {hotel.country}
+                      </div>
+
+                      <div className="border text-sm border-slate-300 rounded-sm p-3 flex items-center gap-1">
+                        <BiMoney />${hotel.pricePerNight} per night
+                      </div>
+                      <div className="border text-sm border-slate-300 rounded-sm p-3 flex items-center gap-1">
+                        <BiHotel />
+                        {hotel.adultCount} adults, {hotel.childCount} children
+                      </div>
+                      <div className="border text-sm border-slate-300 rounded-sm p-3 flex items-center gap-1">
+                        <BiStar />
+                        {hotel.starRating} Star Rating
+                      </div>
+                    </div>
                   </div>
                 </div>
+
                 <span className="flex gap-3 justify-center sm:justify-end">
                   <button
                     onClick={() => deleteHotel(hotel._id as string)}
                     className="bg-red-500 hover:bg-red-400 text-white py-1.5 px-3 rounded font-bold"
                   >
-                    Delete
+                    <IoTrashSharp />
                   </button>
                   <button
                     onClick={() => updateModal(hotel).showModal()}
                     className="bg-orange-500 text-white py-1.5 px-3 rounded font-bold"
                   >
-                    Edit
+                    <FaEdit />
                   </button>
                   <Link to={`/details/${hotel._id}`} className="custom-btn">
-                    View Details
+                    <FaEye />
                   </Link>
                 </span>
               </div>

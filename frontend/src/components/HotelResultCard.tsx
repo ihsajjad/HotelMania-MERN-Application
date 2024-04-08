@@ -15,9 +15,7 @@ const HotelResultCard = ({ hotel }: { hotel: HotelDataType }) => {
           alt=""
           className="rounded w-full h-full object-center object-cover"
         />
-        <span className="absolute top-2 left-2 bg-[var(--main-color)] font-bold text-[var(--second-bg-color)] py-0.5 px-2 rounded">
-          {hotel.type}
-        </span>
+        <span className="hotel-type-btn">{hotel.type}</span>
       </div>
 
       <div className="flex-1 flex flex-col gap-3">

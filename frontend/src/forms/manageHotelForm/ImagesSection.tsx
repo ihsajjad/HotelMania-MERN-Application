@@ -42,7 +42,7 @@ const ImagesSection = () => {
     setImage({ url: "", label: "", err: "" });
     const formData = new FormData();
     formData.append("file", e[0]);
-    if (e[0].size > 1024 * 1024) {
+    if (e[0]?.size > 1024 * 1024) {
       return setImage({
         err: "Maximum 1 MB",
         url: "",
@@ -71,7 +71,7 @@ const ImagesSection = () => {
       ]);
     }
     setImage({ url: "", label: "", err: "" });
-    if (images?.length >= 2) delete errors.images;
+    if (images?.length >= 1) delete errors.images;
   };
 
   const handleDeleteImage = (url: string) => {

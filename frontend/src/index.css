@@ -58,6 +58,10 @@
   @apply flex items-center justify-center;
 }
 
+.hotel-type-btn {
+  @apply absolute top-2 left-2 bg-[var(--main-color)] font-semibold text-[var(--second-bg-color)] py-0.5 px-2 rounded flex items-center justify-center gap-0.5;
+}
+
 /* ============================ Start Hero Section Background Shape ============================ */
 .hero-shape {
   position: absolute;
