@@ -1,3 +1,6 @@
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 const Header = () => {
   return (
     <div>
@@ -7,7 +10,7 @@ const Header = () => {
           Where Comfort Meets Luxury and Every Moment Counts
         </p>
       </div>
-      <div className="bg-slate-700 lg:-mt-10 md:-mt-16 -mt-20 xl:mx-32 lg:mx-20 md:mx-10 mx-4 max-w-screen-lg grid lg:grid-cols-[1fr_1fr_1fr_1fr] md:grid-cols-[2fr_2fr] gap-3 p-4">
+      <div className="bg-slate-700 lg:-mt-10 md:-mt-16 -mt-20 xl:mx-32 lg:mx-20 md:mx-10 mx-4 max-w-screen-lg grid lg:grid-cols-[2fr_2fr_1fr_1fr_2fr] md:grid-cols-2 gap-2 p-4">
         <input
           type="text"
           placeholder="Where are you going?"
@@ -33,17 +36,22 @@ const Header = () => {
             />
           </label>
         </div>
-        <div className="flex bg-white items-center">
-          <input
-            type="date"
-            placeholder="Check-in Date"
-            className="outline-none p-2 lg:max-w-36 w-1/2"
+        <div className="flex gap-2 bg-white ">
+          <DatePicker
+            startDate={new Date()}
+            endDate={new Date()}
+            onChange={() => {}}
+            placeholderText="Check-in date"
+            className=" focus:outline-none p-2 w-fit"
           />
-          {/* <span className="font-bold text-slate-500">To</span> */}
-          <input
-            type="date"
-            placeholder="Check-out Date"
-            className="outline-none p-2 lg:max-w-36 w-1/2"
+        </div>
+        <div className="flex gap-2 bg-white ">
+          <DatePicker
+            startDate={new Date()}
+            endDate={new Date()}
+            onChange={() => {}}
+            placeholderText="Check-in date"
+            className=" focus:outline-none p-2"
           />
         </div>
         <div className="flex gap-2">
