@@ -21,7 +21,7 @@ const HotelResultCard = ({ hotel }: { hotel: HotelDataType }) => {
       <div className="flex-1 flex flex-col gap-3">
         <div className="flex flex-col">
           <div className="flex">
-            {Array.from({ length: hotel?.starRating }).map((_, i) => (
+            {Array.from({ length: hotel?.starRating || 0 }).map((_, i) => (
               <AiFillStar key={i} className="fill-yellow-400" />
             ))}
           </div>
