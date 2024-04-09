@@ -1,27 +1,27 @@
 import { ChangeEvent } from "react";
-import { hotelTypes } from "../config/config.hotel-option";
+import { hotelFacilities } from "../config/config.hotel-option";
 
 type Props = {
-  selectedTypes: string[];
+  selectedFacilities: string[];
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
-const FilterByTypes = ({ selectedTypes, onChange }: Props) => {
+const FilterByFacilities = ({ selectedFacilities, onChange }: Props) => {
   return (
     <div className="border-b border-zinc-300 pb-4">
-      <h4 className="text-lg font-bold mb-2">Types</h4>
+      <h4 className="text-lg font-bold mb-2">Facilities</h4>
       <div className="flex flex-col gap-1">
-        {hotelTypes.map((type) => (
+        {hotelFacilities.map((facility) => (
           <label
-            key={type}
+            key={facility}
             className="flex items-center gap-1.5 cursor-pointer"
           >
             <input
               type="checkbox"
-              value={type}
+              value={facility}
               onChange={onChange}
-              checked={selectedTypes?.includes(type)}
+              checked={selectedFacilities?.includes(facility)}
             />
-            <span>{type}</span>
+            <span>{facility}</span>
           </label>
         ))}
       </div>
@@ -29,4 +29,4 @@ const FilterByTypes = ({ selectedTypes, onChange }: Props) => {
   );
 };
 
-export default FilterByTypes;
+export default FilterByFacilities;

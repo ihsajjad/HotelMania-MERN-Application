@@ -210,6 +210,11 @@ router.post(
 const constructSearchQuery = (queryParams: any) => {
   const constructedQuery: any = {};
 
+  if (queryParams.facilities) {
+    const facilities = queryParams.facilities;
+    constructedQuery.facilities = { $all: facilities };
+  }
+
   if (queryParams.types) {
     const types = Array.isArray(queryParams.types)
       ? queryParams.types

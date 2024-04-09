@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from "react";
 import { useQuery } from "react-query";
 import { HotelDataType } from "../../../backend/src/shared/types";
 import * as apiClient from "../api-client";
+import FilterByFacilities from "../components/FilterByFacilities";
 import FilterByRating from "../components/FilterByRating";
 import FilterByTypes from "../components/FilterByTypes";
 import HotelResultCard from "../components/HotelResultCard";
@@ -13,7 +14,7 @@ const FindHotels = () => {
   const [page, setPage] = useState<number>();
   const [selectedStars, setSelectedStars] = useState<string[]>([]);
   const [selectedHotelTypes, setSelectedHotelTypes] = useState<string[]>([]);
-  const [selectedFacilities, setSelectedFacilities] = useState<string[]>();
+  const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
   const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
   const [sortOptions, setSortOptions] = useState<string>("");
 
@@ -64,6 +65,16 @@ const FindHotels = () => {
     );
   };
 
+  const handleFacilityChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const facility = event.target.value;
+
+    setSelectedFacilities((prev) =>
+      event.target.checked
+        ? [...prev, facility]
+        : prev?.filter((p) => p !== facility)
+    );
+  };
+
   return (
     <div className="custom-container min-h-screen">
       <div className="flex md:flex-row flex-col gap-4 py-4">
@@ -71,7 +82,7 @@ const FindHotels = () => {
           <h3 className="text-xl font-bold border-b border-zinc-300 pb-4 mb-4">
             Filter By :
           </h3>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 text-sm">
             <FilterByRating
               selectedStars={selectedStars}
               onChange={handleStarChange}
@@ -80,11 +91,15 @@ const FindHotels = () => {
               selectedTypes={selectedHotelTypes}
               onChange={handleTypeChange}
             />
+            <FilterByFacilities
+              selectedFacilities={selectedFacilities}
+              onChange={handleFacilityChange}
+            />
           </div>
         </div>
         <div className="md:w-4/5">
           <h4 className="text-xl font-bold mb-3">
-            {hotels?.length} Hotels found
+            {data?.pagination.total} Hotels found
           </h4>
           <div className="flex flex-col gap-4">
             {hotels?.map((hotel) => (

@@ -10,7 +10,10 @@ const FilterByRating = ({ selectedStars, onChange }: Props) => {
       <h4 className="text-lg font-bold mb-2">Rating</h4>
       <div className="flex flex-col gap-1">
         {[1, 2, 3, 4, 5].map((star) => (
-          <label key={star} className="flex items-center gap-1.5">
+          <label
+            key={star}
+            className="flex items-center gap-1.5 cursor-pointer"
+          >
             <input
               type="checkbox"
               value={star}
