@@ -5,12 +5,12 @@ import { FaEdit, FaEye } from "react-icons/fa";
 import { IoTrashSharp } from "react-icons/io5";
 import { useMutation, useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import { HotelDataType } from "../../../../../backend/src/shared/types";
 import * as apiClient from "../../../api-client";
 import AddHotelModal from "../../../components/AddHotelModal";
 import PageTitle from "../../../components/PageTitle";
 import UpdateHotelModal from "../../../components/UpdateHotelModal";
 import { useAppContext } from "../../../contexts/UseContexts";
-import { HotelDataType } from "../../../shared/Types";
 import { errorToast, successToast } from "../../../shared/utils";
 
 const MyHotels = () => {

@@ -32,7 +32,9 @@ const FindHotels = () => {
             {hotels?.length} Hotels found
           </h4>
           <div className="flex flex-col gap-4">
-            {hotels?.map((hotel) => <HotelResultCard hotel={hotel} />)}
+            {hotels?.map((hotel) => (
+              <HotelResultCard hotel={hotel} key={hotel._id} />
+            ))}
           </div>
         </div>
       </div>
@@ -46,6 +48,7 @@ const FindHotels = () => {
               const value = i + 1;
               return (
                 <button
+                  key={value}
                   className={`h-8 w-8 text-lg flex-center font-bold rounded ${data?.pagination?.page === value ? "bg-[var(--main-color)] text-white" : "bg-slate-300 "}`}
                 >
                   {value}

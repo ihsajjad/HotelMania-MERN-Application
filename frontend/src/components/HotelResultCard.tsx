@@ -6,7 +6,7 @@ const HotelResultCard = ({ hotel }: { hotel: HotelDataType }) => {
   return (
     <div
       key={hotel._id}
-      className="flex gap-4 md:flex-row flex-col w-full p-4 rounded md:h-80 border border-zinc-300"
+      className="flex gap-4 md:flex-row flex-col w-full p-4 rounded md:h-72 border border-zinc-300"
     >
       <div className="flex-1 relative">
         <img
@@ -30,7 +30,7 @@ const HotelResultCard = ({ hotel }: { hotel: HotelDataType }) => {
           </span>
         </div>
         <div className="flex-grow">
-          <p className="text-justify text-slate-500 md:line-clamp-5 line-clamp-2">
+          <p className="text-justify text-slate-500 md:line-clamp-4 line-clamp-2">
             {hotel.description}
           </p>
         </div>
