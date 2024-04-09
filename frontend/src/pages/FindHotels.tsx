@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { HotelDataType } from "../../../backend/src/shared/types";
 import * as apiClient from "../api-client";
 import FilterByFacilities from "../components/FilterByFacilities";
+import FilterByMaxPrice from "../components/FilterByMaxPrice";
 import FilterByRating from "../components/FilterByRating";
 import FilterByTypes from "../components/FilterByTypes";
 import HotelResultCard from "../components/HotelResultCard";
@@ -75,6 +76,11 @@ const FindHotels = () => {
     );
   };
 
+  const handleMaxPriceChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const maxPrice = event.target.value;
+    setSelectedPrice(parseInt(maxPrice));
+  };
+
   return (
     <div className="custom-container min-h-screen">
       <div className="flex md:flex-row flex-col gap-4 py-4">
@@ -94,6 +100,10 @@ const FindHotels = () => {
             <FilterByFacilities
               selectedFacilities={selectedFacilities}
               onChange={handleFacilityChange}
+            />
+            <FilterByMaxPrice
+              selectedPrice={selectedPrice as number}
+              onChange={handleMaxPriceChange}
             />
           </div>
         </div>

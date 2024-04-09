@@ -210,6 +210,10 @@ router.post(
 const constructSearchQuery = (queryParams: any) => {
   const constructedQuery: any = {};
 
+  if (queryParams.maxPrice) {
+    constructedQuery.pricePerNight = { $gte: parseInt(queryParams.maxPrice) };
+  }
+
   if (queryParams.facilities) {
     const facilities = queryParams.facilities;
     constructedQuery.facilities = { $all: facilities };
