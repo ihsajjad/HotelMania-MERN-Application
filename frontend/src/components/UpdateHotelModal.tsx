@@ -1,9 +1,9 @@
 // import { useMutation } from "react-query";
 import { useState } from "react";
 import { useMutation } from "react-query";
+import { HotelDataType } from "../../../backend/src/shared/types";
 import * as apiClient from "../api-client";
 import ManageHotelForm from "../forms/manageHotelForm/ManageHotelForm";
-import { HotelDataType } from "../shared/Types";
 import { errorToast, successToast } from "../shared/utils";
 
 const UpdateHotelModal = ({ hotel }: { hotel?: HotelDataType }) => {

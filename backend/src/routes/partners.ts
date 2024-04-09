@@ -82,7 +82,7 @@ router.post(
       const partner = new Partner(partnerData);
 
       partner._id = new mongoose.Types.ObjectId(user._id);
-      console.log(user, partner);
+
       await user.save();
       await partner.save();
 
