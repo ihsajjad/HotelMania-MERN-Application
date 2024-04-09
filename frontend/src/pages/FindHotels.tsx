@@ -7,6 +7,7 @@ import FilterByMaxPrice from "../components/FilterByMaxPrice";
 import FilterByRating from "../components/FilterByRating";
 import FilterByTypes from "../components/FilterByTypes";
 import HotelResultCard from "../components/HotelResultCard";
+import SortOptions from "../components/SortOptions";
 import { useSearchContext } from "../contexts/UseContexts";
 import { SearchParams } from "../shared/Types";
 
@@ -108,9 +109,15 @@ const FindHotels = () => {
           </div>
         </div>
         <div className="md:w-4/5">
-          <h4 className="text-xl font-bold mb-3">
-            {data?.pagination.total} Hotels found
-          </h4>
+          <div className="flex items-center justify-between mb-4">
+            <h4 className="text-xl font-bold">
+              {data?.pagination?.total} Hotels found
+            </h4>
+            <SortOptions
+              sortOptions={sortOptions}
+              onChange={(e) => setSortOptions(e.target.value)}
+            />
+          </div>
           <div className="flex flex-col gap-4">
             {hotels?.map((hotel) => (
               <HotelResultCard hotel={hotel} key={hotel._id} />

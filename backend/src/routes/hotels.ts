@@ -11,8 +11,22 @@ const router = express.Router();
 router.get("/search", async (req: Request, res: Response) => {
   try {
     const query = await constructSearchQuery(req.query);
-    console.log(query);
+    const sort: any = {};
 
+    switch (req.query.sortOptions) {
+      case "Star Rating":
+        sort.starRating = -1;
+        break;
+      case "price LtoH":
+        sort.pricePerNight = 1;
+        break;
+      case "price HtoL":
+        sort.pricePerNight = -1;
+        break;
+
+      default:
+        break;
+    }
     const pageSize = 5;
     const pageNumber = parseInt(
       req.query.page ? req.query.page.toString() : "1"
@@ -20,7 +34,10 @@ router.get("/search", async (req: Request, res: Response) => {
 
     const skip = (pageNumber - 1) * pageSize;
 
-    const hotels = await Hotel.find(query).skip(skip).limit(pageSize);
+    const hotels = await Hotel.find(query)
+      .skip(skip)
+      .limit(pageSize)
+      .sort(sort);
 
     const total = await Hotel.countDocuments(query);
 
