@@ -1,12 +1,35 @@
+import { useState } from "react";
 import { useQuery } from "react-query";
 import { HotelDataType } from "../../../backend/src/shared/types";
 import * as apiClient from "../api-client";
 import HotelResultCard from "../components/HotelResultCard";
+import { useSearchContext } from "../contexts/UseContexts";
+import { SearchParams } from "../shared/Types";
 
 const FindHotels = () => {
+  const search = useSearchContext();
+  const [page, setPage] = useState<number>();
+  const [selectedStars, setSelectedStars] = useState<string[]>();
+  const [selectedHotelTypes, setSelectedHotelTypes] = useState<string[]>();
+  const [selectedFacilities, setSelectedFacilities] = useState<string[]>();
+  const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
+  const [sortOptions, setSortOptions] = useState<string>("");
+
+  const searchParams: SearchParams = {
+    destination: search.destination,
+    adultCount: search.adultCount.toString(),
+    childCount: search.childCount.toString(),
+    page: page?.toString(),
+    stars: selectedStars,
+    types: selectedHotelTypes,
+    facilities: selectedFacilities,
+    maxPrice: selectedPrice?.toString(),
+    sortOptions,
+  };
+
   const { data, isLoading } = useQuery(
-    "fetchAllHotels",
-    apiClient.fetchAllHotels,
+    ["fetchAllHotels", searchParams],
+    () => apiClient.fetchAllHotels(searchParams),
     {
       onSuccess: () => {},
       onError: () => {},
@@ -16,7 +39,6 @@ const FindHotels = () => {
   if (isLoading) return <span>Loading</span>;
 
   let hotels: HotelDataType[] = [];
-  //   let pagination: Pagination;
   if (data) {
     hotels = data?.data;
   }
@@ -49,6 +71,7 @@ const FindHotels = () => {
               return (
                 <button
                   key={value}
+                  onClick={(e) => setPage(parseInt(e.currentTarget.innerText))}
                   className={`h-8 w-8 text-lg flex-center font-bold rounded ${data?.pagination?.page === value ? "bg-[var(--main-color)] text-white" : "bg-slate-300 "}`}
                 >
                   {value}

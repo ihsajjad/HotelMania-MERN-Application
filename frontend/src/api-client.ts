@@ -5,12 +5,30 @@ import {
 } from "../../backend/src/shared/types";
 import { LoginType } from "./pages/Login";
 
-import { HotelsResponse, PartnerType } from "./shared/Types";
+import { HotelsResponse, PartnerType, SearchParams } from "./shared/Types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
-export const fetchAllHotels = async (): Promise<HotelsResponse> => {
-  const res = await fetch(`${API_BASE_URL}/api/hotels/search`);
+export const fetchAllHotels = async (
+  searchParams: SearchParams
+): Promise<HotelsResponse> => {
+  const queryParams = new URLSearchParams();
+
+  queryParams.append("destination", searchParams.destination);
+  queryParams.append("adultCount", searchParams.adultCount || "");
+  queryParams.append("childCount", searchParams.childCount || "");
+  queryParams.append("page", searchParams.page || "");
+  queryParams.append("maxPrice", searchParams.maxPrice || "");
+  queryParams.append("sortOptions", searchParams.sortOptions || "");
+
+  searchParams.facilities?.forEach((facility) =>
+    queryParams.append(`facilities`, facility)
+  );
+
+  searchParams.types?.forEach((type) => queryParams.append(`types`, type));
+  searchParams.stars?.forEach((star) => queryParams.append(`stars`, star));
+
+  const res = await fetch(`${API_BASE_URL}/api/hotels/search?${queryParams}`);
 
   if (!res) throw new Error("Some thing went wrong");
 

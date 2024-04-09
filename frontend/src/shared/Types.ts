@@ -38,3 +38,15 @@ export type HotelsResponse = {
   data: HotelDataType[];
   pagination: Pagination;
 };
+
+export type SearchParams = {
+  destination: string;
+  adultCount: string;
+  childCount: string;
+  page: string | undefined;
+  stars: string[] | undefined;
+  types: string[] | undefined;
+  facilities: string[] | undefined;
+  maxPrice: string | undefined;
+  sortOptions: string | undefined;
+};
