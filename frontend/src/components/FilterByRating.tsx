@@ -15,7 +15,7 @@ const FilterByRating = ({ selectedStars, onChange }: Props) => {
               type="checkbox"
               value={star}
               onChange={onChange}
-              checked={selectedStars.includes(star.toString())}
+              checked={selectedStars?.includes(star.toString())}
             />
             <span>{star} Stars</span>
           </label>

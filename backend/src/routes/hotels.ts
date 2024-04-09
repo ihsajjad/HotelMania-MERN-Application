@@ -22,7 +22,7 @@ router.get("/search", async (req: Request, res: Response) => {
 
     const hotels = await Hotel.find(query).skip(skip).limit(pageSize);
 
-    const total = await Hotel.countDocuments();
+    const total = await Hotel.countDocuments(query);
 
     const response = {
       data: hotels,
@@ -209,6 +209,14 @@ router.post(
 
 const constructSearchQuery = (queryParams: any) => {
   const constructedQuery: any = {};
+
+  if (queryParams.types) {
+    const types = Array.isArray(queryParams.types)
+      ? queryParams.types
+      : queryParams.types;
+
+    constructedQuery.type = { $in: types };
+  }
 
   if (queryParams.stars) {
     const starRatings = Array.isArray(queryParams.stars)

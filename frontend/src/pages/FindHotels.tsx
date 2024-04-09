@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { HotelDataType } from "../../../backend/src/shared/types";
 import * as apiClient from "../api-client";
 import FilterByRating from "../components/FilterByRating";
+import FilterByTypes from "../components/FilterByTypes";
 import HotelResultCard from "../components/HotelResultCard";
 import { useSearchContext } from "../contexts/UseContexts";
 import { SearchParams } from "../shared/Types";
@@ -11,7 +12,7 @@ const FindHotels = () => {
   const search = useSearchContext();
   const [page, setPage] = useState<number>();
   const [selectedStars, setSelectedStars] = useState<string[]>([]);
-  const [selectedHotelTypes, setSelectedHotelTypes] = useState<string[]>();
+  const [selectedHotelTypes, setSelectedHotelTypes] = useState<string[]>([]);
   const [selectedFacilities, setSelectedFacilities] = useState<string[]>();
   const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
   const [sortOptions, setSortOptions] = useState<string>("");
@@ -52,7 +53,17 @@ const FindHotels = () => {
         : prevStars?.filter((star) => star !== starRating)
     );
   };
-  console.log(selectedStars);
+
+  const handleTypeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const type = event.target.value;
+
+    setSelectedHotelTypes((prevTypes) =>
+      event.target.checked
+        ? [...prevTypes, type]
+        : prevTypes?.filter((prevType) => prevType !== type)
+    );
+  };
+
   return (
     <div className="custom-container min-h-screen">
       <div className="flex md:flex-row flex-col gap-4 py-4">
@@ -64,6 +75,10 @@ const FindHotels = () => {
             <FilterByRating
               selectedStars={selectedStars}
               onChange={handleStarChange}
+            />
+            <FilterByTypes
+              selectedTypes={selectedHotelTypes}
+              onChange={handleTypeChange}
             />
           </div>
         </div>
