@@ -32,13 +32,8 @@ const FindHotels = () => {
     sortOptions,
   };
 
-  const { data, isLoading } = useQuery(
-    ["fetchAllHotels", searchParams],
-    () => apiClient.fetchAllHotels(searchParams),
-    {
-      onSuccess: () => {},
-      onError: () => {},
-    }
+  const { data, isLoading } = useQuery(["fetchAllHotels", searchParams], () =>
+    apiClient.fetchAllHotels(searchParams)
   );
 
   if (isLoading) return <span>Loading</span>;

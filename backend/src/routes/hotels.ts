@@ -27,19 +27,20 @@ router.get("/search", async (req: Request, res: Response) => {
       default:
         break;
     }
+
+    const total = await Hotel.countDocuments(query);
+
     const pageSize = 5;
-    const pageNumber = parseInt(
-      req.query.page ? req.query.page.toString() : "1"
-    );
+    let pageNumber = parseInt(req.query.page ? req.query.page.toString() : "1");
+
+    if (total <= 5) pageNumber = 1;
 
     const skip = (pageNumber - 1) * pageSize;
 
     const hotels = await Hotel.find(query)
       .skip(skip)
       .limit(pageSize)
-      .sort(sort);
-
-    const total = await Hotel.countDocuments(query);
+      ?.sort(sort);
 
     const response = {
       data: hotels,
@@ -51,6 +52,7 @@ router.get("/search", async (req: Request, res: Response) => {
     };
     res.json(response);
   } catch (error) {
+    console.log(__dirname, error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
