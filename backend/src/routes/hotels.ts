@@ -227,6 +227,13 @@ router.post(
 const constructSearchQuery = (queryParams: any) => {
   const constructedQuery: any = {};
 
+  if (queryParams.destination) {
+    constructedQuery.$or = [
+      { city: new RegExp(queryParams.destination, "i") },
+      { country: new RegExp(queryParams.destination, "i") },
+    ];
+  }
+
   if (queryParams.maxPrice) {
     constructedQuery.pricePerNight = { $gte: parseInt(queryParams.maxPrice) };
   }
