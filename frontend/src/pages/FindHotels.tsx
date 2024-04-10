@@ -85,7 +85,7 @@ const FindHotels = () => {
   return (
     <div className="custom-container min-h-screen">
       <div className="flex md:flex-row flex-col gap-4 py-4">
-        <div className="border border-zinc-300 md:w-1/5 p-4 sticky top-2 h-fit rounded">
+        <div className="border border-zinc-300 md:w-1/5 p-4 sticky top-2 h-fit rounded md:block hidden">
           <h3 className="text-xl font-bold border-b border-zinc-300 pb-4 mb-4">
             Filter By :
           </h3>
@@ -109,7 +109,7 @@ const FindHotels = () => {
           </div>
         </div>
         <div className="md:w-4/5">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex md:items-center justify-between mb-4 gap-2 md:flex-row flex-col">
             <h4 className="text-xl font-bold">
               {data?.pagination?.total} Hotels found
             </h4>
