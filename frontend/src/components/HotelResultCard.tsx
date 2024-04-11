@@ -53,7 +53,7 @@ const HotelResultCard = ({ hotel }: { hotel: HotelDataType }) => {
             <span className="text-2xl font-bold">${hotel.pricePerNight}</span>
             <span>/Per night</span>
           </div>
-          <Link to={`/detail/${hotel._id}`} className="custom-btn">
+          <Link to={`/details/${hotel._id}`} className="custom-btn">
             View more
           </Link>
         </div>
