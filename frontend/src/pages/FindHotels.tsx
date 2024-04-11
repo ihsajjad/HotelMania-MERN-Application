@@ -107,6 +107,7 @@ const FindHotels = () => {
           <div className="flex md:items-center justify-between mb-4 gap-2 md:flex-row flex-col">
             <h4 className="text-xl font-bold">
               {data?.pagination?.total} Hotels found
+              {search.destination ? ` in ${search.destination}` : ""}
             </h4>
             <SortOptions
               sortOptions={sortOptions}

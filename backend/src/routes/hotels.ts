@@ -57,6 +57,19 @@ router.get("/search", async (req: Request, res: Response) => {
   }
 });
 
+// getting top rated hotels
+router.get("/top-5", async (req: Request, res: Response) => {
+  try {
+    const hotels = await Hotel.find().sort({ starRating: -1 }).limit(5);
+
+    if (!hotels) return res.json({ message: "Hotels not found" });
+
+    res.json(hotels);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // get all the hotels for individual user
 router.get(
   "/my-hotels",
