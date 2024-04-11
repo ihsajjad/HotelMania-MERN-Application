@@ -18,11 +18,11 @@ const Carousel = () => {
   console.log(topHotels);
   return (
     <div className="custom-container">
-      <div className="text-center py-5">
-        <h3 className="text-3xl text-center font-bold">
+      <div className="">
+        {/* <h3 className="text-3xl text-center font-bold">
           Top <span className="text-[var(--main-color)]">Rated</span>
-        </h3>
-        <p className="text-cener font-semibold text-slate-500">
+        </h3> */}
+        <p className="text-cener font-semibold text-slate-500 mt-3">
           Don't know where to go? Let's see top rated hotels in Hotel Mania.
         </p>
       </div>
@@ -30,15 +30,15 @@ const Carousel = () => {
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{
-          delay: 2500,
+          delay: 3000,
           disableOnInteraction: false,
         }}
         pagination={{
           clickable: true,
         }}
-        navigation={true}
+        // navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
-        className="mySwiper h-[80vh]  "
+        className="mySwiper mt-3 pb-8"
       >
         {topHotels.map((hotel) => (
           <SwiperSlide key={hotel._id} className=" md:h-[350px] my-auto">

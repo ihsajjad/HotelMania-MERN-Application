@@ -88,6 +88,24 @@ router.get(
   }
 );
 
+// get pictures for the gallery
+router.get("/gallery", async (req: Request, res: Response) => {
+  try {
+    const hotels = await Hotel.find().select("_id images").limit(4);
+    const images: { url: string; _id: string }[] = [];
+    hotels.forEach((hotel) =>
+      hotel.images.forEach((item) =>
+        images.push({ url: item.image, _id: hotel._id })
+      )
+    );
+
+    res.json(images);
+  } catch (error) {
+    console.log(__filename, error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // get individual hotel
 router.get("/:hotelId", async (req: Request, res: Response) => {
   const hotelId = req.params.hotelId;
