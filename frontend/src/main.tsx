@@ -4,6 +4,7 @@ import { RouterProvider } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { routes } from "./App.tsx";
 import AppContextProvider from "./contexts/AppContext.tsx";
+import { HotelsContextProvider } from "./contexts/HotelsProvider.tsx";
 import { SearchContextProvider } from "./contexts/SearchContext.tsx";
 import "./index.css";
 
@@ -13,9 +14,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   // <React.StrictMode>
   <QueryClientProvider client={queryClient}>
     <AppContextProvider>
-      <SearchContextProvider>
-        <RouterProvider router={routes} />
-      </SearchContextProvider>
+      <HotelsContextProvider>
+        <SearchContextProvider>
+          <RouterProvider router={routes} />
+        </SearchContextProvider>
+      </HotelsContextProvider>
     </AppContextProvider>
   </QueryClientProvider>
   // </React.StrictMode>

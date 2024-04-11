@@ -116,7 +116,9 @@ const FindHotels = () => {
           </div>
           <div className="flex flex-col gap-4">
             {hotels?.map((hotel) => (
-              <HotelResultCard hotel={hotel} key={hotel._id} />
+              <div className="md:h-72" key={hotel._id}>
+                <HotelResultCard hotel={hotel} key={hotel._id} />
+              </div>
             ))}
           </div>
         </div>
