@@ -45,3 +45,5 @@ export type AuthUserType = {
   profile: string;
   isVerified?: boolean;
 };
+
+export type GalleryType = { url: string; _id: string };

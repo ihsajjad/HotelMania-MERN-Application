@@ -1,5 +1,6 @@
 import {
   AuthUserType,
+  GalleryType,
   HotelDataType,
   HotelOwnerType,
 } from "../../backend/src/shared/types";
@@ -37,6 +38,14 @@ export const fetchAllHotels = async (
 
 export const fetchTopHotels = async (): Promise<HotelDataType[]> => {
   const res = await fetch(`${API_BASE_URL}/api/hotels/top-5`);
+
+  if (!res.ok) throw new Error("Something went wrong");
+
+  return res.json();
+};
+
+export const fetchGalleryImages = async (): Promise<GalleryType[]> => {
+  const res = await fetch(`${API_BASE_URL}/api/hotels/gallery`);
 
   if (!res.ok) throw new Error("Something went wrong");
 
