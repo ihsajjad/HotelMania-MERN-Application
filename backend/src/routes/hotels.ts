@@ -120,6 +120,21 @@ router.get("/:hotelId", async (req: Request, res: Response) => {
   }
 });
 
+// get single hotel details
+router.get("/details/:id", async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+
+    const hotel = await Hotel.findById(id);
+    if (!hotel) return res.status(400).json({ message: "Hotel doesn't exist" });
+
+    res.json(hotel);
+  } catch (error) {
+    console.log(__filename, error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // add hotel
 router.post(
   "/add-hotel",
