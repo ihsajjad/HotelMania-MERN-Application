@@ -72,17 +72,15 @@ const HotelDetails = () => {
       </div>
 
       {/* destination */}
-      <div className="grid md:grid-cols-[2fr_1fr] gap-5">
-        <div className="space-y-4 text-justify text-slate-600">
+      <div className="grid md:grid-cols-[2fr_1fr] grid-cols-1 gap-5 ">
+        <div className="space-y-4 text-justify text-slate-600 border border-zinc-300 p-3 rounded">
           {Array.isArray(descriptions) ? (
             descriptions?.map((description) => <p>{description}</p>)
           ) : (
             <p>{hotel?.description}</p>
           )}
         </div>
-        <div className="sticky top-2 right-2 p-5">
-          <GuestInfoForm />
-        </div>
+        <GuestInfoForm />
       </div>
     </div>
   );

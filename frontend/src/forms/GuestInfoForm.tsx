@@ -32,9 +32,9 @@ const GuestInfoForm = () => {
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
   return (
-    <div className="bg-gray-200 border border-zinc-300 shadow-lg shadow-[#0000006a] p-4">
-      <span className="text-xl font-bold mb-3">$50 Per night</span>
-      <form className="w-full space-y-2">
+    <div className="bg-gray-200 h-fit rounded max-w-[350px] mx-auto border border-zinc-300 shadow-lg shadow-[#00000042] p-4 md:sticky top-3">
+      <span className="text-xl font-bold">$50 Per night</span>
+      <form className="w-full space-y-2 mt-3">
         <DatePicker
           required
           selected={checkIn}
@@ -58,7 +58,7 @@ const GuestInfoForm = () => {
           minDate={minDate}
           maxDate={maxDate}
           placeholderText="Check-in date"
-          className="focus:outline-none p-2 mi-w-full"
+          className="focus:outline-none p-2 min-w-full"
           wrapperClassName="min-w-full"
         />
         <div className="flex bg-white px-2 py-1 gap-2">
