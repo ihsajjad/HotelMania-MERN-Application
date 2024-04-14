@@ -6,6 +6,7 @@ import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import path from "path";
 import authRoutes from "./routes/auth";
+import bookingRoute from "./routes/bookings";
 import hotelRoutes from "./routes/hotels";
 import partnerRoutes from "./routes/partners";
 import userRoutes from "./routes/users";
@@ -35,6 +36,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/partners", partnerRoutes);
 app.use("/api/hotels", hotelRoutes);
+app.use("/api/booking", bookingRoute);
 
 app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));

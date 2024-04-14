@@ -51,7 +51,7 @@ export type GalleryType = { url: string; _id: string };
 export type BookingType = {
   userId: string;
   hotelId: string;
-  numberOfNights: string;
+  numberOfNights: number;
   total: number;
   checkIn: Date;
   checkOut: Date;
