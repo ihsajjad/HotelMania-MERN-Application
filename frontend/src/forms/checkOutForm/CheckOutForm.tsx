@@ -4,14 +4,17 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { Stripe, StripeElements } from "@stripe/stripe-js";
-import { FormEvent } from "react";
-import { useParams } from "react-router-dom";
-import * as apiClient from "../../api-client";
+import { FormEvent, useState } from "react";
+import { PaymentIntentResType } from "../../shared/Types";
 
-const CheckOutForm = () => {
+interface Props {
+  paymentIntent: PaymentIntentResType;
+}
+
+const CheckOutForm = ({ paymentIntent }: Props) => {
   const stripe = useStripe() as Stripe;
   const elements = useElements() as StripeElements;
-  const { hotelId } = useParams();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -22,14 +25,10 @@ const CheckOutForm = () => {
       console.log(error);
       return;
     }
-
-    const { clientSecret } = await apiClient.createPaymentIntent(
-      hotelId as string
-    );
-
+    setLoading(true);
     const { error: paymentError } = await stripe.confirmPayment({
       elements,
-      clientSecret,
+      clientSecret: paymentIntent.clientSecret,
       confirmParams: {
         return_url: import.meta.env.VITE_FRONTEND_URL,
       },
@@ -38,6 +37,7 @@ const CheckOutForm = () => {
     if (error) {
       console.log(paymentError);
     }
+    setLoading(false);
   };
 
   return (
@@ -45,10 +45,10 @@ const CheckOutForm = () => {
       <PaymentElement />
       <button
         type="submit"
-        disabled={!stripe}
+        disabled={!stripe && !loading}
         className="custom-btn mt-5 w-fit mx-auto"
       >
-        Submit
+        Pay
       </button>
     </form>
   );

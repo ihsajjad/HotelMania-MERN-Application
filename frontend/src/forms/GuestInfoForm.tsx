@@ -1,7 +1,9 @@
 import DatePicker from "react-datepicker";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import * as apiClient from "../api-client";
 import { useAppContext, useSearchContext } from "../contexts/UseContexts";
+import { showInputError } from "../shared/utils";
 
 interface GuestFromType {
   checkIn: Date;
@@ -9,10 +11,17 @@ interface GuestFromType {
   adultCount: number;
   childCount: number;
 }
-const GuestInfoForm = ({ hotelId }: { hotelId: string }) => {
+const GuestInfoForm = ({
+  hotelId,
+  price,
+}: {
+  hotelId: string;
+  price: number;
+}) => {
   const search = useSearchContext();
   const navigate = useNavigate();
   const { isLogin } = useAppContext();
+  // const [numberOfNights, setNumberOfNights] = useState<number>(0);
 
   const {
     setValue,
@@ -20,6 +29,8 @@ const GuestInfoForm = ({ hotelId }: { hotelId: string }) => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
+    clearErrors,
   } = useForm<GuestFromType>({
     defaultValues: {
       checkIn: search.checkIn,
@@ -29,19 +40,8 @@ const GuestInfoForm = ({ hotelId }: { hotelId: string }) => {
     },
   });
 
-  // const { mutate: createIntent,  } = useMutation(apiClient.createPaymentIntent, {
-  //   onSuccess: (res) => {
-  //     navigate(`/booking/${hotelId}`, {
-  //       state: {
-  //         clientSecret: res.clientSecret,
-  //         paymentIntentId: res.paymentIntentId,
-  //         amount: res.total,
-  //       },
-  //     });
-  //   },
-  // });
-
   const onSignInClick = handleSubmit((data: GuestFromType) => {
+    clearErrors("checkOut");
     search.saveSearchValues(
       "",
       data.adultCount,
@@ -53,7 +53,7 @@ const GuestInfoForm = ({ hotelId }: { hotelId: string }) => {
     navigate(`/login`, { state: { from: location.pathname } });
   });
 
-  const onSubmit = handleSubmit((data: GuestFromType) => {
+  const onSubmit = handleSubmit(async (data: GuestFromType) => {
     search.saveSearchValues(
       "",
       data.adultCount,
@@ -62,7 +62,23 @@ const GuestInfoForm = ({ hotelId }: { hotelId: string }) => {
       data.checkOut
     );
 
-    navigate(`/hotel/${hotelId}/booking`);
+    const remainTimeInMS = data.checkOut.getTime() - data.checkIn.getTime();
+    const dayInMiliseconds = 1000 * 60 * 60 * 24;
+    const numberOfNights = Math.abs(remainTimeInMS / dayInMiliseconds);
+
+    console.log(numberOfNights);
+
+    if (Math.ceil(numberOfNights) < 1) {
+      setError("checkOut", { message: "Extend check out date" });
+      return;
+    }
+
+    const paymentIntent = await apiClient.createPaymentIntent(
+      hotelId,
+      Math.ceil(numberOfNights)
+    );
+
+    navigate(`/hotel/${hotelId}/booking`, { state: { paymentIntent } });
   });
 
   const checkIn = watch("checkIn");
@@ -73,7 +89,7 @@ const GuestInfoForm = ({ hotelId }: { hotelId: string }) => {
   maxDate.setFullYear(maxDate.getFullYear() + 1);
   return (
     <div className="bg-gray-200 h-fit rounded max-w-[350px] mx-auto border border-zinc-300 shadow-lg shadow-[#00000042] p-4 md:sticky top-3">
-      <span className="text-xl font-bold">$50 Per night</span>
+      <span className="text-xl font-bold">${price} Per night</span>
       <form
         onSubmit={isLogin ? onSubmit : onSignInClick}
         className="w-full space-y-2 mt-3"
@@ -104,6 +120,7 @@ const GuestInfoForm = ({ hotelId }: { hotelId: string }) => {
           className="focus:outline-none p-2 min-w-full"
           wrapperClassName="min-w-full"
         />
+        {errors.checkOut && showInputError(errors.checkOut.message as string)}
         <div className="flex bg-white px-2 py-1 gap-2">
           <label className="items-center flex">
             Adults:

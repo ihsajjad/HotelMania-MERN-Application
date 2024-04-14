@@ -1,3 +1,4 @@
+import { Stripe, loadStripe } from "@stripe/stripe-js";
 import { ReactNode, createContext, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { AuthUserType } from "../../../backend/src/shared/types";
@@ -19,7 +20,10 @@ export type ContextType = {
   logOut: () => void;
   loginUser: (data: LoginType) => void;
   refetchUser?: () => void;
+  stripePromise: Promise<Stripe | null>;
 };
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 export const AppContext = createContext<ContextType | undefined>(undefined);
 
@@ -82,6 +86,7 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
         isLoading,
         logOut,
         loginUser,
+        stripePromise,
       }}
     >
       {children}

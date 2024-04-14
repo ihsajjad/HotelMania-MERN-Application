@@ -82,7 +82,10 @@ const HotelDetails = () => {
             <p>{hotel?.description}</p>
           )}
         </div>
-        <GuestInfoForm hotelId={id as string} />
+        <GuestInfoForm
+          hotelId={id as string}
+          price={hotel?.pricePerNight as number}
+        />
       </div>
     </div>
   );

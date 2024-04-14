@@ -141,14 +141,16 @@ export const fetchSingleHotel = async (
 
 // todo: set the body
 export const createPaymentIntent = async (
-  hotelId: string
+  hotelId: string,
+  numberOfNights: number
 ): Promise<PaymentIntentResType> => {
   const res = await fetch(
-    `${API_BASE_URL}/api/hotels/${hotelId}/booking/payment_intent`,
+    `${API_BASE_URL}/api/bookings/${hotelId}/payment_intent`,
     {
       method: "POST",
       credentials: "include",
-      body: JSON.stringify({ numberOfNights: 5 }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ numberOfNights }),
     }
   );
 
