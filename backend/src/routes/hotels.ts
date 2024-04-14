@@ -1,11 +1,13 @@
 import express, { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
+import Stripe from "stripe";
 import { verifyHotelOwner, verifyToken } from "../middleware/auth";
 import Hotel from "../models/hotel";
 import { HotelDataType } from "../shared/types";
 import { upload, uploadProfile } from "../shared/utils";
 
 const router = express.Router();
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 // getting all hotels
 router.get("/search", async (req: Request, res: Response) => {
@@ -158,6 +160,48 @@ router.post(
       res.status(200).json({ message: "Hotel added successfully" });
     } catch (error) {
       console.log(__filename, error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
+// create stripe payment
+router.post(
+  "/:hotelId/booking/payment_intent",
+  async (req: Request, res: Response) => {
+    const { hotelId } = req.params;
+    try {
+      const hotel = await Hotel.findById(hotelId).select("pricePerNight");
+      if (!hotel) return res.status(400).json({ message: "Hotel not found" });
+
+      const numberOfNight = 5;
+      const total = 100 * numberOfNight;
+
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: total,
+        currency: "usd",
+        automatic_payment_methods: {
+          enabled: true,
+        },
+        metadata: {
+          userId: "userId",
+          hotelId: "hotelId",
+        },
+      });
+
+      if (!paymentIntent.client_secret)
+        return res
+          .status(500)
+          .json({ message: "Failed to create payment intent" });
+
+      const responseData = {
+        paymentIntentId: paymentIntent.id,
+        clientSecret: paymentIntent.client_secret,
+        total,
+      };
+
+      res.json(responseData);
+    } catch (error) {
       res.status(500).json({ message: "Internal server error" });
     }
   }
