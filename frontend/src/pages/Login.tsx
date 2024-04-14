@@ -18,7 +18,7 @@ const Login = () => {
   } = useForm<LoginType>();
   const { loginUser } = useAppContext();
 
-  const onSubmit = handleSubmit((data: LoginType) => {
+  const onSubmit = handleSubmit(async (data: LoginType) => {
     loginUser(data);
     // todo: fix the navigate user
   });

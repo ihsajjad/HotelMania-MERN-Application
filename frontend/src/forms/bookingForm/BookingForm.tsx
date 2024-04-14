@@ -16,7 +16,7 @@ const BookingForm = () => {
   };
 
   return (
-    <div className="flex md:flex-row flex-col">
+    <div className="custom-container my-10 flex md:flex-row flex-col">
       <div className="flex-1">Payment Summary</div>
       <div className="flex-1 p-4">
         <Elements stripe={stripePromise} options={options}>

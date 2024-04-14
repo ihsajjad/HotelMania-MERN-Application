@@ -27,7 +27,7 @@ export const routes = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
       { path: "/partner/register", element: <PartnerRegister /> },
-      { path: "/booking/:id", element: <BookingForm /> },
+      { path: "/hotel/:hotelId/booking", element: <BookingForm /> },
     ],
   },
   {
