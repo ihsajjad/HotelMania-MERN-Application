@@ -47,3 +47,13 @@ export type AuthUserType = {
 };
 
 export type GalleryType = { url: string; _id: string };
+
+export type BookingType = {
+  userId: string;
+  hotelId: string;
+  numberOfNights: string;
+  total: number;
+  checkIn: Date;
+  checkOut: Date;
+  bookedAt: Date;
+};
