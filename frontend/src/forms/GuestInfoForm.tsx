@@ -1,5 +1,8 @@
 import DatePicker from "react-datepicker";
 import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
+import * as apiClient from "../api-client";
 import { useSearchContext } from "../contexts/UseContexts";
 
 interface GuestFromType {
@@ -8,13 +11,15 @@ interface GuestFromType {
   adultCount: number;
   childCount: number;
 }
-const GuestInfoForm = () => {
+const GuestInfoForm = ({ hotelId }: { hotelId: string }) => {
   const search = useSearchContext();
+  const navigate = useNavigate();
 
   const {
     setValue,
     watch,
     register,
+    handleSubmit,
     formState: { errors },
   } = useForm<GuestFromType>({
     defaultValues: {
@@ -23,6 +28,24 @@ const GuestInfoForm = () => {
       childCount: search.childCount,
       adultCount: search.adultCount,
     },
+  });
+
+  const { mutate: createIntent } = useMutation(apiClient.createPaymentIntent, {
+    onSuccess: (res) => {
+      console.log("success", res);
+      navigate(`/booking/${hotelId}`, {
+        state: {
+          clientSecret: res.clientSecret,
+          paymentIntentId: res.paymentIntentId,
+          amount: res.total,
+        },
+      });
+    },
+  });
+
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+    createIntent(hotelId);
   });
 
   const checkIn = watch("checkIn");
@@ -34,7 +57,7 @@ const GuestInfoForm = () => {
   return (
     <div className="bg-gray-200 h-fit rounded max-w-[350px] mx-auto border border-zinc-300 shadow-lg shadow-[#00000042] p-4 md:sticky top-3">
       <span className="text-xl font-bold">$50 Per night</span>
-      <form className="w-full space-y-2 mt-3">
+      <form onSubmit={onSubmit} className="w-full space-y-2 mt-3">
         <DatePicker
           required
           selected={checkIn}

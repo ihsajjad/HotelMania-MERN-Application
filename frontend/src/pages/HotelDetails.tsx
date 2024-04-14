@@ -28,8 +28,8 @@ const HotelDetails = () => {
       <div>
         <div className="flex gap-2 items-center">
           <span className="flex">
-            {Array.from({ length: hotel?.starRating || 0 }).map(() => (
-              <AiFillStar className="fill-yellow-400" />
+            {Array.from({ length: hotel?.starRating || 0 }).map((_, i) => (
+              <AiFillStar className="fill-yellow-400" key={i} />
             ))}
           </span>
           <span className="border border-zinc-300 rounded-full py-1 px-2 md:text-lg text-xs">
@@ -67,7 +67,9 @@ const HotelDetails = () => {
       {/* facilities */}
       <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3">
         {hotel?.facilities.map((facility) => (
-          <span className="border border-zinc-300 p-2">{facility}</span>
+          <span key={facility} className="border border-zinc-300 p-2">
+            {facility}
+          </span>
         ))}
       </div>
 
@@ -75,12 +77,12 @@ const HotelDetails = () => {
       <div className="grid md:grid-cols-[2fr_1fr] grid-cols-1 gap-5 ">
         <div className="space-y-4 text-justify text-slate-600 border border-zinc-300 p-3 rounded">
           {Array.isArray(descriptions) ? (
-            descriptions?.map((description) => <p>{description}</p>)
+            descriptions?.map((description, i) => <p key={i}>{description}</p>)
           ) : (
             <p>{hotel?.description}</p>
           )}
         </div>
-        <GuestInfoForm />
+        <GuestInfoForm hotelId={id as string} />
       </div>
     </div>
   );

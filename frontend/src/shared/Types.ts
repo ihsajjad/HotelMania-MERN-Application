@@ -50,3 +50,9 @@ export type SearchParams = {
   maxPrice: string | undefined;
   sortOptions: string | undefined;
 };
+
+export type PaymentIntentResType = {
+  clientSecret: string;
+  paymentIntentId: string;
+  total: number;
+};

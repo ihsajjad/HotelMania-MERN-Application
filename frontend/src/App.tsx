@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import BookingForm from "./forms/bookingForm/BookingForm";
 import DashboardLayout from "./layouts/DashboardLayout";
 import MainLayout from "./layouts/MainLayout";
 import Error from "./pages/Error";
@@ -26,6 +27,7 @@ export const routes = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
       { path: "/partner/register", element: <PartnerRegister /> },
+      { path: "/booking/:id", element: <BookingForm /> },
     ],
   },
   {

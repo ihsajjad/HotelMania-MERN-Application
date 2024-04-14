@@ -6,7 +6,12 @@ import {
 } from "../../backend/src/shared/types";
 import { LoginType } from "./pages/Login";
 
-import { HotelsResponse, PartnerType, SearchParams } from "./shared/Types";
+import {
+  HotelsResponse,
+  PartnerType,
+  PaymentIntentResType,
+  SearchParams,
+} from "./shared/Types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
@@ -130,6 +135,24 @@ export const fetchSingleHotel = async (
 ): Promise<HotelDataType> => {
   const res = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`);
   if (!res.ok) throw new Error("Failed to fetch hotel");
+
+  return res.json();
+};
+
+// todo: set the body
+export const createPaymentIntent = async (
+  hotelId: string
+): Promise<PaymentIntentResType> => {
+  const res = await fetch(
+    `${API_BASE_URL}/api/hotels/${hotelId}/booking/payment_intent`,
+    {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify({ numberOfNights: 5 }),
+    }
+  );
+
+  if (!res.ok) throw new Error("Failed to create intent");
 
   return res.json();
 };
