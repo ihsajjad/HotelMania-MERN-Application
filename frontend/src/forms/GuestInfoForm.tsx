@@ -41,7 +41,6 @@ const GuestInfoForm = ({
   });
 
   const onSignInClick = handleSubmit((data: GuestFromType) => {
-    clearErrors("checkOut");
     search.saveSearchValues(
       "",
       data.adultCount,
@@ -65,8 +64,6 @@ const GuestInfoForm = ({
     const remainTimeInMS = data.checkOut.getTime() - data.checkIn.getTime();
     const dayInMiliseconds = 1000 * 60 * 60 * 24;
     const numberOfNights = Math.abs(remainTimeInMS / dayInMiliseconds);
-
-    console.log(numberOfNights);
 
     if (Math.ceil(numberOfNights) < 1) {
       setError("checkOut", { message: "Extend check out date" });
@@ -110,7 +107,10 @@ const GuestInfoForm = ({
         <DatePicker
           required
           selected={checkOut}
-          onChange={(date) => setValue("checkOut", date as Date)}
+          onChange={(date) => [
+            setValue("checkOut", date as Date),
+            clearErrors("checkOut"),
+          ]}
           selectsStart
           startDate={checkIn}
           endDate={checkOut}

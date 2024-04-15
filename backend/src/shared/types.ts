@@ -40,6 +40,7 @@ export type HotelDataType = {
 
 export type AuthUserType = {
   _id: string;
+  name: string;
   email: string;
   role: string;
   profile: string;
