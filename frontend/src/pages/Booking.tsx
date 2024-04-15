@@ -21,12 +21,10 @@ const Booking = () => {
 
   return (
     <div className="custom-container my-10 flex md:flex-row flex-col gap-5">
-      <div className="flex-1 border border-zinc-300 rounded-md">
-        <BookingSummary
-          hotel={hotel as HotelDataType}
-          numberOfNights={numberOfNights}
-        />
-      </div>
+      <BookingSummary
+        hotel={hotel as HotelDataType}
+        numberOfNights={numberOfNights}
+      />
       <div className="flex-1 rounded">
         {paymentIntent && (
           <Elements stripe={stripePromise} options={options}>

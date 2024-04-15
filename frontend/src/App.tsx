@@ -27,7 +27,14 @@ export const routes = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
       { path: "/partner/register", element: <PartnerRegister /> },
-      { path: "/hotel/:hotelId/booking", element: <Booking /> },
+      {
+        path: "/hotel/:hotelId/booking",
+        element: (
+          <PrivateRoute>
+            <Booking />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
