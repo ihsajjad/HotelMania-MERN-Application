@@ -104,7 +104,7 @@ const GuestInfoForm = ({
           maxDate={maxDate}
           placeholderText="Check-in date"
           className=" focus:outline-none p-2 min-w-full"
-          wrapperClassName="min-w-full"
+          wrapperClassName="min-w-full "
         />
         <DatePicker
           required

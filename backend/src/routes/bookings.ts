@@ -8,6 +8,33 @@ import Hotel from "../models/hotel";
 const router = express.Router();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
+// get current bookings
+router.get(
+  "/current_bookings",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    const currentDate = new Date();
+    console.log(currentDate);
+    try {
+      const query = {
+        userId: req.userId,
+        checkOut: { $gte: currentDate },
+      };
+
+      const bookings = await Booking.find(query);
+      console.log(bookings);
+      if (!bookings)
+        return res
+          .status(400)
+          .json({ message: "You don't have any current booking" });
+
+      res.json(bookings);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
 // create stripe payment
 router.post(
   "/:hotelId/payment_intent",

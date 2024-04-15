@@ -80,7 +80,7 @@ const LeftSideBar = () => {
                 <span>{item.icon}</span>
                 <Link to={item.link}>{item.label}</Link>
                 <div
-                  className={`bg-purple-700 h-10 w-10 -right-6 rotate-45 ${location.pathname === item.link ? "absolute" : "hidden"}`}
+                  className={`bg-[var(--bg-color)] h-10 w-10 -right-6 rotate-45 ${location.pathname === item.link ? "absolute" : "hidden"}`}
                 ></div>
               </li>
             ))}
