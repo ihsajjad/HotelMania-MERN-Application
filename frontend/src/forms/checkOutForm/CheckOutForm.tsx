@@ -41,7 +41,7 @@ const CheckOutForm = ({ paymentIntent }: Props) => {
     }
     setLoading(false);
   };
-  console.log(user);
+
   return (
     <form onSubmit={onSubmit} className="border rounded-md border-zinc-300">
       <h3 className="text-2xl font-bold text-center bg-slate-300 py-2 rounded-t-md">

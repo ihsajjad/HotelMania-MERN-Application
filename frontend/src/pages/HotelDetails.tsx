@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
-import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import * as apiClient from "../api-client";
 import GuestInfoForm from "../forms/GuestInfoForm";
+import { useGetHotelById } from "../shared/CommonHooks";
 const HotelDetails = () => {
   const [currImage, setCurrImage] = useState<{
     image: string;
@@ -11,11 +10,7 @@ const HotelDetails = () => {
   }>();
   const { id } = useParams();
 
-  const { data: hotel } = useQuery(
-    "fetchSingleHotel",
-    () => apiClient.fetchSingleHotel(id as string),
-    { enabled: !!id, retry: false, refetchInterval: false }
-  );
+  const { data: hotel } = useGetHotelById(id as string);
 
   useEffect(() => {
     setCurrImage(hotel?.images[0]);

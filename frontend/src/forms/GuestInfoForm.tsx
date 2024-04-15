@@ -75,7 +75,9 @@ const GuestInfoForm = ({
       Math.ceil(numberOfNights)
     );
 
-    navigate(`/hotel/${hotelId}/booking`, { state: { paymentIntent } });
+    navigate(`/hotel/${hotelId}/booking`, {
+      state: { paymentIntent, numberOfNights },
+    });
   });
 
   const checkIn = watch("checkIn");

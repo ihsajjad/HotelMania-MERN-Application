@@ -134,9 +134,11 @@ export const fetchSingleHotel = async (
   hotelId: string
 ): Promise<HotelDataType> => {
   const res = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`);
-  if (!res.ok) throw new Error("Failed to fetch hotel");
 
-  return res.json();
+  if (!res.ok) throw new Error("Failed to fetch hotel");
+  const result = await res.json();
+
+  return result;
 };
 
 // todo: set the body
