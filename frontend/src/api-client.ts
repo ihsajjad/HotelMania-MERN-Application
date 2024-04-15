@@ -178,6 +178,16 @@ export const createBooking = async (booking: BookingType) => {
   return res.json();
 };
 
+export const fetchCurrentBookings = async (): Promise<BookingType[]> => {
+  const res = await fetch(`${API_BASE_URL}/api/bookings/current_bookings`, {
+    credentials: "include",
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch bookings");
+
+  return res.json();
+};
+
 /**================================================================================
                                     Admin's Functions
  ================================================================================*/

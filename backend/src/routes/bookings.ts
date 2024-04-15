@@ -22,10 +22,6 @@ router.get(
       };
 
       const bookings = await Booking.find(query);
-      if (bookings.length < 1)
-        return res
-          .status(400)
-          .json({ message: "You don't have any current booking" });
 
       res.json(bookings);
     } catch (error) {
