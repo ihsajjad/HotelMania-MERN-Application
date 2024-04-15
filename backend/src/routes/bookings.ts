@@ -21,7 +21,10 @@ router.get(
         checkOut: { $gte: currentDate },
       };
 
-      const bookings = await Booking.find(query);
+      const bookings = await Booking.find(query).populate(
+        "hotel",
+        "-description -adultCount -childCount -facilities"
+      );
 
       res.json(bookings);
     } catch (error) {

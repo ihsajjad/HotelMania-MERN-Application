@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { BookingType } from "../shared/types";
 
 const bookingSchema = new mongoose.Schema<BookingType>({
   userId: { type: String, required: true },
-  hotelId: { type: String, required: true },
+  hotel: { type: Schema.Types.ObjectId, ref: "Hotel" },
   numberOfNights: { type: Number, required: true },
   total: { type: Number, required: true },
   checkIn: { type: Date, required: true },

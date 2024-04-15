@@ -35,7 +35,7 @@ const CheckOutForm = ({ paymentIntent, numberOfNights, hotelId }: Props) => {
     checkIn: search.checkIn,
     checkOut: search.checkOut,
     numberOfNights,
-    hotelId,
+    hotel: hotelId,
     paymentIntentId: paymentIntent.paymentIntentId,
     total: paymentIntent.total,
     userId: user._id,

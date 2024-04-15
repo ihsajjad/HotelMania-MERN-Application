@@ -50,8 +50,9 @@ export type AuthUserType = {
 export type GalleryType = { url: string; _id: string };
 
 export type BookingType = {
+  _id?: string;
   userId: string;
-  hotelId: string;
+  hotel?: HotelDataType | string;
   paymentIntentId: string;
   numberOfNights: number;
   total: number;
