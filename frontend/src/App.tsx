@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import PartnerProfile from "./pages/PartnerProfile";
 import PartnerRegister from "./pages/PartnerRegister";
 import Register from "./pages/Register";
+import Dashboard from "./pages/dashboard/Dashboard";
 import MyHotels from "./pages/dashboard/Partner/MyHotels";
 import Partners from "./pages/dashboard/admin/Partners";
 import PartnerRoute from "./routes/PartnerRoute";
@@ -46,7 +47,7 @@ export const routes = createBrowserRouter([
     ),
     errorElement: <Error />,
     children: [
-      { path: "/dashboard", element: <div>Welcome to dashboard</div> },
+      { path: "/dashboard", element: <Dashboard /> },
       { path: "/dashboard/partners", element: <Partners /> },
       {
         path: "/dashboard/my-hotels",

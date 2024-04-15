@@ -11,7 +11,6 @@ const adultCount = sessionStorage.getItem("adultCount");
 const childCount = sessionStorage.getItem("childCount");
 
 const BookingSummary = ({ numberOfNights, hotel }: Props) => {
-  console.log(hotel);
   return (
     <div className="flex-1 rounded-lg border border-slate-300 h-fit">
       <h2 className="text-xl font-bold border-b p-3">Your Booking Details</h2>
