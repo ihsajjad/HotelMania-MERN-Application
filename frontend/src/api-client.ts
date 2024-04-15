@@ -1,5 +1,6 @@
 import {
   AuthUserType,
+  BookingType,
   GalleryType,
   HotelDataType,
   HotelOwnerType,
@@ -141,7 +142,10 @@ export const fetchSingleHotel = async (
   return result;
 };
 
-// todo: set the body
+/**================================================================================
+                                    User's Functions
+ ================================================================================*/
+
 export const createPaymentIntent = async (
   hotelId: string,
   numberOfNights: number
@@ -161,8 +165,21 @@ export const createPaymentIntent = async (
   return res.json();
 };
 
+export const createBooking = async (booking: BookingType) => {
+  const res = await fetch(`${API_BASE_URL}/api/bookings`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(booking),
+  });
+
+  if (!res.ok) throw new Error("Failed to book hotel");
+
+  return res.json();
+};
+
 /**================================================================================
-                                    Admin Functions
+                                    Admin's Functions
  ================================================================================*/
 
 export const fetchAllPartners = async (): Promise<PartnerType[]> => {
@@ -194,7 +211,7 @@ export const changeIsVerifiedStatus = async ({
 };
 
 /**================================================================================
-                                    Partner Functions
+                                    Partner's Functions
  ================================================================================*/
 
 export const fetchMyHotels = async (): Promise<HotelDataType[]> => {

@@ -14,7 +14,7 @@ router.get(
   verifyToken,
   async (req: Request, res: Response) => {
     const currentDate = new Date();
-    console.log(currentDate);
+
     try {
       const query = {
         userId: req.userId,
@@ -22,8 +22,7 @@ router.get(
       };
 
       const bookings = await Booking.find(query);
-      console.log(bookings);
-      if (!bookings)
+      if (bookings.length < 1)
         return res
           .status(400)
           .json({ message: "You don't have any current booking" });
@@ -96,6 +95,7 @@ router.post(
   [
     check("userId", "UserId is required").isString().trim(),
     check("hotelId", "Hotel is required").isString().trim(),
+    check("paymentIntentId", "paymentIntentId is required").isString().trim(),
     check("numberOfNights", "NumberOfNights is required").isNumeric().trim(),
     check("total", "Total is required").isNumeric().trim(),
     check("checkIn", "CheckIn is required").isString().trim(),

@@ -28,7 +28,11 @@ const Booking = () => {
       <div className="flex-1 rounded">
         {paymentIntent && (
           <Elements stripe={stripePromise} options={options}>
-            <CheckOutForm paymentIntent={paymentIntent} />
+            <CheckOutForm
+              paymentIntent={paymentIntent}
+              numberOfNights={numberOfNights}
+              hotelId={hotelId as string}
+            />
           </Elements>
         )}
       </div>

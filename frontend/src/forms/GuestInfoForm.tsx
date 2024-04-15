@@ -113,10 +113,10 @@ const GuestInfoForm = ({
             setValue("checkOut", date as Date),
             clearErrors("checkOut"),
           ]}
-          selectsStart
+          selectsEnd
           startDate={checkIn}
           endDate={checkOut}
-          minDate={minDate}
+          minDate={checkIn}
           maxDate={maxDate}
           placeholderText="Check-in date"
           className="focus:outline-none p-2 min-w-full"
