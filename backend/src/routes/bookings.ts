@@ -8,10 +8,13 @@ import Hotel from "../models/hotel";
 const router = express.Router();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
-// get all bookings
-router.get("/", async (req: Request, res: Response) => {
+// get all bookings for individual user's
+router.get("/", verifyToken, async (req: Request, res: Response) => {
   try {
-    const bookings = await Booking.find({ userId: req.userId });
+    const bookings = await Booking.find({ userId: req.userId }).populate(
+      "hotel",
+      "-description -adultCount -childCount -facilities"
+    );
     res.json(bookings);
   } catch (error) {
     console.log(__dirname, error);

@@ -19,7 +19,7 @@ const Gallery = () => {
             <img
               src={image.url}
               alt=""
-              className=" h-full w-full rounded object-center object-cover border-2 hover:border-[var(--main-color)] hover:scale-150 shadow-lg shadow-[#00000065] duration-300"
+              className=" h-full w-full rounded object-center object-cover border-2 hover:border-[var(--main-color)] hover:scale-105 shadow-lg shadow-[#00000065] duration-300"
             />
           </Link>
         ))}

@@ -7,6 +7,7 @@ import FindHotels from "./pages/FindHotels";
 import Home from "./pages/Home";
 import HotelDetails from "./pages/HotelDetails";
 import Login from "./pages/Login";
+import MyBookings from "./pages/MyBookings";
 import PartnerProfile from "./pages/PartnerProfile";
 import PartnerRegister from "./pages/PartnerRegister";
 import Register from "./pages/Register";
@@ -61,6 +62,7 @@ export const routes = createBrowserRouter([
         path: "/dashboard/partners/:userId",
         element: <PartnerProfile />,
       },
+      { path: "/dashboard/my-bookings", element: <MyBookings /> },
     ],
   },
 ]);
