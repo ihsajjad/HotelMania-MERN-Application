@@ -20,8 +20,7 @@ const GuestInfoForm = ({
 }) => {
   const search = useSearchContext();
   const navigate = useNavigate();
-  const { isLogin } = useAppContext();
-  // const [numberOfNights, setNumberOfNights] = useState<number>(0);
+  const { isLogin, user } = useAppContext();
 
   const {
     setValue,
@@ -40,6 +39,7 @@ const GuestInfoForm = ({
     },
   });
 
+  // redirecting user to login
   const onSignInClick = handleSubmit((data: GuestFromType) => {
     search.saveSearchValues(
       "",
@@ -52,6 +52,7 @@ const GuestInfoForm = ({
     navigate(`/login`, { state: { from: location.pathname } });
   });
 
+  // guest form submission form
   const onSubmit = handleSubmit(async (data: GuestFromType) => {
     search.saveSearchValues(
       "",
@@ -86,6 +87,9 @@ const GuestInfoForm = ({
   const minDate = new Date();
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
+
+  const disableBtn = user.role === "Admin" || user.role === "Partner";
+
   return (
     <div className="bg-gray-200 h-fit rounded max-w-[350px] mx-auto border border-zinc-300 shadow-lg shadow-[#00000042] p-4 md:sticky top-3">
       <span className="text-xl font-bold">${price} Per night</span>
@@ -156,7 +160,10 @@ const GuestInfoForm = ({
             </span>
           )}
         </div>
-        <button className="custom-btn w-full">
+        <button
+          disabled={disableBtn}
+          className="custom-btn w-full disabled:bg-slate-400 disabled:cursor-not-allowed"
+        >
           {isLogin ? "Book Now" : "Sign In to Book"}
         </button>
       </form>

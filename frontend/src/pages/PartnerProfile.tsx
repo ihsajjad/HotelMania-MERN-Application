@@ -39,7 +39,6 @@ const PartnerProfile = () => {
     changeStatus({ userId: userId as string, status: data.status });
   });
 
-  console.log(user);
   return (
     <div className="">
       <PageTitle title="Profile" />
