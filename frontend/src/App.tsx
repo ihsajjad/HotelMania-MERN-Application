@@ -13,6 +13,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/dashboard/Dashboard";
 import MyHotels from "./pages/dashboard/Partner/MyHotels";
 import AllBookings from "./pages/dashboard/admin/AllBookings";
+import AllHotels from "./pages/dashboard/admin/AllHotels";
 import Partners from "./pages/dashboard/admin/Partners";
 import MyBookings from "./pages/dashboard/user/MyBookings";
 import PartnerRoute from "./routes/PartnerRoute";
@@ -59,6 +60,7 @@ export const routes = createBrowserRouter([
       // Admin's routes
       { path: "/dashboard/partners", element: <Partners /> },
       { path: "/dashboard/all-bookings", element: <AllBookings /> },
+      { path: "/dashboard/all-hotels", element: <AllHotels /> },
 
       // Partner's routes
       {

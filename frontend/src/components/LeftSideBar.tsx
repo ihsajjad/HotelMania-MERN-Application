@@ -1,5 +1,6 @@
 import { CgProfile } from "react-icons/cg";
 import { CiBookmarkCheck } from "react-icons/ci";
+import { MdOutlineHotel } from "react-icons/md";
 import { PiUsersThreeBold } from "react-icons/pi";
 import { RiHotelLine } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
@@ -32,6 +33,11 @@ const LeftSideBar = () => {
         label: "Partners",
         link: "/dashboard/partners",
         icon: <PiUsersThreeBold />,
+      },
+      {
+        label: "All Hotels",
+        link: "/dashboard/all-hotels",
+        icon: <MdOutlineHotel />,
       },
       {
         label: "All Bookings",
@@ -79,15 +85,17 @@ const LeftSideBar = () => {
         <ul className=" w-56 text-white bg-[var(--bg-color)] flex-grow">
           {navLinks &&
             navLinks.map((item) => (
-              <li
-                key={item.link}
-                className={`flex flex-row gap-1 items-center w-full relative overflow-hidden text-lg p-3 pl-4 ${location.pathname === item.link ? "bg-[var(--main-color)] text-black" : ""}`}
-              >
-                <span>{item.icon}</span>
-                <Link to={item.link}>{item.label}</Link>
-                <div
-                  className={`bg-[var(--bg-color)] h-10 w-10 -right-6 rotate-45 ${location.pathname === item.link ? "absolute" : "hidden"}`}
-                ></div>
+              <li key={item.link}>
+                <Link
+                  to={item.link}
+                  className={`flex flex-row gap-1 items-center w-full relative overflow-hidden text-lg p-3 pl-4 ${location.pathname === item.link ? "bg-[var(--main-color)] text-black" : ""}`}
+                >
+                  <span>{item.icon}</span>
+                  <span>{item.label}</span>
+                  <div
+                    className={`bg-[var(--bg-color)] h-10 w-10 -right-6 rotate-45 ${location.pathname === item.link ? "absolute" : "hidden"}`}
+                  ></div>
+                </Link>
               </li>
             ))}
         </ul>

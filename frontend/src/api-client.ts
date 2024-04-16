@@ -1,3 +1,4 @@
+import { LoaderFunctionArgs } from "react-router-dom";
 import {
   AuthUserType,
   BookingType,
@@ -132,7 +133,7 @@ export const uploadImage = async (file: FormData): Promise<{ url: string }> => {
 };
 
 export const fetchSingleHotel = async (
-  hotelId: string
+  hotelId: string | LoaderFunctionArgs
 ): Promise<HotelDataType> => {
   const res = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`);
 
