@@ -17,16 +17,15 @@ const CurrentBookings = () => {
           return (
             <div
               key={booking._id}
-              className="border rounded overflow-hidden flex  gap-2"
+              className="border rounded overflow-hidden grid grid-cols-6 gap-2 "
             >
-              <div>
-                <img
-                  src={hotel?.images[0].image}
-                  alt={hotel?.images[0].label}
-                  className="w-40 h-36"
-                />
-              </div>
-              <div className="flex flex-col pb-2 flex-grow font-semibold text-slate-600">
+              <img
+                src={hotel?.images[0].image}
+                alt={hotel?.images[0].label}
+                className="w-full max-w-48 rounded h-36 mx-auto md:col-span-1 sm:col-span-2 col-span-6"
+              />
+
+              <div className="flex flex-col p-2 flex-grow font-semibold text-slate-600 md:col-span-4 sm:col-span-4 col-span-6">
                 <h4 className="text-xl font-bold text-slate-700">
                   {hotel?.name}
                 </h4>
@@ -34,7 +33,7 @@ const CurrentBookings = () => {
                   {hotel.city}, {hotel.country}
                 </span>
 
-                <div className="grow flex gap-6 text-sm ">
+                <div className="grow flex gap-6 text-xs md:text-sm">
                   <div className="space-y-1">
                     <div>
                       <span>Booked At : </span>
@@ -64,27 +63,22 @@ const CurrentBookings = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col items-end justify-between p-2">
-                <span className="border border-zinc-300 rounded-full py-0.5 px-2 w-fit">
-                  {hotel.type}
-                </span>
-
+              <div className="flex md:flex-col flex-row items-end justify-between p-2 md:col-span-1 col-span-6">
                 <div>
-                  <div className="flex justify-center mb-1">
+                  <span className="border border-zinc-300 rounded-full py-0.5 px-2 w-fit">
+                    {hotel.type}
+                  </span>
+                  <div className="flex justify-center mt-1">
                     {Array.from({ length: hotel?.starRating || 0 }).map(
                       (_, i) => (
                         <AiFillStar key={i} className="fill-yellow-400" />
                       )
                     )}
                   </div>
-
-                  <Link
-                    to={`/details/${hotel._id}`}
-                    className="custom-btn w-fit"
-                  >
-                    View Hotel
-                  </Link>
                 </div>
+                <Link to={`/details/${hotel._id}`} className="custom-btn w-fit">
+                  View Hotel
+                </Link>
               </div>
             </div>
           );
