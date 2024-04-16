@@ -25,7 +25,7 @@ router.get(
 );
 
 // get all bookings for individual user's
-router.get("/", verifyToken, async (req: Request, res: Response) => {
+router.get("/my-bookings", verifyToken, async (req: Request, res: Response) => {
   try {
     const bookings = await Booking.find({ userId: req.userId }).populate(
       "hotel",
@@ -123,7 +123,8 @@ router.post(
   "/",
   [
     check("userId", "UserId is required").isString().trim(),
-    check("hotelId", "Hotel is required").isString().trim(),
+    check("hotel", "Hotel is required").isString().trim(),
+    check("hotelOwner", "Hotel owner is required").isString().trim(),
     check("paymentIntentId", "paymentIntentId is required").isString().trim(),
     check("numberOfNights", "NumberOfNights is required").isNumeric().trim(),
     check("total", "Total is required").isNumeric().trim(),

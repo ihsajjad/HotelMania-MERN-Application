@@ -16,9 +16,15 @@ interface Props {
   paymentIntent: PaymentIntentResType;
   numberOfNights: number;
   hotelId: string;
+  hotelOwner: string;
 }
 
-const CheckOutForm = ({ paymentIntent, numberOfNights, hotelId }: Props) => {
+const CheckOutForm = ({
+  paymentIntent,
+  numberOfNights,
+  hotelId,
+  hotelOwner,
+}: Props) => {
   const { user } = useAppContext();
   const search = useSearchContext();
   const stripe = useStripe() as Stripe;
@@ -34,18 +40,19 @@ const CheckOutForm = ({ paymentIntent, numberOfNights, hotelId }: Props) => {
   const bookingData: BookingType = {
     checkIn: search.checkIn,
     checkOut: search.checkOut,
+    hotelOwner,
     numberOfNights,
     hotel: hotelId,
     paymentIntentId: paymentIntent.paymentIntentId,
     total: paymentIntent.total,
     userId: user._id,
   };
+  console.log(bookingData);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const { error } = await elements.submit();
-
     if (error) {
       errorToast("Something went wrong, try again later!");
       return;

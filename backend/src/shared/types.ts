@@ -52,6 +52,7 @@ export type GalleryType = { url: string; _id: string };
 export type BookingType = {
   _id?: string;
   userId: string;
+  hotelOwner: HotelOwnerType | string;
   hotel?: HotelDataType | string;
   paymentIntentId: string;
   numberOfNights: number;

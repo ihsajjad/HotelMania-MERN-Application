@@ -32,6 +32,7 @@ const Booking = () => {
               paymentIntent={paymentIntent}
               numberOfNights={numberOfNights}
               hotelId={hotelId as string}
+              hotelOwner={hotel?.userId as string}
             />
           </Elements>
         )}

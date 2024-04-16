@@ -15,6 +15,7 @@ router.get("/me", async (req: Request, res: Response) => {
     if (!token) return res.status(401).json({ message: "Unauthorized access" });
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string);
+    // todo: fix the mongoose error
     const userId = await (decoded as JwtPayload)?.userId;
     if (!userId)
       return res.status(401).json({ message: "Unauthorized access" });

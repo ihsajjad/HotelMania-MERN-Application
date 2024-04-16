@@ -173,9 +173,12 @@ export const createBooking = async (booking: BookingType) => {
     body: JSON.stringify(booking),
   });
 
+  const result = await res.json();
+  console.log(result);
+
   if (!res.ok) throw new Error("Failed to book hotel");
 
-  return res.json();
+  return result;
 };
 
 export const fetchCurrentBookings = async (): Promise<BookingType[]> => {
@@ -189,7 +192,7 @@ export const fetchCurrentBookings = async (): Promise<BookingType[]> => {
 };
 
 export const fetchMyBookings = async (): Promise<BookingType[]> => {
-  const res = await fetch(`${API_BASE_URL}/api/bookings`, {
+  const res = await fetch(`${API_BASE_URL}/api/bookings/my-bookings`, {
     credentials: "include",
   });
 
