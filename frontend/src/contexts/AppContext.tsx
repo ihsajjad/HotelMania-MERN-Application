@@ -33,6 +33,7 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
     email: "",
     profile: "",
     role: "",
+    name: "",
   });
 
   // todo: fix the unnecessary fetching
@@ -49,6 +50,7 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
           email: "",
           profile: "",
           role: "",
+          name: "",
         });
       },
       retry: false,
@@ -63,6 +65,7 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
         email: "",
         profile: "",
         role: "",
+        name: "",
       });
     },
   });

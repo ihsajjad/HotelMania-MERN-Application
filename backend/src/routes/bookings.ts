@@ -8,6 +8,17 @@ import Hotel from "../models/hotel";
 const router = express.Router();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
+// get all bookings
+router.get("/", async (req: Request, res: Response) => {
+  try {
+    const bookings = await Booking.find({ userId: req.userId });
+    res.json(bookings);
+  } catch (error) {
+    console.log(__dirname, error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // get current bookings
 router.get(
   "/current_bookings",
