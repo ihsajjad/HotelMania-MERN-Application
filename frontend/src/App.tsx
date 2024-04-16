@@ -7,13 +7,14 @@ import FindHotels from "./pages/FindHotels";
 import Home from "./pages/Home";
 import HotelDetails from "./pages/HotelDetails";
 import Login from "./pages/Login";
-import MyBookings from "./pages/MyBookings";
 import PartnerProfile from "./pages/PartnerProfile";
 import PartnerRegister from "./pages/PartnerRegister";
 import Register from "./pages/Register";
 import Dashboard from "./pages/dashboard/Dashboard";
 import MyHotels from "./pages/dashboard/Partner/MyHotels";
+import AllBookings from "./pages/dashboard/admin/AllBookings";
 import Partners from "./pages/dashboard/admin/Partners";
+import MyBookings from "./pages/dashboard/user/MyBookings";
 import PartnerRoute from "./routes/PartnerRoute";
 import PrivateRoute from "./routes/PrivateRoute";
 
@@ -49,7 +50,17 @@ export const routes = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { path: "/dashboard", element: <Dashboard /> },
+
+      {
+        path: "/dashboard/partners/:userId",
+        element: <PartnerProfile />,
+      },
+
+      // Admin's routes
       { path: "/dashboard/partners", element: <Partners /> },
+      { path: "/dashboard/all-bookings", element: <AllBookings /> },
+
+      // Partner's routes
       {
         path: "/dashboard/my-hotels",
         element: (
@@ -58,10 +69,8 @@ export const routes = createBrowserRouter([
           </PartnerRoute>
         ),
       },
-      {
-        path: "/dashboard/partners/:userId",
-        element: <PartnerProfile />,
-      },
+
+      // User's routes
       { path: "/dashboard/my-bookings", element: <MyBookings /> },
     ],
   },

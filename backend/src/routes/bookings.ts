@@ -15,7 +15,7 @@ router.get(
   verifyAdmin,
   async (req: Request, res: Response) => {
     try {
-      const bookings = await Booking.find();
+      const bookings = await Booking.find().populate("hotel", "name");
       res.json(bookings);
     } catch (error) {
       console.log(__dirname, error);

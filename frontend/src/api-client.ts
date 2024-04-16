@@ -230,6 +230,16 @@ export const changeIsVerifiedStatus = async ({
   return result;
 };
 
+export const fetchAllBookings = async (): Promise<BookingType[]> => {
+  const res = await fetch(`${API_BASE_URL}/api/bookings`, {
+    credentials: "include",
+  });
+
+  if (!res.ok) throw new Error("Something went wrong");
+
+  return res.json();
+};
+
 /**================================================================================
                                     Partner's Functions
  ================================================================================*/

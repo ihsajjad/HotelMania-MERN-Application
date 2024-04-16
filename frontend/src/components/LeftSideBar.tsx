@@ -1,5 +1,6 @@
 import { CgProfile } from "react-icons/cg";
 import { CiBookmarkCheck } from "react-icons/ci";
+import { PiUsersThreeBold } from "react-icons/pi";
 import { RiHotelLine } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
 import { Link, useLocation } from "react-router-dom";
@@ -30,9 +31,13 @@ const LeftSideBar = () => {
       {
         label: "Partners",
         link: "/dashboard/partners",
-        icon: <RxDashboard />,
+        icon: <PiUsersThreeBold />,
       },
-      //   { label: "Dashboard", link: "/dashboard", icon: <RxDashboard /> },
+      {
+        label: "All Bookings",
+        link: "/dashboard/all-bookings",
+        icon: <CiBookmarkCheck />,
+      },
     ];
   } else if (user.role === "Hotel") {
     navLinks = [
@@ -76,7 +81,7 @@ const LeftSideBar = () => {
             navLinks.map((item) => (
               <li
                 key={item.link}
-                className={`flex flex-row gap-1 items-center relative overflow-hidden text-lg p-3 pl-4 ${location.pathname === item.link ? "bg-[var(--main-color)] text-black" : ""}`}
+                className={`flex flex-row gap-1 items-center w-full relative overflow-hidden text-lg p-3 pl-4 ${location.pathname === item.link ? "bg-[var(--main-color)] text-black" : ""}`}
               >
                 <span>{item.icon}</span>
                 <Link to={item.link}>{item.label}</Link>
