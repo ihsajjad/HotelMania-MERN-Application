@@ -1,12 +1,28 @@
 import express, { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
 import Stripe from "stripe";
-import { verifyToken } from "../middleware/auth";
+import { verifyAdmin, verifyToken } from "../middleware/auth";
 import Booking from "../models/booking";
 import Hotel from "../models/hotel";
 
 const router = express.Router();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+
+// get all bookings for admin
+router.get(
+  "/",
+  verifyToken,
+  verifyAdmin,
+  async (req: Request, res: Response) => {
+    try {
+      const bookings = await Booking.find();
+      res.json(bookings);
+    } catch (error) {
+      console.log(__dirname, error);
+      res.status(500).json({ message: "Something went worng" });
+    }
+  }
+);
 
 // get all bookings for individual user's
 router.get("/", verifyToken, async (req: Request, res: Response) => {
