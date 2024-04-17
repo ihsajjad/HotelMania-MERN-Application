@@ -29,8 +29,8 @@ router.get(
       if (total <= itemsPerPage) pageNumber = 1;
 
       const skip = (pageNumber - 1) * itemsPerPage;
-
       // end pagination
+
       const bookings = await Booking.find()
         .populate("hotel", "name")
         .skip(skip)

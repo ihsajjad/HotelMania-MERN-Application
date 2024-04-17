@@ -10,8 +10,8 @@ import { LoginType } from "./pages/Login";
 
 import {
   AllBookingsResponse,
+  AllPartnersResponse,
   HotelsResponse,
-  PartnerType,
   PaymentIntentResType,
   SearchParams,
 } from "./shared/Types";
@@ -225,8 +225,15 @@ export const fetchAllHotels = async (
   return res.json();
 };
 
-export const fetchAllPartners = async (): Promise<PartnerType[]> => {
-  const res = await fetch(`${API_BASE_URL}/api/partners`, {
+export const fetchAllPartners = async (
+  itemsPerPage: number,
+  pageNumber: number
+): Promise<AllPartnersResponse> => {
+  const queryParams = new URLSearchParams();
+  queryParams.append("itemsPerPage", itemsPerPage.toString());
+  queryParams.append("pageNumber", pageNumber.toString());
+
+  const res = await fetch(`${API_BASE_URL}/api/partners?${queryParams}`, {
     credentials: "include",
   });
 

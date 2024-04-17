@@ -44,6 +44,11 @@ export type AllBookingsResponse = {
   pagination: Pagination;
 };
 
+export type AllPartnersResponse = {
+  data: PartnerType[];
+  pagination: Pagination;
+};
+
 export type SearchParams = {
   destination: string;
   adultCount: string;

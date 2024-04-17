@@ -33,6 +33,7 @@ const AllHotels = () => {
   const changePageNumber = (page: number) => {
     setPageNumber(page);
   };
+
   return (
     <div>
       <PageTitle title="All Hotels" />

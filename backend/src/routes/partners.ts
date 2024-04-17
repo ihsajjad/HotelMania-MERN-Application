@@ -8,21 +8,44 @@ import { generateToken, upload, uploadProfile } from "../shared/utils";
 
 const router = express.Router();
 
-// get all the partners
+// get all the partners for admin
 router.get(
   "/",
   verifyToken,
   verifyAdmin,
   async (req: Request, res: Response) => {
     try {
-      const partners = await Partner.find(
-        {},
-        { name: 1, profile: 1, country: 1, isVerified: 1 }
-      );
-      if (!partners)
-        return res.status(300).json({ message: "Unavailable partner's data" });
+      // start pagiantion
+      const total = await Partner.countDocuments();
 
-      res.status(200).json(partners);
+      const itemsPerPage = parseInt(
+        req.query.itemsPerPage ? req.query.itemsPerPage.toString() : "10"
+      );
+
+      let pageNumber = parseInt(
+        req.query.pageNumber ? req.query.pageNumber.toString() : "1"
+      );
+
+      if (total <= itemsPerPage) pageNumber = 1;
+
+      const skip = (pageNumber - 1) * itemsPerPage;
+      // end pagination
+
+      const partners = await Partner.find()
+        .select("name profile country isVerified")
+        .skip(skip)
+        .limit(itemsPerPage);
+
+      const response = {
+        data: partners,
+        pagination: {
+          total,
+          page: pageNumber,
+          pages: Math.ceil(total / itemsPerPage),
+        },
+      };
+
+      res.status(200).json(response);
     } catch (error) {
       res.status(500).json({ message: "Internal server error" });
     }
