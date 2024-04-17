@@ -60,18 +60,8 @@ router.get("/search", async (req: Request, res: Response) => {
 // get all hotels for admin
 router.get(
   "/",
-  [
-    check("itemsPerPage", "ItemsPerPage is required").isNumeric(),
-    check("pageNumber", "PageNumber is required").isNumeric(),
-  ],
+
   async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty())
-      return res
-        .status(400)
-        .json({ message: "Invalid params", errors: errors.array() });
-
     try {
       // start pagination area
       const total = await Hotel.countDocuments();

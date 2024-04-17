@@ -33,7 +33,7 @@ const FindHotels = () => {
   };
 
   const { data, isLoading } = useQuery(["fetchAllHotels", searchParams], () =>
-    apiClient.fetchAllHotels(searchParams)
+    apiClient.fetchSearchHotels(searchParams)
   );
 
   if (isLoading) return <span>Loading</span>;

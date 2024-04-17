@@ -17,7 +17,7 @@ import {
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
-export const fetchAllHotels = async (
+export const fetchSearchHotels = async (
   searchParams: SearchParams
 ): Promise<HotelsResponse> => {
   const queryParams = new URLSearchParams();
@@ -205,6 +205,24 @@ export const fetchMyBookings = async (): Promise<BookingType[]> => {
 /**================================================================================
                                     Admin's Functions
  ================================================================================*/
+
+export const fetchAllHotels = async (
+  pageNumber: number,
+  itemsPerPage: number
+): Promise<HotelsResponse> => {
+  const queryParams = new URLSearchParams();
+
+  queryParams.append("pageNumber", pageNumber.toString());
+  queryParams.append("itemsPerPage", itemsPerPage.toString());
+
+  const res = await fetch(`${API_BASE_URL}/api/hotels?${queryParams}`, {
+    credentials: "include",
+  });
+
+  if (!res.ok) throw new Error("Something went wrong");
+
+  return res.json();
+};
 
 export const fetchAllPartners = async (): Promise<PartnerType[]> => {
   const res = await fetch(`${API_BASE_URL}/api/partners`, {
