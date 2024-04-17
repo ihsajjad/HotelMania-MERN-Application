@@ -2,13 +2,9 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { Link } from "react-router-dom";
 import * as apiClient from "../api-client";
+import { countries } from "../config/config.hotel-option";
 import { PartnerFormData } from "../shared/Types";
-import {
-  countries,
-  errorToast,
-  showInputError,
-  successToast,
-} from "../shared/utils";
+import { errorToast, showInputError, successToast } from "../shared/utils";
 
 const PartnerRegister = () => {
   const {
@@ -46,8 +42,6 @@ const PartnerRegister = () => {
   });
 
   const password = watch("password");
-  const country = watch("country");
-  console.log(country);
 
   return (
     <div className="hero min-h-screen bg-base-200 md:py-12 p-5">

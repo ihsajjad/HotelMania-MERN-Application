@@ -1,6 +1,7 @@
 import cloudinary from "cloudinary";
 import jwt from "jsonwebtoken";
 import multer from "multer";
+import Booking from "../models/booking";
 
 const storage = multer.memoryStorage();
 export const upload = multer({
@@ -21,3 +22,20 @@ export const generateToken = (userId: any) => {
   });
   return token;
 };
+
+const updateTheDailyRevenue = async () => {
+  const previousDay = new Date().getTime() - 86400000;
+  const compareDate = new Date(previousDay);
+  const date = new Date();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+
+  if (hours === 0 && minutes === 54 && seconds === 40) {
+    const getRevenueJson = await Booking.find({
+      bookedAt: { $gte: compareDate },
+    });
+    console.log(getRevenueJson);
+  }
+};
+// setInterval(updateTheDailyRevenue, 1000);

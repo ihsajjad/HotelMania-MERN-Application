@@ -64,7 +64,9 @@ const GuestInfoForm = ({
 
     const remainTimeInMS = data.checkOut.getTime() - data.checkIn.getTime();
     const dayInMiliseconds = 1000 * 60 * 60 * 24;
-    const numberOfNights = Math.abs(remainTimeInMS / dayInMiliseconds);
+    const numberOfNights = Math.abs(
+      Math.ceil(remainTimeInMS / dayInMiliseconds)
+    );
 
     if (Math.ceil(numberOfNights) < 1) {
       setError("checkOut", { message: "Extend check out date" });
