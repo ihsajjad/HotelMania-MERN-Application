@@ -9,6 +9,7 @@ import {
 import { LoginType } from "./pages/Login";
 
 import {
+  AllBookingsResponse,
   HotelsResponse,
   PartnerType,
   PaymentIntentResType,
@@ -252,8 +253,15 @@ export const changeIsVerifiedStatus = async ({
   return result;
 };
 
-export const fetchAllBookings = async (): Promise<BookingType[]> => {
-  const res = await fetch(`${API_BASE_URL}/api/bookings`, {
+export const fetchAllBookings = async (
+  itemsPerPage: number,
+  pageNumber: number
+): Promise<AllBookingsResponse> => {
+  const queryParams = new URLSearchParams();
+  queryParams.append("itemsPerPage", itemsPerPage.toString());
+  queryParams.append("pageNumber", pageNumber.toString());
+
+  const res = await fetch(`${API_BASE_URL}/api/bookings?${queryParams}`, {
     credentials: "include",
   });
 

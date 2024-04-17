@@ -23,6 +23,8 @@ const AllHotels = () => {
     pagination = data.pagination;
   }
 
+  console.log(data);
+
   const changeItemsPerPage = (event: ChangeEvent<HTMLSelectElement>) => {
     const items = parseInt(event.target.value);
     setItemsPerPage(items);
@@ -63,8 +65,8 @@ const AllHotels = () => {
             changeItemsPerPage={changeItemsPerPage}
             itemsPerPage={itemsPerPage}
             changePageNumber={changePageNumber}
-            page={pagination.page}
-            pages={pagination.pages}
+            page={pagination?.page}
+            pages={pagination?.pages}
           />
         </div>
       </div>

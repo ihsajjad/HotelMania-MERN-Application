@@ -41,7 +41,7 @@ const TablePagination = ({
                   onClick={(e) =>
                     changePageNumber(parseInt(e.currentTarget.innerHTML))
                   }
-                  className={`h-6 w-6 text-lg flex-center font-bold rounded ${page === value ? "bg-[var(--main-color)] text-white" : "bg-white "}`}
+                  className={`h-6 w-6 text-lg flex-center font-bold rounded ${page === value ? "bg-[var(--main-color)] text-white" : "bg-white text-slate-500"}`}
                 >
                   {value}
                 </button>
