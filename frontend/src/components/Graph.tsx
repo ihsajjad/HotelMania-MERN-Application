@@ -66,16 +66,6 @@ const Graph = () => {
     },
   };
 
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
-
   const data = {
     labels: days.map((day) => day.date),
     datasets: [
