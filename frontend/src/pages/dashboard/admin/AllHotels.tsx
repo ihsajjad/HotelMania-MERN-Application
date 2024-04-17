@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useQuery } from "react-query";
 import { HotelDataType } from "../../../../../backend/src/shared/types";
 import * as apiClient from "../../../api-client";
 import HotelsTableItem from "../../../components/HotelsTableItem";
 import PageTitle from "../../../components/PageTitle";
+import TablePagination from "../../../components/TablePagination";
 import { Pagination } from "../../../shared/Types";
 
 const AllHotels = () => {
@@ -22,6 +23,14 @@ const AllHotels = () => {
     pagination = data.pagination;
   }
 
+  const changeItemsPerPage = (event: ChangeEvent<HTMLSelectElement>) => {
+    const items = parseInt(event.target.value);
+    setItemsPerPage(items);
+  };
+
+  const changePageNumber = (page: number) => {
+    setPageNumber(page);
+  };
   return (
     <div>
       <PageTitle title="All Hotels" />
@@ -50,6 +59,13 @@ const AllHotels = () => {
                 ))}
             </tbody>
           </table>
+          <TablePagination
+            changeItemsPerPage={changeItemsPerPage}
+            itemsPerPage={itemsPerPage}
+            changePageNumber={changePageNumber}
+            page={pagination.page}
+            pages={pagination.pages}
+          />
         </div>
       </div>
     </div>

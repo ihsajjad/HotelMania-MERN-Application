@@ -70,12 +70,12 @@ router.get(
         req.query.itemsPerPage ? req.query.itemsPerPage.toString() : "10"
       );
 
-      let pageNumber =
-        parseInt(req.query.pageNumber ? req.query.pageNumber.toString() : "1") -
-        1;
+      let pageNumber = parseInt(
+        req.query.pageNumber ? req.query.pageNumber.toString() : "1"
+      );
 
-      const skip = itemsPerPage * pageNumber;
       if (total <= itemsPerPage) pageNumber = 1;
+      const skip = (pageNumber - 1) * itemsPerPage;
       // end pagination area
 
       const hotels = await Hotel.find().skip(skip).limit(itemsPerPage);
