@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { PartnerType } from "../shared/Types";
+import { PartnerType } from "../../shared/Types";
 
 interface Props {
   partner: PartnerType;

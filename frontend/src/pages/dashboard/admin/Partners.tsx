@@ -2,8 +2,8 @@ import { ChangeEvent, useState } from "react";
 import { useQuery } from "react-query";
 import * as apiClient from "../../../api-client";
 import PageTitle from "../../../components/PageTitle";
-import PartnersTableItem from "../../../components/PartnersTableItem";
-import TablePagination from "../../../components/TablePagination";
+import PartnersTableItem from "../../../components/tableItems/PartnersTableItem";
+import TablePagination from "../../../components/tableItems/TablePagination";
 import { Pagination, PartnerType } from "../../../shared/Types";
 
 const Partners = () => {

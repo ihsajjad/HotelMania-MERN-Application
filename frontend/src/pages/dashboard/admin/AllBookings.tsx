@@ -2,9 +2,9 @@ import { ChangeEvent, useState } from "react";
 import { useQuery } from "react-query";
 import { BookingType } from "../../../../../backend/src/shared/types";
 import * as apiClient from "../../../api-client";
-import BookingsTableItem from "../../../components/BookingsTableItem";
 import PageTitle from "../../../components/PageTitle";
-import TablePagination from "../../../components/TablePagination";
+import BookingsTableItem from "../../../components/tableItems/BookingsTableItem";
+import TablePagination from "../../../components/tableItems/TablePagination";
 import { Pagination } from "../../../shared/Types";
 
 const AllBookings = () => {

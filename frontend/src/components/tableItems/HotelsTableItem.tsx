@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { HotelDataType } from "../../../backend/src/shared/types";
+import { HotelDataType } from "../../../../backend/src/shared/types";
 
 const HotelsTableItem = ({ hotel, i }: { hotel: HotelDataType; i: number }) => {
   return (

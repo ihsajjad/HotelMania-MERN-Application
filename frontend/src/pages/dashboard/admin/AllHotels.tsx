@@ -2,9 +2,9 @@ import { ChangeEvent, useState } from "react";
 import { useQuery } from "react-query";
 import { HotelDataType } from "../../../../../backend/src/shared/types";
 import * as apiClient from "../../../api-client";
-import HotelsTableItem from "../../../components/HotelsTableItem";
 import PageTitle from "../../../components/PageTitle";
-import TablePagination from "../../../components/TablePagination";
+import HotelsTableItem from "../../../components/tableItems/HotelsTableItem";
+import TablePagination from "../../../components/tableItems/TablePagination";
 import { Pagination } from "../../../shared/Types";
 
 const AllHotels = () => {

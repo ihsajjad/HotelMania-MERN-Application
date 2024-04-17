@@ -2,12 +2,12 @@ import { ChangeEvent, useState } from "react";
 import { useQuery } from "react-query";
 import { HotelDataType } from "../../../backend/src/shared/types";
 import * as apiClient from "../api-client";
-import FilterByFacilities from "../components/FilterByFacilities";
-import FilterByMaxPrice from "../components/FilterByMaxPrice";
-import FilterByRating from "../components/FilterByRating";
-import FilterByTypes from "../components/FilterByTypes";
 import HotelResultCard from "../components/HotelResultCard";
 import SortOptions from "../components/SortOptions";
+import FilterByFacilities from "../components/filters/FilterByFacilities";
+import FilterByMaxPrice from "../components/filters/FilterByMaxPrice";
+import FilterByRating from "../components/filters/FilterByRating";
+import FilterByTypes from "../components/filters/FilterByTypes";
 import { useSearchContext } from "../contexts/UseContexts";
 import { SearchParams } from "../shared/Types";
 

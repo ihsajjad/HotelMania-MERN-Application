@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { hotelFacilities } from "../config/config.hotel-option";
+import { hotelFacilities } from "../../config/config.hotel-option";
 
 type Props = {
   selectedFacilities: string[];

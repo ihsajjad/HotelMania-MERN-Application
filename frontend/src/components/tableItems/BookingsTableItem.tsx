@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
-import { BookingType, HotelDataType } from "../../../backend/src/shared/types";
+import {
+  BookingType,
+  HotelDataType,
+} from "../../../../backend/src/shared/types";
 
 interface Props {
   booking: BookingType;
