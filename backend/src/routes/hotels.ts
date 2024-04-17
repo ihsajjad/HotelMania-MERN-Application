@@ -57,6 +57,56 @@ router.get("/search", async (req: Request, res: Response) => {
   }
 });
 
+// get all hotels for admin
+router.get(
+  "/",
+  [
+    check("itemsPerPage", "ItemsPerPage is required").isNumeric(),
+    check("pageNumber", "PageNumber is required").isNumeric(),
+  ],
+  async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty())
+      return res
+        .status(400)
+        .json({ message: "Invalid params", errors: errors.array() });
+
+    try {
+      // start pagination area
+      const total = await Hotel.countDocuments();
+
+      const itemsPerPage = parseInt(
+        req.query.itemsPerPage ? req.query.itemsPerPage.toString() : "10"
+      );
+
+      let pageNumber =
+        parseInt(req.query.pageNumber ? req.query.pageNumber.toString() : "1") -
+        1;
+
+      const skip = itemsPerPage * pageNumber;
+      if (total <= itemsPerPage) pageNumber = 1;
+      // end pagination area
+
+      const hotels = await Hotel.find().skip(skip).limit(itemsPerPage);
+
+      const response = {
+        data: hotels,
+        pagination: {
+          total,
+          page: pageNumber,
+          pages: Math.ceil(total / itemsPerPage),
+        },
+      };
+
+      res.json(response);
+    } catch (error) {
+      console.log(__dirname, error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
 // getting top rated hotels
 router.get("/top-5", async (req: Request, res: Response) => {
   try {
