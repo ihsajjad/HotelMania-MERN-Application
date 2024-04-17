@@ -15,8 +15,37 @@ router.get(
   verifyAdmin,
   async (req: Request, res: Response) => {
     try {
-      const bookings = await Booking.find().populate("hotel", "name");
-      res.json(bookings);
+      // start pagiantion
+      const total = await Booking.countDocuments();
+
+      const itemsPerPage = parseInt(
+        req.query.itemsPerPage ? req.query.itemsPerPage.toString() : "10"
+      );
+
+      let pageNumber = parseInt(
+        req.query.pageNumber ? req.query.pageNumber.toString() : "1"
+      );
+
+      if (total <= itemsPerPage) pageNumber = 1;
+
+      const skip = (pageNumber - 1) * itemsPerPage;
+
+      // end pagination
+      const bookings = await Booking.find()
+        .populate("hotel", "name")
+        .skip(skip)
+        .limit(itemsPerPage);
+
+      const response = {
+        data: bookings,
+        pagination: {
+          total,
+          page: pageNumber,
+          pages: Math.ceil(total / itemsPerPage),
+        },
+      };
+
+      res.json(response);
     } catch (error) {
       console.log(__dirname, error);
       res.status(500).json({ message: "Something went worng" });
