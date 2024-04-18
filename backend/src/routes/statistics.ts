@@ -10,7 +10,8 @@ router.get(
   verifyAdmin,
   async (req: Request, res: Response) => {
     try {
-      const statistics = await Statistic.find();
+      const statistics = await Statistic.find().sort({ date: -1 }).limit(30);
+      statistics.reverse();
       res.send(statistics);
     } catch (error) {
       res.status(500).json({ message: "Internal server error" });

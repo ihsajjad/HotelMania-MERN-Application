@@ -5,6 +5,7 @@ import {
   GalleryType,
   HotelDataType,
   HotelOwnerType,
+  StatisticsDataType,
 } from "../../backend/src/shared/types";
 import { LoginType } from "./pages/Login";
 
@@ -269,6 +270,16 @@ export const fetchAllBookings = async (
   queryParams.append("pageNumber", pageNumber.toString());
 
   const res = await fetch(`${API_BASE_URL}/api/bookings?${queryParams}`, {
+    credentials: "include",
+  });
+
+  if (!res.ok) throw new Error("Something went wrong");
+
+  return res.json();
+};
+
+export const fetchStatistics = async (): Promise<StatisticsDataType[]> => {
+  const res = await fetch(`${API_BASE_URL}/api/statistics`, {
     credentials: "include",
   });
 

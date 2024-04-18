@@ -4,53 +4,28 @@ import {
   Chart as ChartJS,
   Legend,
   LinearScale,
+  PointElement,
   Title,
   Tooltip,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-
-const days = [
-  { date: "2024-03-01", amount: 531, quantity: 8 },
-  { date: "2024-03-02", amount: 688, quantity: 6 },
-  { date: "2024-03-03", amount: 819, quantity: 3 },
-  { date: "2024-03-04", amount: 647, quantity: 9 },
-  { date: "2024-03-05", amount: 573, quantity: 2 },
-  { date: "2024-03-06", amount: 719, quantity: 7 },
-  { date: "2024-03-07", amount: 821, quantity: 8 },
-  { date: "2024-03-08", amount: 956, quantity: 5 },
-  { date: "2024-03-09", amount: 898, quantity: 10 },
-  { date: "2024-03-10", amount: 679, quantity: 3 },
-  { date: "2024-03-11", amount: 727, quantity: 4 },
-  { date: "2024-03-12", amount: 934, quantity: 7 },
-  { date: "2024-03-13", amount: 743, quantity: 2 },
-  { date: "2024-03-14", amount: 531, quantity: 6 },
-  { date: "2024-03-15", amount: 850, quantity: 1 },
-  { date: "2024-03-16", amount: 901, quantity: 9 },
-  { date: "2024-03-17", amount: 785, quantity: 5 },
-  { date: "2024-03-18", amount: 623, quantity: 8 },
-  { date: "2024-03-19", amount: 789, quantity: 4 },
-  { date: "2024-03-20", amount: 535, quantity: 10 },
-  { date: "2024-03-21", amount: 694, quantity: 2 },
-  { date: "2024-03-22", amount: 713, quantity: 6 },
-  { date: "2024-03-23", amount: 527, quantity: 1 },
-  { date: "2024-03-24", amount: 813, quantity: 3 },
-  { date: "2024-03-25", amount: 975, quantity: 7 },
-  { date: "2024-03-26", amount: 523, quantity: 8 },
-  { date: "2024-03-27", amount: 611, quantity: 10 },
-  { date: "2024-03-28", amount: 801, quantity: 4 },
-  { date: "2024-03-29", amount: 698, quantity: 5 },
-  { date: "2024-03-30", amount: 567, quantity: 9 },
-  { date: "2024-03-31", amount: 605, quantity: 3 },
-];
+import { useQuery } from "react-query";
+import * as apiClient from "../api-client";
 
 const Graph = () => {
   ChartJS.register(
     CategoryScale,
     LinearScale,
+    PointElement,
     BarElement,
     Title,
     Tooltip,
     Legend
+  );
+
+  const { data: statistics } = useQuery(
+    "fetchStatistics",
+    apiClient.fetchStatistics
   );
 
   const options = {
@@ -67,18 +42,55 @@ const Graph = () => {
   };
 
   const data = {
-    labels: days.map((day) => day.date),
+    type: "line",
+    labels: statistics?.map((statistic) =>
+      new Date(statistic.date).toDateString()
+    ),
     datasets: [
       {
-        label: "Revenue $",
-        data: days.map((day) => day.amount),
+        label: "Revenue",
+        data: statistics?.map((statistic) => statistic.amount),
         backgroundColor: "#1f244d",
+      },
+      {
+        label: "Bookings",
+        data: statistics?.map((statistic) => statistic.quantity),
+        backgroundColor: "#8bcf17",
       },
     ],
   };
 
+  const totalAmount =
+    statistics?.reduce((total, current) => total + current.amount, 0) || 0;
+
+  const totalBookings =
+    statistics?.reduce((total, current) => total + current.quantity, 0) || 0;
+
   return (
-    <div className="border">
+    <div className="">
+      <div className="grid md:grid-cols-4 gap-6">
+        <div className="from-sky-500 graph-card border-sky-500">
+          <h3 className="text-xl font-bold">Total Amount</h3>
+          <span className="text-4xl font-bold">${totalAmount}</span>
+        </div>
+        <div className="from-blue-500 graph-card border-blue-500">
+          <h3 className="text-xl font-bold">Total Bookings </h3>
+          <span className="text-4xl font-bold">{totalBookings}</span>
+        </div>
+        <div className="from-cyan-500 graph-card border-cyan-500">
+          <h3 className="text-xl font-bold">Average </h3>
+          <span className="text-4xl font-bold">
+            $
+            {isNaN(totalAmount / totalBookings)
+              ? 0
+              : (totalAmount / totalBookings).toFixed(2)}
+          </span>
+        </div>
+        <div className="from-purple-500 graph-card border-purple-500">
+          <h3 className="text-xl font-bold">Commission (10%)</h3>
+          <span className="text-4xl font-bold">${totalAmount * 0.1}</span>
+        </div>
+      </div>
       <Bar options={options} data={data} />
     </div>
   );
