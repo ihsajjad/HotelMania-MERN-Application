@@ -10,6 +10,7 @@ export const upload = multer({
   limits: { fileSize: 2 * 1024 * 1024 },
 });
 
+// uploading single image to the cloudinary
 export async function uploadProfile(file: any) {
   const b64 = Buffer.from(file.buffer).toString("base64");
   const dataURI = "data:" + file.mimetype + ";base64," + b64;
@@ -17,6 +18,7 @@ export async function uploadProfile(file: any) {
   return fileUrl.url;
 }
 
+// creating jsonwebtoken
 export const generateToken = (userId: any) => {
   const token = jwt.sign({ userId }, process.env.JWT_SECRET_KEY as string, {
     expiresIn: "1d",
@@ -39,38 +41,46 @@ const months = [
   "December",
 ];
 
+// Will add daily sales amount once in 24 hours to the statistics collection
 const addTheDailyRevenue = async () => {
   const previousDay = new Date().getTime() - 86400000;
-  const compareDate = new Date(previousDay);
+  const previousDate = new Date(previousDay);
+
+  // getting the time to add the data
   const date = new Date();
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const seconds = date.getSeconds();
 
-  const month = months[compareDate.getMonth()];
-  const year = compareDate.getFullYear();
-  console.log(hours, minutes, seconds);
-  if (hours === 11 && minutes === 58 && seconds === 0) {
+  const month = months[previousDate.getMonth()];
+  const year = previousDate.getFullYear();
+
+  // if it 12 am, it will add the data
+  if (hours === 0 && minutes === 0 && seconds === 0) {
+    // taking all transactions that were held on the previous day
     const transactions = await Booking.find({
-      bookedAt: { $gte: compareDate },
+      bookedAt: { $gte: previousDate },
     });
 
+    // Calculating the total amount of that day
     if (transactions.length > 0) {
       const amount = transactions.reduce(
         (total, current) => total + current.total,
         0
       );
-      const quantity = transactions.length;
+      const quantity = transactions.length; // total bookings of that day
 
+      // finally adding the data to the statictics collection
       new Statistic({
-        date: compareDate,
+        date: previousDate,
         amount,
         month,
         quantity,
         year,
       }).save();
-      console.log(compareDate, amount, quantity, month, year);
     }
   }
 };
-// const interval = setInterval(addTheDailyRevenue, 1000);
+
+// will exicute addTheDailyRevenue every second
+const interval = setInterval(addTheDailyRevenue, 1000);
