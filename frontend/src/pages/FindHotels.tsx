@@ -8,6 +8,7 @@ import FilterByFacilities from "../components/filters/FilterByFacilities";
 import FilterByMaxPrice from "../components/filters/FilterByMaxPrice";
 import FilterByRating from "../components/filters/FilterByRating";
 import FilterByTypes from "../components/filters/FilterByTypes";
+import HotelCardSkeleton from "../components/skeletons/HotelCardSkeleton";
 import { useSearchContext } from "../contexts/UseContexts";
 import { SearchParams } from "../shared/Types";
 
@@ -35,8 +36,6 @@ const FindHotels = () => {
   const { data, isLoading } = useQuery(["fetchAllHotels", searchParams], () =>
     apiClient.fetchSearchHotels(searchParams)
   );
-
-  if (isLoading) return <span>Loading</span>;
 
   let hotels: HotelDataType[] = [];
   if (data) {
@@ -115,11 +114,21 @@ const FindHotels = () => {
             />
           </div>
           <div className="flex flex-col gap-4">
-            {hotels?.map((hotel) => (
-              <div className="md:h-72" key={hotel._id}>
-                <HotelResultCard hotel={hotel} key={hotel._id} />
-              </div>
-            ))}
+            {isLoading ? (
+              <>
+                <HotelCardSkeleton />
+                <HotelCardSkeleton />
+                <HotelCardSkeleton />
+                <HotelCardSkeleton />
+                <HotelCardSkeleton />
+              </>
+            ) : (
+              hotels?.map((hotel) => (
+                <div className="md:h-72" key={hotel._id}>
+                  <HotelResultCard hotel={hotel} key={hotel._id} />
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

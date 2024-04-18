@@ -10,9 +10,10 @@ import "swiper/css/pagination";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { useHotelsContext } from "../contexts/UseContexts";
 import HotelResultCard from "./HotelResultCard";
+import HotelCardSkeleton from "./skeletons/HotelCardSkeleton";
 
 const Carousel = () => {
-  const { topHotels } = useHotelsContext();
+  const { topHotels, loadingTopHotels } = useHotelsContext();
 
   return (
     <div className="custom-container">
@@ -34,11 +35,15 @@ const Carousel = () => {
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper mt-3 pb-8"
       >
-        {topHotels.map((hotel) => (
-          <SwiperSlide key={hotel._id} className=" md:h-[350px] my-auto">
-            <HotelResultCard hotel={hotel} />
-          </SwiperSlide>
-        ))}
+        {loadingTopHotels ? (
+          <HotelCardSkeleton />
+        ) : (
+          topHotels.map((hotel) => (
+            <SwiperSlide key={hotel._id} className=" md:h-[350px] my-auto">
+              <HotelResultCard hotel={hotel} />
+            </SwiperSlide>
+          ))
+        )}
       </Swiper>
     </div>
   );
