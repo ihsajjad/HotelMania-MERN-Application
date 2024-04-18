@@ -61,3 +61,12 @@ export type BookingType = {
   checkOut: Date;
   bookedAt?: Date;
 };
+
+export type StatisticsDataType = {
+  _id?: string;
+  date: Date;
+  amount: number;
+  quantity: number;
+  year: number;
+  month: string;
+};

@@ -30,12 +30,19 @@ const updateTheDailyRevenue = async () => {
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const seconds = date.getSeconds();
-
-  if (hours === 0 && minutes === 54 && seconds === 40) {
-    const getRevenueJson = await Booking.find({
+  console.log(compareDate, hours, minutes, seconds);
+  if (hours === 11 && minutes === 34 && seconds === 0) {
+    const transactions = await Booking.find({
       bookedAt: { $gte: compareDate },
     });
-    console.log(getRevenueJson);
+
+    if (transactions.length > 0) {
+      const amount = transactions.reduce(
+        (total, current) => total + current.total,
+        0
+      );
+      console.log(transactions, amount);
+    }
   }
 };
 // setInterval(updateTheDailyRevenue, 1000);
