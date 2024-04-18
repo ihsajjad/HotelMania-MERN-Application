@@ -9,7 +9,9 @@ import authRoutes from "./routes/auth";
 import bookingRoute from "./routes/bookings";
 import hotelRoutes from "./routes/hotels";
 import partnerRoutes from "./routes/partners";
+import statisticsRoutes from "./routes/statistics";
 import userRoutes from "./routes/users";
+
 const app = express();
 const port = 3000;
 
@@ -37,6 +39,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/partners", partnerRoutes);
 app.use("/api/hotels", hotelRoutes);
 app.use("/api/bookings", bookingRoute);
+app.use("/api/statistics", statisticsRoutes);
 
 app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));

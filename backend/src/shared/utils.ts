@@ -70,7 +70,7 @@ const addTheDailyRevenue = async () => {
       );
       const quantity = transactions.length; // total bookings of that day
 
-      // finally adding the data to the statictics collection
+      // finally adding the data to the statistics collection
       new Statistic({
         date: previousDate,
         amount,
