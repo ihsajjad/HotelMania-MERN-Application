@@ -101,13 +101,16 @@ const SearchBar = () => {
         />
       </div>
       <div className="flex gap-2">
-        <button type="submit" className="custom-btn flex-1">
+        <button
+          type="submit"
+          className="py-1 px-2 text-white bg-[var(--main-color)] font-bold flex-1"
+        >
           Search
         </button>
         <button
           onClick={handleClear}
           type="reset"
-          className="custom-btn-outline flex-1"
+          className="py-1 px-2 border-2 text-white border-[var(--main-color)] hover:text-[var(--main-color)] flex-1"
         >
           Clear
         </button>
