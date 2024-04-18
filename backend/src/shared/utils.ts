@@ -2,6 +2,7 @@ import cloudinary from "cloudinary";
 import jwt from "jsonwebtoken";
 import multer from "multer";
 import Booking from "../models/booking";
+import Statistic from "../models/statistics";
 
 const storage = multer.memoryStorage();
 export const upload = multer({
@@ -23,15 +24,33 @@ export const generateToken = (userId: any) => {
   return token;
 };
 
-const updateTheDailyRevenue = async () => {
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const addTheDailyRevenue = async () => {
   const previousDay = new Date().getTime() - 86400000;
   const compareDate = new Date(previousDay);
   const date = new Date();
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const seconds = date.getSeconds();
-  console.log(compareDate, hours, minutes, seconds);
-  if (hours === 11 && minutes === 34 && seconds === 0) {
+
+  const month = months[compareDate.getMonth()];
+  const year = compareDate.getFullYear();
+  console.log(hours, minutes, seconds);
+  if (hours === 11 && minutes === 58 && seconds === 0) {
     const transactions = await Booking.find({
       bookedAt: { $gte: compareDate },
     });
@@ -41,8 +60,17 @@ const updateTheDailyRevenue = async () => {
         (total, current) => total + current.total,
         0
       );
-      console.log(transactions, amount);
+      const quantity = transactions.length;
+
+      new Statistic({
+        date: compareDate,
+        amount,
+        month,
+        quantity,
+        year,
+      }).save();
+      console.log(compareDate, amount, quantity, month, year);
     }
   }
 };
-// setInterval(updateTheDailyRevenue, 1000);
+// const interval = setInterval(addTheDailyRevenue, 1000);
