@@ -19,7 +19,7 @@ const MyHotels = () => {
   const { data: hotels, refetch: refetchHotels } = useQuery(
     "fetchMyHotels",
     apiClient.fetchMyHotels,
-    { enabled: !!user._id, onError: (error) => console.log(error) }
+    { enabled: !!user._id }
   );
 
   const { mutate: deleteHotel } = useMutation(apiClient.deleteSingleHotel, {

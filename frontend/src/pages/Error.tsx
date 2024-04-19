@@ -8,7 +8,7 @@ interface RouterError {
 const Error: React.FC = () => {
   const errorData: RouterError = useRouteError() as RouterError;
   const { error } = errorData;
-  console.log(error);
+
   return (
     <div className="h-screen w-screen">
       <Lottie animationData={animation} className="h-[80vh] w-full" />

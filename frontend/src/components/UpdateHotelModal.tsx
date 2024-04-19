@@ -1,5 +1,4 @@
 // import { useMutation } from "react-query";
-import { useState } from "react";
 import { useMutation } from "react-query";
 import { HotelDataType } from "../../../backend/src/shared/types";
 import * as apiClient from "../api-client";
@@ -7,7 +6,6 @@ import ManageHotelForm from "../forms/manageHotelForm/ManageHotelForm";
 import { errorToast, successToast } from "../shared/utils";
 
 const UpdateHotelModal = ({ hotel }: { hotel?: HotelDataType }) => {
-  const [myReset, setMyRest] = useState<() => void>(() => {});
   const { mutate: updateHotel, isLoading } = useMutation(
     apiClient.updateHotel,
     {
@@ -15,8 +13,6 @@ const UpdateHotelModal = ({ hotel }: { hotel?: HotelDataType }) => {
         const btn = document.getElementById(`update-modal-close-btn`);
         btn?.click();
         successToast("Hotel updated successfully");
-        console.log(myReset);
-        // myReset();
       },
       onError: (error: Error) => {
         errorToast(error.message);
@@ -36,7 +32,6 @@ const UpdateHotelModal = ({ hotel }: { hotel?: HotelDataType }) => {
             onSave={updateHotel}
             hotel={hotel}
             isLoading={isLoading}
-            setMyRest={setMyRest}
           />
         </div>
         <div className="modal-action">

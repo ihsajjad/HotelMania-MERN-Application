@@ -11,23 +11,16 @@ type ManageHotelProps = {
   onSave: (data: HotelDataType) => void;
   hotel?: HotelDataType;
   isLoading: boolean;
-  setMyRest: (myFun: () => void) => void;
 };
 
-const ManageHotelForm = ({
-  onSave,
-  hotel,
-  isLoading,
-  setMyRest,
-}: ManageHotelProps) => {
+const ManageHotelForm = ({ onSave, hotel, isLoading }: ManageHotelProps) => {
   const methods = useForm<HotelDataType>({ defaultValues: hotel });
 
   const { reset, handleSubmit } = methods;
 
   useEffect(() => {
     reset(hotel);
-    setMyRest(reset);
-  }, [hotel, reset, setMyRest]);
+  }, [hotel, reset]);
 
   const onSubmit = handleSubmit((formData: HotelDataType) => {
     const hotelData = { ...formData };

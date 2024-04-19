@@ -100,11 +100,25 @@ router.get(
 // getting top rated hotels
 router.get("/top-5", async (req: Request, res: Response) => {
   try {
-    const hotels = await Hotel.find().sort({ starRating: -1 }).limit(5);
+    const hotels = await Hotel.find()
+      .select("-adultCount -childCount -lastUpdated -userId")
+      .sort({ starRating: -1 })
+      .limit(5);
 
-    if (!hotels) return res.json({ message: "Hotels not found" });
+    const allHotels = hotels?.map((hotel) => ({
+      _id: hotel._id,
+      name: hotel.name,
+      images: hotel.images,
+      city: hotel.city,
+      country: hotel.country,
+      starRating: hotel.starRating,
+      type: hotel.type,
+      pricePerNight: hotel.pricePerNight,
+      facilities: hotel.facilities,
+      description: hotel.description.slice(0, 300),
+    }));
 
-    res.json(hotels);
+    res.json(allHotels);
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }

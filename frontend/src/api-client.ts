@@ -177,7 +177,6 @@ export const createBooking = async (booking: BookingType) => {
   });
 
   const result = await res.json();
-  console.log(result);
 
   if (!res.ok) throw new Error("Failed to book hotel");
 

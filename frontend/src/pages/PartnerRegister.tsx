@@ -16,11 +16,9 @@ const PartnerRegister = () => {
 
   const { mutate: registerPartner } = useMutation(apiClient.partnerRegister, {
     onSuccess: (result) => {
-      console.log(result);
       successToast(result.message);
     },
     onError: (error: Error) => {
-      console.log(error);
       errorToast(error.message);
     },
   });

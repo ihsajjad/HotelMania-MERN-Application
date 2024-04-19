@@ -14,7 +14,7 @@ import HotelCardSkeleton from "./skeletons/HotelCardSkeleton";
 
 const Carousel = () => {
   const { topHotels, loadingTopHotels } = useHotelsContext();
-
+  console.log(topHotels);
   return (
     <div className="custom-container">
       <div className="">
@@ -38,8 +38,8 @@ const Carousel = () => {
         {loadingTopHotels ? (
           <HotelCardSkeleton />
         ) : (
-          topHotels.map((hotel) => (
-            <SwiperSlide key={hotel._id} className=" md:h-[350px] my-auto">
+          topHotels?.map((hotel) => (
+            <SwiperSlide key={hotel?._id} className=" md:h-[350px] my-auto">
               <HotelResultCard hotel={hotel} />
             </SwiperSlide>
           ))

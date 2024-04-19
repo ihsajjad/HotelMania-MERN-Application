@@ -24,12 +24,20 @@ export const HotelsContextProvider = ({
 }) => {
   const { data: hotels, isLoading: loadingTopHotels } = useQuery(
     "fetchTopHotels",
-    apiClient.fetchTopHotels
+    apiClient.fetchTopHotels,
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    }
   );
 
   const { data: galleryImages, isLoading: galleryLoading } = useQuery(
     "fetchGalleryImages",
-    apiClient.fetchGalleryImages
+    apiClient.fetchGalleryImages,
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    }
   );
 
   const topHotels = hotels ? hotels : [];

@@ -47,7 +47,6 @@ const CheckOutForm = ({
     total: paymentIntent.total,
     userId: user._id,
   };
-  console.log(bookingData);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();

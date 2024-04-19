@@ -5,16 +5,16 @@ import { HotelDataType } from "../../../backend/src/shared/types";
 const HotelResultCard = ({ hotel }: { hotel: HotelDataType }) => {
   return (
     <div
-      key={hotel._id}
+      key={hotel?._id}
       className="flex gap-4 md:flex-row flex-col w-full p-4 rounded h-full border border-zinc-300"
     >
       <div className="flex-1 relative">
         <img
-          src={hotel.images[0].image}
+          src={hotel?.images[0]?.image}
           alt=""
           className="rounded w-full h-full object-center object-cover"
         />
-        <span className="hotel-type-btn">{hotel.type}</span>
+        <span className="hotel-type-btn">{hotel?.type}</span>
       </div>
 
       <div className="flex-1 flex flex-col gap-3">
@@ -24,14 +24,14 @@ const HotelResultCard = ({ hotel }: { hotel: HotelDataType }) => {
               <AiFillStar key={i} className="fill-yellow-400" />
             ))}
           </div>
-          <h3 className="text-lg font-bold">{hotel.name}</h3>
+          <h3 className="text-lg font-bold">{hotel?.name}</h3>
           <span>
-            {hotel.city}, {hotel.country}
+            {hotel?.city}, {hotel?.country}
           </span>
         </div>
         <div className="flex-grow">
           <p className="text-justify text-slate-500 md:line-clamp-4 line-clamp-2">
-            {hotel.description}
+            {hotel?.description}
           </p>
         </div>
 
@@ -44,16 +44,16 @@ const HotelResultCard = ({ hotel }: { hotel: HotelDataType }) => {
               {facility}
             </span>
           ))}
-          {hotel.facilities.length > 1 && (
-            <span> +{hotel.facilities.length - 1} more facilities</span>
+          {hotel?.facilities?.length > 1 && (
+            <span> +{hotel?.facilities?.length - 1} more facilities</span>
           )}
         </div>
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-2xl font-bold">${hotel.pricePerNight}</span>
+            <span className="text-2xl font-bold">${hotel?.pricePerNight}</span>
             <span>/Per night</span>
           </div>
-          <Link to={`/details/${hotel._id}`} className="custom-btn">
+          <Link to={`/details/${hotel?._id}`} className="custom-btn">
             View more
           </Link>
         </div>

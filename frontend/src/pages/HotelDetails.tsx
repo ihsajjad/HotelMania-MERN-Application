@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import GuestInfoForm from "../forms/GuestInfoForm";
 import { useGetHotelById } from "../shared/CommonHooks";
 const HotelDetails = () => {
-  const data = useLoaderData();
-
-  console.log(data);
   const [currImage, setCurrImage] = useState<{
     image: string;
     label: string;
