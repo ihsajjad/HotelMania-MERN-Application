@@ -6,7 +6,7 @@ type Props = {
 };
 const FilterByRating = ({ selectedStars, onChange }: Props) => {
   return (
-    <div className="border-b border-zinc-300 pb-4">
+    <div className="border-b border-zinc-300 pb-4 h-fit">
       <h4 className="text-lg font-bold mb-2">Rating</h4>
       <div className="flex flex-col gap-1">
         {[1, 2, 3, 4, 5].map((star) => (

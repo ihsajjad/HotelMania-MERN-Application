@@ -7,7 +7,7 @@ type Props = {
 const FilterByMaxPrice = ({ selectedPrice, onChange }: Props) => {
   return (
     <div>
-      <h4 className="text-lg font-bold mb-2">Select Max Price</h4>
+      <h4 className="text-lg font-bold mb-2 h-fit">Select Max Price</h4>
       <div className="flex flex-col gap-1">
         <select
           value={selectedPrice}

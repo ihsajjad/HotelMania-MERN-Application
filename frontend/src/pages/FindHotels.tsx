@@ -79,11 +79,11 @@ const FindHotels = () => {
   return (
     <div className="custom-container min-h-screen">
       <div className="flex md:flex-row flex-col gap-4 py-4">
-        <div className="border border-zinc-300 md:w-1/5 p-4 sticky top-2 h-fit rounded md:block hidden">
+        <div className="border border-zinc-300 md:w-1/5 p-4 md:sticky top-2 h-fit rounded">
           <h3 className="text-xl font-bold border-b border-zinc-300 pb-4 mb-4">
             Filter By :
           </h3>
-          <div className="flex flex-col gap-4 text-sm">
+          <div className="grid md:grid-cols-1 grid-cols-2 gap-4 text-sm h-40 overflow-y-scroll md:h-fit md:overflow-hidden">
             <FilterByRating
               selectedStars={selectedStars}
               onChange={handleStarChange}
