@@ -63,22 +63,21 @@ const addTheDailyRevenue = async () => {
     });
 
     // Calculating the total amount of that day
-    if (transactions.length > 0) {
-      const amount = transactions.reduce(
-        (total, current) => total + current.total,
-        0
-      );
-      const quantity = transactions.length; // total bookings of that day
+    const amount = transactions?.reduce(
+      (total, current) => total + current?.total,
+      0
+    );
 
-      // finally adding the data to the statistics collection
-      new Statistic({
-        date: previousDate,
-        amount,
-        month,
-        quantity,
-        year,
-      }).save();
-    }
+    const quantity = transactions?.length || 0; // total bookings of that day
+
+    // finally adding the data to the statistics collection
+    new Statistic({
+      date: previousDate,
+      amount,
+      month,
+      quantity,
+      year,
+    }).save();
   }
 };
 

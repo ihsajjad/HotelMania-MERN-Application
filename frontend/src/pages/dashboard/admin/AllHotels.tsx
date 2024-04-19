@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { HotelDataType } from "../../../../../backend/src/shared/types";
 import * as apiClient from "../../../api-client";
 import PageTitle from "../../../components/PageTitle";
+import TableSkeletonRow from "../../../components/skeletons/TableSkeletonRow";
 import HotelsTableItem from "../../../components/tableItems/HotelsTableItem";
 import TablePagination from "../../../components/tableItems/TablePagination";
 import { Pagination } from "../../../shared/Types";
@@ -11,8 +12,9 @@ const AllHotels = () => {
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const [pageNumber, setPageNumber] = useState<number>(1);
 
-  const { data } = useQuery(["fetchAllHotels", itemsPerPage, pageNumber], () =>
-    apiClient.fetchAllHotels(pageNumber, itemsPerPage)
+  const { data, isLoading } = useQuery(
+    ["fetchAllHotels", itemsPerPage, pageNumber],
+    () => apiClient.fetchAllHotels(pageNumber, itemsPerPage)
   );
 
   let hotels: HotelDataType[] = [];
@@ -22,8 +24,6 @@ const AllHotels = () => {
     hotels = data.data;
     pagination = data.pagination;
   }
-
-  console.log(data);
 
   const changeItemsPerPage = (event: ChangeEvent<HTMLSelectElement>) => {
     const items = parseInt(event.target.value);
@@ -56,10 +56,21 @@ const AllHotels = () => {
               </tr>
             </thead>
             <tbody>
-              {hotels &&
+              {isLoading ? (
+                <>
+                  <TableSkeletonRow type="hotels" />
+                  <TableSkeletonRow type="hotels" />
+                  <TableSkeletonRow type="hotels" />
+                  <TableSkeletonRow type="hotels" />
+                  <TableSkeletonRow type="hotels" />
+                  <TableSkeletonRow type="hotels" />
+                </>
+              ) : (
+                hotels &&
                 hotels.map((hotel, i) => (
                   <HotelsTableItem key={hotel._id} hotel={hotel} i={i} />
-                ))}
+                ))
+              )}
             </tbody>
           </table>
           <TablePagination

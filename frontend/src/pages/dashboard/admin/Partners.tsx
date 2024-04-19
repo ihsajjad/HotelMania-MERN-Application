@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from "react";
 import { useQuery } from "react-query";
 import * as apiClient from "../../../api-client";
 import PageTitle from "../../../components/PageTitle";
+import TableSkeletonRow from "../../../components/skeletons/TableSkeletonRow";
 import PartnersTableItem from "../../../components/tableItems/PartnersTableItem";
 import TablePagination from "../../../components/tableItems/TablePagination";
 import { Pagination, PartnerType } from "../../../shared/Types";
@@ -10,7 +11,7 @@ const Partners = () => {
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const [pageNumber, setPageNumber] = useState<number>(1);
 
-  const { data } = useQuery(
+  const { data, isLoading } = useQuery(
     ["fetchAllPartners", itemsPerPage, pageNumber],
     () => apiClient.fetchAllPartners(itemsPerPage, pageNumber)
   );
@@ -51,14 +52,25 @@ const Partners = () => {
               </tr>
             </thead>
             <tbody>
-              {partners &&
+              {isLoading ? (
+                <>
+                  <TableSkeletonRow type="" />
+                  <TableSkeletonRow type="" />
+                  <TableSkeletonRow type="" />
+                  <TableSkeletonRow type="" />
+                  <TableSkeletonRow type="" />
+                  <TableSkeletonRow type="" />
+                </>
+              ) : (
+                partners &&
                 partners.map((partner, i) => (
                   <PartnersTableItem
                     key={partner._id}
                     partner={partner}
                     i={i}
                   />
-                ))}
+                ))
+              )}
             </tbody>
           </table>
           <TablePagination

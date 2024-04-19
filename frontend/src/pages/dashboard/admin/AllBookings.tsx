@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { BookingType } from "../../../../../backend/src/shared/types";
 import * as apiClient from "../../../api-client";
 import PageTitle from "../../../components/PageTitle";
+import TableSkeletonRow from "../../../components/skeletons/TableSkeletonRow";
 import BookingsTableItem from "../../../components/tableItems/BookingsTableItem";
 import TablePagination from "../../../components/tableItems/TablePagination";
 import { Pagination } from "../../../shared/Types";
@@ -11,7 +12,7 @@ const AllBookings = () => {
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const [pageNumber, setPageNumber] = useState<number>(1);
 
-  const { data } = useQuery(
+  const { data, isLoading } = useQuery(
     ["fetchAllBookings", itemsPerPage, pageNumber],
     () => apiClient.fetchAllBookings(itemsPerPage, pageNumber)
   );
@@ -53,14 +54,25 @@ const AllBookings = () => {
               </tr>
             </thead>
             <tbody>
-              {allBookings &&
+              {isLoading ? (
+                <>
+                  <TableSkeletonRow type="bookings" />
+                  <TableSkeletonRow type="bookings" />
+                  <TableSkeletonRow type="bookings" />
+                  <TableSkeletonRow type="bookings" />
+                  <TableSkeletonRow type="bookings" />
+                  <TableSkeletonRow type="bookings" />
+                </>
+              ) : (
+                allBookings &&
                 allBookings.map((booking, i) => (
                   <BookingsTableItem
                     key={booking._id}
                     booking={booking}
                     i={i}
                   />
-                ))}
+                ))
+              )}
             </tbody>
           </table>
           <TablePagination
