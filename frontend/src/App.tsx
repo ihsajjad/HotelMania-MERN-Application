@@ -1,4 +1,3 @@
-// const DashboardLayout = () => import("./layouts/DashboardLayout");
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "./layouts/DashboardLayout";
 import MainLayout from "./layouts/MainLayout";
@@ -15,6 +14,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import AllBookings from "./pages/dashboard/admin/AllBookings";
 import AllHotels from "./pages/dashboard/admin/AllHotels";
 import Partners from "./pages/dashboard/admin/Partners";
+// import MyHotels from "./pages/dashboard/partner/MyHotels";
 import MyHotels from "./pages/dashboard/partner/MyHotels";
 import MyBookings from "./pages/dashboard/user/MyBookings";
 import PartnerRoute from "./routes/PartnerRoute";

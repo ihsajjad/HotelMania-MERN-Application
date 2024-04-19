@@ -48,10 +48,10 @@ export default defineConfig({
           ) {
             return "allBookings"; // Separate dashboard components into their own chunk
           } else if (
-            /\/src\/pages\/dashboard\/admin\/AllHotels\.tsx$/.test(id) &&
+            /\/src\/pages\/dashboard\/partner\/MyHotels\.tsx$/.test(id) &&
             !/node_modules/.test(id)
           ) {
-            return "allHotels"; // Separate dashboard components into their own chunk
+            return "myHotels"; // Separate dashboard components into their own chunk
           } else if (
             /\/src\/pages\/dashboard\/admin\/Partners\.tsx$/.test(id) &&
             !/node_modules/.test(id)
