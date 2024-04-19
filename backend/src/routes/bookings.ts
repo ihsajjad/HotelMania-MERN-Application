@@ -185,19 +185,4 @@ router.post(
   }
 );
 
-router.get("/payouts", async (req: Request, res: Response) => {
-  let unixTime = Math.floor(new Date().getTime() / 1000);
-  unixTime -= 86400000;
-  console.log(unixTime);
-  const payouts = await stripe.paymentIntents.list({
-    created: {
-      // lte: unixTime,
-      lte: unixTime,
-    },
-
-    limit: 100,
-  });
-  res.json(payouts);
-});
-
 export default router;

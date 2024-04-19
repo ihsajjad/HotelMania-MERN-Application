@@ -117,7 +117,7 @@ router.post(
       });
       res.status(200).json({ message: "Registration successful" });
     } catch (error: any) {
-      console.log(error);
+      console.log(__dirname, error);
       res.status(500).json({ message: "Internal server error" });
     }
   }
