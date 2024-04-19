@@ -9,6 +9,8 @@ const useGetHotelById = (id: string) => {
       enabled: !!id,
       retry: false,
       refetchInterval: false,
+      retryOnMount: false,
+      refetchOnWindowFocus: false,
     }
   );
 

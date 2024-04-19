@@ -1,17 +1,14 @@
-import { useState } from "react";
 import { useMutation } from "react-query";
 import * as apiClient from "../api-client";
 import ManageHotelForm from "../forms/manageHotelForm/ManageHotelForm";
 import { errorToast, successToast } from "../shared/utils";
 
 const AddHotelModal = () => {
-  const [myReset, setMyRest] = useState<() => void>(() => {});
   const { mutate: addHotel, isLoading } = useMutation(apiClient.addMyHotel, {
     onSuccess: () => {
       const btn = document.getElementById("modal-close-btn");
       btn?.click();
       successToast("Hotel added successfully");
-      myReset();
     },
     onError: (error: Error) => {
       errorToast(error.message);
@@ -26,11 +23,7 @@ const AddHotelModal = () => {
         </h3>
         {/* Modal body here */}
         <div className="max-h-[80vh] overflow-y-scroll md:p-4 border border-slate-500">
-          <ManageHotelForm
-            onSave={addHotel}
-            isLoading={isLoading}
-            setMyRest={setMyRest}
-          />
+          <ManageHotelForm onSave={addHotel} isLoading={isLoading} />
         </div>
         <div className="modal-action">
           <form method="dialog">
