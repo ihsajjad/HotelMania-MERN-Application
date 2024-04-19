@@ -129,15 +129,4 @@ const MyHotels = () => {
   );
 };
 
-{
-  /* You can open the modal using document.getElementById('ID').showModal() method */
-}
-{
-  /* <button
-  className="btn"
->
-  open modal
-</button>; */
-}
-
 export default MyHotels;
