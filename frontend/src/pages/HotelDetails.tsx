@@ -19,7 +19,7 @@ const HotelDetails = () => {
 
   console.log(hotel);
 
-  const descriptions = hotel?.description?.split("\n");
+  const description = hotel?.description?.replace(/\n/g, "<br />");
 
   return (
     <div className="custom-container space-y-6 my-6">
@@ -41,7 +41,7 @@ const HotelDetails = () => {
             <h1 className="text-3xl font-bold">{hotel?.name}</h1>
           </div>
 
-          <div className="">
+          <div className="w-full">
             <div className="relative w-full">
               <img
                 src={currImage?.image}
@@ -53,13 +53,13 @@ const HotelDetails = () => {
               </span>
             </div>
 
-            <div className="grid md:grid-cols-6 sm:grid-cols-4 grid-cols-3 md:gap-4 gap-2">
+            <div className="flex flex-wrap gap-4">
               {hotel?.images.map((item) => (
                 <img
                   key={item?.image}
                   src={item?.image}
                   alt={item?.label}
-                  className={`${currImage?.image === item.image ? "border-[var(--main-color)]" : "opacity-60"} hover:border-[var(--main-color)] hover:opacity-100 border-4 cursor-pointer rounded duration-150 h-full w-full`}
+                  className={`${currImage?.image === item.image ? "border-[var(--main-color)]" : "opacity-60"} hover:border-[var(--main-color)] hover:opacity-100 border-4 cursor-pointer rounded duration-150 md:h-28 md:w-40 h-20 w-32`}
                   onClick={() => setCurrImage(item)}
                 />
               ))}
@@ -77,15 +77,10 @@ const HotelDetails = () => {
 
           {/* destination */}
           <div className="grid md:grid-cols-[2fr_1fr] grid-cols-1 gap-5 ">
-            <div className="space-y-4 text-justify text-slate-600 border border-zinc-300 p-3 rounded">
-              {Array.isArray(descriptions) ? (
-                descriptions?.map((description, i) => (
-                  <p key={i}>{description}</p>
-                ))
-              ) : (
-                <p>{hotel?.description}</p>
-              )}
-            </div>
+            <div
+              className="text-justify text-slate-700 border border-zinc-300 p-3 rounded"
+              dangerouslySetInnerHTML={{ __html: description as string }}
+            ></div>
             <GuestInfoForm
               hotelId={id as string}
               price={hotel?.pricePerNight as number}

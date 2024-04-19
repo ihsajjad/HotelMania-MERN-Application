@@ -164,7 +164,7 @@ const GuestInfoForm = ({
         </div>
         <button
           disabled={disableBtn}
-          className="custom-btn w-full disabled:bg-slate-400 disabled:cursor-not-allowed"
+          className="custom-btn w-full disabled:bg-slate-400 disabled:cursor-not-allowed text-xl"
         >
           {isLogin ? "Book Now" : "Sign In to Book"}
         </button>
