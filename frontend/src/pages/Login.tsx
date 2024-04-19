@@ -74,7 +74,7 @@ const Login = () => {
             </label>
           </div>
           <div className="form-control">
-            <button type="submit" className="custom-btn-outline">
+            <button type="submit" className="custom-btn text-xl">
               Login
             </button>
           </div>
