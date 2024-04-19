@@ -11,7 +11,7 @@ const HotelResultCard = ({ hotel }: { hotel: HotelDataType }) => {
       <div className="flex-1 relative">
         <img
           src={hotel?.images[0]?.image}
-          alt=""
+          alt={hotel?.images[0]?.label}
           className="rounded w-full h-full object-center object-cover"
         />
         <span className="hotel-type-btn">{hotel?.type}</span>
