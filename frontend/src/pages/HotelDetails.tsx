@@ -17,8 +17,6 @@ const HotelDetails = () => {
     setCurrImage(hotel?.images[0]);
   }, [hotel?.images]);
 
-  console.log(hotel);
-
   const description = hotel?.description?.replace(/\n/g, "<br />");
 
   return (

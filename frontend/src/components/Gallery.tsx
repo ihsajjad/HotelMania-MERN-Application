@@ -1,10 +1,17 @@
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { useHotelsContext } from "../contexts/UseContexts";
+import * as apiClient from "../api-client";
 import GallerySkeleton from "./skeletons/GallerySkeleton";
 
 const Gallery = () => {
-  const { gallery, galleryLoading } = useHotelsContext();
-
+  const { data: gallery, isLoading: galleryLoading } = useQuery(
+    "fetchGalleryImages",
+    apiClient.fetchGalleryImages,
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    }
+  );
   return (
     <div className="custom-container bg-slate-100 py-10">
       <h3 className="text-3xl text-center font-bold mb-5">

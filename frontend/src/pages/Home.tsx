@@ -1,11 +1,11 @@
-import Carousel from "../components/Carousel";
 import Gallery from "../components/Gallery";
 import OurPartners from "../components/OurPartners";
+import TopHotels from "../components/TopHotels.tsx";
 
 const Home = () => {
   return (
     <div>
-      <Carousel />
+      <TopHotels />
       <Gallery />
       <OurPartners />
     </div>

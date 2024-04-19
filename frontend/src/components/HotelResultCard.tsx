@@ -8,7 +8,7 @@ const HotelResultCard = ({ hotel }: { hotel: HotelDataType }) => {
       key={hotel?._id}
       className="flex gap-4 md:flex-row flex-col w-full p-4 rounded h-full border border-zinc-300"
     >
-      <div className="flex-1 relative">
+      <div className="flex-1 relative h-full">
         <img
           src={hotel?.images[0]?.image}
           alt={hotel?.images[0]?.label}
