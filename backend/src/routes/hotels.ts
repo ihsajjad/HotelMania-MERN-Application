@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
-import { verifyHotelOwner, verifyToken } from "../middleware/auth";
+import { verifyAdmin, verifyHotelOwner, verifyToken } from "../middleware/auth";
 import Hotel from "../models/hotel";
 import { HotelDataType } from "../shared/types";
 import { upload, uploadProfile } from "../shared/utils";
@@ -42,8 +42,10 @@ router.get("/search", async (req: Request, res: Response) => {
       .limit(pageSize)
       ?.sort(sort);
 
+    const data = hotelCardData(hotels);
+
     const response = {
-      data: hotels,
+      data,
       pagination: {
         total,
         page: pageNumber,
@@ -60,7 +62,8 @@ router.get("/search", async (req: Request, res: Response) => {
 // get all hotels for admin
 router.get(
   "/",
-
+  verifyToken,
+  verifyAdmin,
   async (req: Request, res: Response) => {
     try {
       // start pagination area
@@ -105,26 +108,7 @@ router.get("/top-5", async (req: Request, res: Response) => {
       .sort({ starRating: -1 })
       .limit(5);
 
-    const allHotels = hotels?.map((hotel) => {
-      let url = "";
-
-      const image = hotel?.images[0];
-      if (image)
-        url = image?.image.replace("upload", "upload/h_350,w_500/q_90") || "";
-
-      return {
-        _id: hotel._id,
-        name: hotel.name,
-        coverPhoto: { url, label: image?.label || "" },
-        city: hotel.city,
-        country: hotel.country,
-        starRating: hotel.starRating,
-        type: hotel.type,
-        pricePerNight: hotel.pricePerNight,
-        facilities: hotel.facilities,
-        description: hotel.description.slice(0, 300),
-      };
-    });
+    const allHotels = hotelCardData(hotels);
 
     res.json(allHotels);
   } catch (error) {
@@ -369,5 +353,30 @@ const constructSearchQuery = (queryParams: any) => {
   }
 
   return constructedQuery;
+};
+
+const hotelCardData = (hotels: HotelDataType[]) => {
+  const allHotels = hotels?.map((hotel) => {
+    let url = "";
+
+    const image = hotel?.images[0];
+    if (image)
+      url = image?.image.replace("upload", "upload/h_350,w_500/q_90") || "";
+
+    return {
+      _id: hotel._id,
+      name: hotel.name,
+      coverPhoto: { url, label: image?.label || "" },
+      city: hotel.city,
+      country: hotel.country,
+      starRating: hotel.starRating,
+      type: hotel.type,
+      pricePerNight: hotel.pricePerNight,
+      facilities: hotel.facilities,
+      description: hotel.description.slice(0, 300),
+    };
+  });
+
+  return allHotels;
 };
 export default router;

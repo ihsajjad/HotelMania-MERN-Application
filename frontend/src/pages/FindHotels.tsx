@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { useQuery } from "react-query";
-import { HotelDataType } from "../../../backend/src/shared/types";
+import { HotelCardType } from "../../../backend/src/shared/types";
 import * as apiClient from "../api-client";
 import HotelResultCard from "../components/HotelResultCard";
 import SortOptions from "../components/SortOptions";
@@ -37,7 +37,7 @@ const FindHotels = () => {
     apiClient.fetchSearchHotels(searchParams)
   );
 
-  let hotels: HotelDataType[] = [];
+  let hotels: HotelCardType[] = [];
   if (data) {
     hotels = data?.data;
   }

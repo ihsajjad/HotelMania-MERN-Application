@@ -1,4 +1,4 @@
-import { BookingType, HotelDataType } from "../../../backend/src/shared/types";
+import { BookingType, HotelCardType } from "../../../backend/src/shared/types";
 
 export type PartnerType = {
   _id: string;
@@ -35,7 +35,7 @@ export type Pagination = {
 };
 
 export type HotelsResponse = {
-  data: HotelDataType[];
+  data: HotelCardType[];
   pagination: Pagination;
 };
 
