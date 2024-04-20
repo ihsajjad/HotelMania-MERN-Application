@@ -13,7 +13,7 @@ import UpdateHotelModal from "../../../components/UpdateHotelModal";
 import { useAppContext } from "../../../contexts/UseContexts";
 import { errorToast, successToast } from "../../../shared/utils";
 
-const MyHotels = () => {
+const MyAddedHotels = () => {
   const { user } = useAppContext() || {};
   const [hotelData, setHotelData] = useState<HotelDataType>();
   const { data: hotels, refetch: refetchHotels } = useQuery(
@@ -129,4 +129,4 @@ const MyHotels = () => {
   );
 };
 
-export default MyHotels;
+export default MyAddedHotels;

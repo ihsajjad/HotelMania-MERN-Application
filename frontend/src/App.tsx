@@ -14,7 +14,8 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import AllBookings from "./pages/dashboard/admin/AllBookings";
 import AllHotels from "./pages/dashboard/admin/AllHotels";
 import Partners from "./pages/dashboard/admin/Partners";
-import MyHotels from "./pages/dashboard/partner/MyHotels";
+// import MyAddedHotels from "./pages/dashboard/partner/MyAddedHotels";
+import MyAddedHotels from "./pages/dashboard/partner/MyAddedHotels.tsx";
 import MyBookings from "./pages/dashboard/user/MyBookings";
 import PartnerRoute from "./routes/PartnerRoute";
 import PrivateRoute from "./routes/PrivateRoute";
@@ -67,7 +68,7 @@ export const routes = createBrowserRouter([
         path: "/dashboard/my-hotels",
         element: (
           <PartnerRoute>
-            <MyHotels />
+            <MyAddedHotels />
           </PartnerRoute>
         ),
       },

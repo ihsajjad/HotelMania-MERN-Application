@@ -14,7 +14,11 @@ export const upload = multer({
 export async function uploadProfile(file: any) {
   const b64 = Buffer.from(file.buffer).toString("base64");
   const dataURI = "data:" + file.mimetype + ";base64," + b64;
-  const fileUrl = await cloudinary.v2.uploader.upload(dataURI);
+  const fileUrl = await cloudinary.v2.uploader.upload(dataURI, {
+    format: "webp",
+  });
+
+  console.log(fileUrl);
 
   return fileUrl.secure_url;
 }
