@@ -1,21 +1,23 @@
-import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import HotelDetailsSkeleton from "../components/skeletons/HotelDetailsSkeleton";
 import GuestInfoForm from "../forms/GuestInfoForm";
 import { useGetHotelById } from "../shared/CommonHooks";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+// import required modules
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+
 const HotelDetails = () => {
-  const [currImage, setCurrImage] = useState<{
-    image: string;
-    label: string;
-  }>();
   const { id } = useParams();
 
   const { data: hotel, isLoading } = useGetHotelById(id as string);
-
-  useEffect(() => {
-    setCurrImage(hotel?.images[0]);
-  }, [hotel?.images]);
 
   const description = hotel?.description?.replace(/\n/g, "<br />");
 
@@ -39,29 +41,43 @@ const HotelDetails = () => {
             <h1 className="text-3xl font-bold">{hotel?.name}</h1>
           </div>
 
-          <div className="w-full">
-            <div className="relative w-full">
-              <img
-                src={currImage?.image}
-                alt={currImage?.label}
-                className="lg:h-[500px] md:h-[400px] sm:h-[300px] h-[200px] w-full mb-4 rounded"
-              />
-              <span className="md:text-3xl text-xl font-bold absolute bottom-0 right-0 z-10 text-[var(--main-color)] p-2 bg-black bg-opacity-40 rounded-t">
-                {currImage?.label}
-              </span>
-            </div>
-
-            <div className="flex flex-wrap gap-4">
-              {hotel?.images.map((item) => (
-                <img
-                  key={item?.image}
-                  src={item?.image}
-                  alt={item?.label}
-                  className={`${currImage?.image === item.image ? "border-[var(--main-color)]" : "opacity-60"} hover:border-[var(--main-color)] hover:opacity-100 border-4 cursor-pointer rounded duration-150 md:h-28 md:w-40 h-20 w-32`}
-                  onClick={() => setCurrImage(item)}
-                />
+          {/* <div className="w-full"> */}
+          <div className="relative w-full">
+            <Swiper
+              spaceBetween={30}
+              centeredSlides={true}
+              // style={{
+              //   "--swiper-navigation-color": "#fff",
+              //   "--swiper-pagination-color": "#fff",
+              // }}
+              autoplay={{
+                delay: 2000,
+                disableOnInteraction: false,
+              }}
+              navigation={true}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Autoplay, Pagination, Navigation]}
+              className="mySwiper mt-3 pb-10"
+            >
+              {hotel?.images?.map((image) => (
+                <SwiperSlide
+                  key={hotel?._id}
+                  className="md:h-[450px] sm:h-[300px] h-[200px] my-auto"
+                >
+                  <img
+                    src={image?.image}
+                    alt={image.label}
+                    loading="lazy"
+                    className=" object-cover object-center h-full w-full mb-4 rounded"
+                  />
+                  <span className="md:text-3xl text-xl font-bold absolute top-0 right-0 z-10 text-[var(--main-color)] p-2 bg-black bg-opacity-40 rounded-t">
+                    {image?.label}
+                  </span>
+                </SwiperSlide>
               ))}
-            </div>
+            </Swiper>
           </div>
 
           {/* facilities */}

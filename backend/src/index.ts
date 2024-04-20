@@ -15,7 +15,9 @@ import userRoutes from "./routes/users";
 const app = express();
 const port = 3000;
 
-mongoose.connect(process.env.MONGODB_URI as string);
+mongoose
+  .connect(process.env.MONGODB_URI as string)
+  .then(() => console.log("DB connected"));
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
