@@ -21,11 +21,11 @@ const Gallery = () => {
         {galleryLoading ? (
           <GallerySkeleton />
         ) : (
-          gallery?.slice(0, 12)?.map((image) => (
+          gallery?.map((image) => (
             <Link
               to={`/details/${image._id}`}
               key={image.url}
-              className="group h-full w-full object-cover relative"
+              className="group h-[150px] w-full object-cover relative"
             >
               <img
                 src={image.url}

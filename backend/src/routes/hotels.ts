@@ -105,18 +105,26 @@ router.get("/top-5", async (req: Request, res: Response) => {
       .sort({ starRating: -1 })
       .limit(5);
 
-    const allHotels = hotels?.map((hotel) => ({
-      _id: hotel._id,
-      name: hotel.name,
-      images: hotel.images,
-      city: hotel.city,
-      country: hotel.country,
-      starRating: hotel.starRating,
-      type: hotel.type,
-      pricePerNight: hotel.pricePerNight,
-      facilities: hotel.facilities,
-      description: hotel.description.slice(0, 300),
-    }));
+    const allHotels = hotels?.map((hotel) => {
+      let url = "";
+
+      const image = hotel?.images[0];
+      if (image)
+        url = image?.image.replace("upload", "upload/h_350,w_500/q_90") || "";
+
+      return {
+        _id: hotel._id,
+        name: hotel.name,
+        coverPhoto: { url, label: image?.label || "" },
+        city: hotel.city,
+        country: hotel.country,
+        starRating: hotel.starRating,
+        type: hotel.type,
+        pricePerNight: hotel.pricePerNight,
+        facilities: hotel.facilities,
+        description: hotel.description.slice(0, 300),
+      };
+    });
 
     res.json(allHotels);
   } catch (error) {
@@ -147,13 +155,15 @@ router.get("/gallery", async (req: Request, res: Response) => {
   try {
     const hotels = await Hotel.find().select("_id images name").limit(4);
     const images: { url: string; _id: string; name: string }[] = [];
-    hotels.forEach((hotel) =>
-      hotel.images.forEach((item) =>
-        images.push({ url: item.image, _id: hotel._id, name: hotel.name })
-      )
+    hotels?.forEach((hotel) =>
+      hotel?.images?.forEach((item) => {
+        const url =
+          item?.image.replace("upload", "upload/h_150,w_250/q_90") || "";
+        images.push({ url: url, _id: hotel._id, name: hotel.name });
+      })
     );
 
-    res.json(images);
+    res.json(images.slice(0, 12));
   } catch (error) {
     console.log(__filename, error);
     res.status(500).json({ message: "Internal server error" });

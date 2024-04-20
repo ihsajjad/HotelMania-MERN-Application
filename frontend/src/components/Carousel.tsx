@@ -22,6 +22,8 @@ const Carousel = () => {
       refetchOnWindowFocus: false,
     }
   );
+
+  console.log(topHotels);
   return (
     <Swiper
       spaceBetween={30}

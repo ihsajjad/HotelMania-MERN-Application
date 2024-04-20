@@ -3,6 +3,7 @@ import {
   AuthUserType,
   BookingType,
   GalleryType,
+  HotelCardType,
   HotelDataType,
   HotelOwnerType,
   StatisticsDataType,
@@ -45,7 +46,7 @@ export const fetchSearchHotels = async (
   return res.json();
 };
 
-export const fetchTopHotels = async (): Promise<HotelDataType[]> => {
+export const fetchTopHotels = async (): Promise<HotelCardType[]> => {
   const res = await fetch(`${API_BASE_URL}/api/hotels/top-5`);
 
   if (!res.ok) throw new Error("Something went wrong");

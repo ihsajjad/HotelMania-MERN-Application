@@ -70,3 +70,16 @@ export type StatisticsDataType = {
   year: number;
   month: string;
 };
+
+export type HotelCardType = {
+  _id: string;
+  name: string;
+  coverPhoto: { url: string; label: string };
+  city: string;
+  country: string;
+  starRating: number;
+  type: string;
+  pricePerNight: number;
+  facilities: string[];
+  description: string;
+};

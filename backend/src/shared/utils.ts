@@ -18,8 +18,6 @@ export async function uploadProfile(file: any) {
     format: "webp",
   });
 
-  console.log(fileUrl);
-
   return fileUrl.secure_url;
 }
 

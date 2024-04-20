@@ -1,8 +1,8 @@
 import { AiFillStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { HotelDataType } from "../../../backend/src/shared/types";
+import { HotelCardType } from "../../../backend/src/shared/types";
 
-const HotelResultCard = ({ hotel }: { hotel: HotelDataType }) => {
+const HotelResultCard = ({ hotel }: { hotel: HotelCardType }) => {
   return (
     <div
       key={hotel?._id}
@@ -10,8 +10,8 @@ const HotelResultCard = ({ hotel }: { hotel: HotelDataType }) => {
     >
       <div className="flex-1 relative h-full">
         <img
-          src={hotel?.images[0]?.image}
-          alt={hotel?.images[0]?.label}
+          src={hotel?.coverPhoto?.url}
+          alt={hotel?.coverPhoto?.label}
           loading="lazy"
           className="rounded w-full h-full object-center object-cover"
         />
