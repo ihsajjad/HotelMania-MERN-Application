@@ -36,7 +36,7 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      <div className="flex gap-2 sm:flex-row flex-col-reverse sm:justify-between custom-container py-4 border-t border-[#8BCF17]">
+      <div className="flex gap-2 sm:flex-row flex-col-reverse sm:justify-between custom-container py-4 border-t border-[var(--main-color)]">
         <div className="text-slate-300 md:text-left text-center text-sm">
           <p> Copyright &copy; 2023 || All right reserved</p>
         </div>

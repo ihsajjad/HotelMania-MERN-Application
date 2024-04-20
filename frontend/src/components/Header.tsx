@@ -11,7 +11,9 @@ const Header = () => {
           Where Comfort Meets Luxury and Every Moment Counts
         </p>
       </div>
-      <SearchBar />
+      <div className="custom-container">
+        <SearchBar />
+      </div>
     </div>
   );
 };

@@ -12,7 +12,6 @@ const HotelResultCard = ({ hotel }: { hotel: HotelCardType }) => {
         <img
           src={hotel?.coverPhoto?.url}
           alt={hotel?.coverPhoto?.label}
-          loading="lazy"
           className="rounded w-full h-full object-center object-cover"
         />
         <span className="hotel-type-btn">{hotel?.type}</span>
@@ -25,7 +24,7 @@ const HotelResultCard = ({ hotel }: { hotel: HotelCardType }) => {
               <AiFillStar key={i} className="fill-yellow-400" />
             ))}
           </div>
-          <h3 className="text-lg font-bold">{hotel?.name}</h3>
+          <h3 className="text-xl font-bold">{hotel?.name}</h3>
           <span>
             {hotel?.city}, {hotel?.country}
           </span>

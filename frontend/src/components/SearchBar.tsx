@@ -43,7 +43,7 @@ const SearchBar = () => {
   return (
     <form
       onSubmit={handleSeach}
-      className="bg-slate-700 lg:-mt-10 md:-mt-16 -mt-20 xl:mx-32 lg:mx-20 md:mx-10 mx-4 max-w-screen-lg grid lg:grid-cols-[2fr_2fr_1fr_1fr_2fr] md:grid-cols-2 gap-2 p-4"
+      className="bg-slate-700 lg:-mt-10 md:-mt-16 -mt-20 grid lg:grid-cols-4 md:grid-cols-2 gap-2 p-4"
     >
       <input
         type="text"
@@ -74,7 +74,7 @@ const SearchBar = () => {
           />
         </label>
       </div>
-      <div className="flex gap-2 bg-white ">
+      <div className="flex justify-between bg-white z-50">
         <DatePicker
           selected={checkIn}
           onChange={(date) => setCheckIn(date as Date)}
@@ -84,10 +84,9 @@ const SearchBar = () => {
           minDate={minDate}
           maxDate={maxDate}
           placeholderText="Check-in date"
-          className=" focus:outline-none p-2"
+          className="w-full focus:outline-none p-2"
         />
-      </div>
-      <div className="flex gap-2 bg-white ">
+
         <DatePicker
           selected={checkOut}
           onChange={(date) => setCheckOut(date as Date)}
@@ -97,7 +96,7 @@ const SearchBar = () => {
           minDate={minDate}
           maxDate={maxDate}
           placeholderText="Check-in date"
-          className="focus:outline-none p-2"
+          className="w-full focus:outline-none p-2"
         />
       </div>
       <div className="flex gap-2">

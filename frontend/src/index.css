@@ -24,6 +24,9 @@
   @apply border-b-2 border-[var(--main-color)] text-[var(--main-color)];
 }
 
+.section-title {
+  @apply text-3xl text-center font-bold text-[var(--bg-color)] mb-5;
+}
 .custom-container {
   @apply xl:px-32 lg:px-20 md:px-10 px-4;
 }

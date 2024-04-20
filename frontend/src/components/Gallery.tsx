@@ -14,10 +14,8 @@ const Gallery = () => {
   );
   return (
     <div className="custom-container bg-slate-100 py-10">
-      <h3 className="text-3xl text-center font-bold mb-5">
-        Our <span className="text-[var(--main-color)]">Gallery</span>
-      </h3>
-      <div className="grid md:grid-cols-4 items-center justify-center gap-6 mt-10">
+      <h3 className="section-title">Hotel&apos;s Gallery</h3>
+      <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 items-center justify-center gap-6 mt-10">
         {galleryLoading ? (
           <GallerySkeleton />
         ) : (
@@ -33,7 +31,7 @@ const Gallery = () => {
                 loading="lazy"
                 className="h-full w-full rounded object-center object-cover border-2 hover:border-[var(--main-color)] hover:scale-105 shadow-lg shadow-[#00000065] duration-300"
               />
-              <span className="group-hover:block hidden absolute bottom-0 text-white font-bold bg-slate-700/80 py-1 px-2 rounded">
+              <span className="group-hover:block hidden absolute bottom-0 text-white font-bold bg-slate-700/80 py-1 px-2 rounded duration-300">
                 {image.name}
               </span>
             </Link>

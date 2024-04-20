@@ -142,7 +142,7 @@ router.get("/gallery", async (req: Request, res: Response) => {
     hotels?.forEach((hotel) =>
       hotel?.images?.forEach((item) => {
         const url =
-          item?.image.replace("upload", "upload/h_150,w_250/q_90") || "";
+          item?.image.replace("upload", "upload/h_160,w_240/q_90") || "";
         images.push({ url: url, _id: hotel._id, name: hotel.name });
       })
     );
