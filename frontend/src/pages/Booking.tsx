@@ -1,16 +1,14 @@
 import { Elements } from "@stripe/react-stripe-js";
-import { StripeElementsOptions, loadStripe } from "@stripe/stripe-js";
+import { StripeElementsOptions } from "@stripe/stripe-js";
 import { useLocation, useParams } from "react-router-dom";
 import { HotelDataType } from "../../../backend/src/shared/types";
 import BookingSummary from "../components/BookingSummary";
+import { useAppContext } from "../contexts/UseContexts";
 import CheckOutForm from "../forms/checkOutForm/CheckOutForm";
 import { useGetHotelById } from "../shared/CommonHooks";
 
-const stripePromise = loadStripe(
-  "pk_test_51NFrVLBw56OF2FTuRu6Stgfi3PjKzdsk0Na7bE0QYBvuEakwvc3pV3yiPh1tvxMdM7v0xkVTCWoxylmzDszbZ4wi00rkwbgZ9Q"
-);
-console.log(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 const Booking = () => {
+  const { stripePromise } = useAppContext();
   const location = useLocation();
   const { paymentIntent, numberOfNights } = location.state;
   const { hotelId } = useParams();
