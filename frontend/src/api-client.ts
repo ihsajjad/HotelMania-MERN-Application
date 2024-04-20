@@ -66,7 +66,7 @@ export const fetchMe = async (): Promise<AuthUserType> => {
     credentials: "include",
   });
 
-  if (!res.ok) throw new Error("Unauthorized access");
+  // if (!res.ok) throw new Error("Unauthorized access");
 
   return res.json();
 };

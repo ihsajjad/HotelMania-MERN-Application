@@ -15,7 +15,8 @@ export async function uploadProfile(file: any) {
   const b64 = Buffer.from(file.buffer).toString("base64");
   const dataURI = "data:" + file.mimetype + ";base64," + b64;
   const fileUrl = await cloudinary.v2.uploader.upload(dataURI);
-  return fileUrl.url;
+
+  return fileUrl.secure_url;
 }
 
 // creating jsonwebtoken

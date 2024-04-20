@@ -14,7 +14,9 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import AllBookings from "./pages/dashboard/admin/AllBookings";
 import AllHotels from "./pages/dashboard/admin/AllHotels";
 import Partners from "./pages/dashboard/admin/Partners";
+import MyHotels from "./pages/dashboard/partner/MyHotels";
 import MyBookings from "./pages/dashboard/user/MyBookings";
+import PartnerRoute from "./routes/PartnerRoute";
 import PrivateRoute from "./routes/PrivateRoute";
 
 export const routes = createBrowserRouter([
@@ -61,14 +63,14 @@ export const routes = createBrowserRouter([
       { path: "/dashboard/all-hotels", element: <AllHotels /> },
 
       // Partner's routes
-      // {
-      //   path: "/dashboard/my-hotels",
-      //   element: (
-      //     <PartnerRoute>
-      //       <MyHotels />
-      //     </PartnerRoute>
-      //   ),
-      // },
+      {
+        path: "/dashboard/my-hotels",
+        element: (
+          <PartnerRoute>
+            <MyHotels />
+          </PartnerRoute>
+        ),
+      },
 
       // User's routes
       { path: "/dashboard/my-bookings", element: <MyBookings /> },
