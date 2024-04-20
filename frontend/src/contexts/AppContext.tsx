@@ -5,6 +5,13 @@ import * as apiClient from "../api-client";
 import { LoginType } from "../pages/Login";
 import { errorToast, successToast } from "../shared/utils";
 
+// interface UserType {
+//   _id: string;
+//   email: string;
+//   profile?: string | undefined;
+//   role: string;
+//   isVerified?: boolean;
+// }
 export type ContextType = {
   user: AuthUserType;
   isLogin: boolean;

@@ -12,6 +12,7 @@ const HotelResultCard = ({ hotel }: { hotel: HotelDataType }) => {
         <img
           src={hotel?.images[0]?.image}
           alt={hotel?.images[0]?.label}
+          loading="lazy"
           className="rounded w-full h-full object-center object-cover"
         />
         <span className="hotel-type-btn">{hotel?.type}</span>

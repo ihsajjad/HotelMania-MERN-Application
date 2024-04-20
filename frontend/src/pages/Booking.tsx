@@ -6,8 +6,9 @@ import BookingSummary from "../components/BookingSummary";
 import CheckOutForm from "../forms/checkOutForm/CheckOutForm";
 import { useGetHotelById } from "../shared/CommonHooks";
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
-
+const stripePromise = loadStripe(
+  import.meta.env.VITE_STRIPE_PUBLIC_KEY as string
+);
 const Booking = () => {
   const location = useLocation();
   const { paymentIntent, numberOfNights } = location.state;
