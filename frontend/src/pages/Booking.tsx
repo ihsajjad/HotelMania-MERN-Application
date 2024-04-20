@@ -7,8 +7,9 @@ import CheckOutForm from "../forms/checkOutForm/CheckOutForm";
 import { useGetHotelById } from "../shared/CommonHooks";
 
 const stripePromise = loadStripe(
-  import.meta.env.VITE_STRIPE_PUBLIC_KEY as string
+  "pk_test_51NFrVLBw56OF2FTuRu6Stgfi3PjKzdsk0Na7bE0QYBvuEakwvc3pV3yiPh1tvxMdM7v0xkVTCWoxylmzDszbZ4wi00rkwbgZ9Q"
 );
+console.log(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 const Booking = () => {
   const location = useLocation();
   const { paymentIntent, numberOfNights } = location.state;

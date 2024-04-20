@@ -5,7 +5,7 @@ import brack from "../assets/sponsorLogos/brack-bank.jpg";
 import city from "../assets/sponsorLogos/city-touch.png";
 import ddbl from "../assets/sponsorLogos/ddbl.png";
 import master from "../assets/sponsorLogos/mastercard.png";
-import nogod from "../assets/sponsorLogos/nogod.png";
+// import nogod from "../assets/sponsorLogos/nogod.png";
 import sure from "../assets/sponsorLogos/sure-cash.png";
 import upay from "../assets/sponsorLogos/upay.png";
 import visa from "../assets/sponsorLogos/visa.png";
@@ -16,7 +16,7 @@ const OurPartners = () => {
     express,
     brack,
     upay,
-    nogod,
+    // nogod,
     visa,
     city,
     master,
