@@ -39,8 +39,8 @@ const HotelDetails = () => {
             <h1 className="text-3xl font-bold">{hotel?.name}</h1>
           </div>
 
-          <div className="w-full">
-            <div className="relative w-full">
+          <div className="">
+            <div className="relative">
               <img
                 src={currImage?.image}
                 alt={currImage?.label}

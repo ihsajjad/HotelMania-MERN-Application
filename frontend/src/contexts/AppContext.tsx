@@ -24,6 +24,7 @@ export type ContextType = {
 };
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+console.log(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 export const AppContext = createContext<ContextType | undefined>(undefined);
 
