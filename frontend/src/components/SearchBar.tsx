@@ -102,7 +102,7 @@ const SearchBar = () => {
       <div className="flex gap-2">
         <button
           type="submit"
-          className="py-1 px-2 text-white bg-[var(--main-color)] font-bold flex-1"
+          className="py-1 px-2 text-[var(--bg-color)] bg-[var(--main-color)] font-bold flex-1"
         >
           Search
         </button>

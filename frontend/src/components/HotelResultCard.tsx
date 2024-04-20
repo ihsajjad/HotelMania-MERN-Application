@@ -24,7 +24,9 @@ const HotelResultCard = ({ hotel }: { hotel: HotelCardType }) => {
               <AiFillStar key={i} className="fill-yellow-400" />
             ))}
           </div>
-          <h3 className="text-xl font-bold">{hotel?.name}</h3>
+          <Link to={`/details/${hotel?._id}`} className="text-xl font-bold">
+            {hotel?.name}
+          </Link>
           <span>
             {hotel?.city}, {hotel?.country}
           </span>
