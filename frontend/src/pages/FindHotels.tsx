@@ -104,10 +104,10 @@ const FindHotels = () => {
         </div>
         <div className="md:w-4/5">
           <div className="flex md:items-center justify-between mb-4 gap-2 md:flex-row flex-col">
-            <h3 className="text-xl font-bold">
+            <h4 className="text-xl font-bold">
               {data?.pagination?.total} Hotels found
               {search.destination ? ` in ${search.destination}` : ""}
-            </h3>
+            </h4>
             <SortOptions
               sortOptions={sortOptions}
               onChange={(e) => setSortOptions(e.target.value)}

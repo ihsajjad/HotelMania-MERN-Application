@@ -3,7 +3,7 @@ import SearchBar from "./SearchBar";
 const Header = () => {
   return (
     <div>
-      <div className="bg-slate-400 custom-container py-5 text-white">
+      <div className="bg-slate-300 custom-container py-5 text-[var(--bg-color)]">
         <h1 className="md:text-5xl text-3xl font-bold">
           Discover Your Dream Stay
         </h1>
