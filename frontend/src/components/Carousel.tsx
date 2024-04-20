@@ -41,7 +41,7 @@ const Carousel = () => {
         <HotelCardSkeleton />
       ) : (
         topHotels?.map((hotel) => (
-          <SwiperSlide key={hotel?._id} className=" md:h-[350px] my-auto -z">
+          <SwiperSlide key={hotel?._id} className="md:h-[350px] my-auto -z">
             <HotelResultCard hotel={hotel} />
           </SwiperSlide>
         ))

@@ -12,7 +12,7 @@ const HotelResultCard = ({ hotel }: { hotel: HotelCardType }) => {
         <img
           src={hotel?.coverPhoto?.url}
           alt={hotel?.coverPhoto?.label}
-          className="rounded w-full h-full object-center object-cover"
+          className="rounded w-full md:h-full sm:h-[350px] h-48 object-center object-cover"
         />
         <span className="hotel-type-btn">{hotel?.type}</span>
       </div>

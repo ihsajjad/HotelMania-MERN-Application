@@ -80,9 +80,9 @@ const FindHotels = () => {
     <div className="custom-container min-h-screen">
       <div className="flex md:flex-row flex-col gap-4 py-4">
         <div className="border border-zinc-300 md:w-1/5 p-4 md:sticky top-2 h-fit rounded">
-          <h3 className="text-xl font-bold border-b border-zinc-300 pb-4 mb-4">
+          <h2 className="text-xl font-bold border-b border-zinc-300 pb-4 mb-4">
             Filter By :
-          </h3>
+          </h2>
           <div className="grid md:grid-cols-1 grid-cols-2 gap-4 text-sm h-40 overflow-y-scroll md:h-fit md:overflow-hidden">
             <FilterByRating
               selectedStars={selectedStars}
@@ -104,10 +104,10 @@ const FindHotels = () => {
         </div>
         <div className="md:w-4/5">
           <div className="flex md:items-center justify-between mb-4 gap-2 md:flex-row flex-col">
-            <h4 className="text-xl font-bold">
+            <h3 className="text-xl font-bold">
               {data?.pagination?.total} Hotels found
               {search.destination ? ` in ${search.destination}` : ""}
-            </h4>
+            </h3>
             <SortOptions
               sortOptions={sortOptions}
               onChange={(e) => setSortOptions(e.target.value)}

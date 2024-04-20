@@ -10,7 +10,7 @@
 }
 
 .custom-btn {
-  @apply py-1 px-2 text-gray-600 bg-[var(--main-color)] duration-500 rounded font-bold flex items-center justify-center cursor-pointer;
+  @apply py-1 px-2 text-[var(--bg-color)] bg-[var(--main-color)] duration-500 rounded font-bold  cursor-pointer;
 }
 .custom-btn-outline {
   @apply py-1 px-2 border-2 text-white hover:bg-transparent text-[var(--main-color)] border-[var(--main-color)] hover:text-[var(--main-color)] duration-500 rounded;
