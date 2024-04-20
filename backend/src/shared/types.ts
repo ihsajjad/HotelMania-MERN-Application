@@ -47,7 +47,7 @@ export type AuthUserType = {
   isVerified?: boolean;
 };
 
-export type GalleryType = { url: string; _id: string };
+export type GalleryType = { url: string; _id: string; name: string };
 
 export type BookingType = {
   _id?: string;

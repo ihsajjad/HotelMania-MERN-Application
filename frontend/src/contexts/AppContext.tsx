@@ -1,4 +1,3 @@
-import { Stripe, loadStripe } from "@stripe/stripe-js";
 import { ReactNode, createContext, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { AuthUserType } from "../../../backend/src/shared/types";
@@ -6,13 +5,6 @@ import * as apiClient from "../api-client";
 import { LoginType } from "../pages/Login";
 import { errorToast, successToast } from "../shared/utils";
 
-// interface UserType {
-//   _id: string;
-//   email: string;
-//   profile?: string | undefined;
-//   role: string;
-//   isVerified?: boolean;
-// }
 export type ContextType = {
   user: AuthUserType;
   isLogin: boolean;
@@ -20,10 +12,7 @@ export type ContextType = {
   logOut: () => void;
   loginUser: (data: LoginType) => void;
   refetchUser?: () => void;
-  stripePromise: Promise<Stripe | null>;
 };
-
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 export const AppContext = createContext<ContextType | undefined>(undefined);
 
@@ -89,7 +78,6 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
         isLoading,
         logOut,
         loginUser,
-        stripePromise,
       }}
     >
       {children}

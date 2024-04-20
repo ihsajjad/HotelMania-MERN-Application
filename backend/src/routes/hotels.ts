@@ -145,11 +145,11 @@ router.get(
 // get pictures for the gallery
 router.get("/gallery", async (req: Request, res: Response) => {
   try {
-    const hotels = await Hotel.find().select("_id images").limit(4);
-    const images: { url: string; _id: string }[] = [];
+    const hotels = await Hotel.find().select("_id images name").limit(4);
+    const images: { url: string; _id: string; name: string }[] = [];
     hotels.forEach((hotel) =>
       hotel.images.forEach((item) =>
-        images.push({ url: item.image, _id: hotel._id })
+        images.push({ url: item.image, _id: hotel._id, name: hotel.name })
       )
     );
 

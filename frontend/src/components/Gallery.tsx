@@ -25,13 +25,16 @@ const Gallery = () => {
             <Link
               to={`/details/${image._id}`}
               key={image.url}
-              className="h-full w-full object-cover"
+              className="group h-full w-full object-cover relative"
             >
               <img
                 src={image.url}
                 alt=""
-                className=" h-full w-full rounded object-center object-cover border-2 hover:border-[var(--main-color)] hover:scale-105 shadow-lg shadow-[#00000065] duration-300"
+                className="h-full w-full rounded object-center object-cover border-2 hover:border-[var(--main-color)] hover:scale-105 shadow-lg shadow-[#00000065] duration-300"
               />
+              <span className="group-hover:block hidden absolute bottom-0 text-white font-bold bg-slate-700/80 py-1 px-2 rounded">
+                {image.name}
+              </span>
             </Link>
           ))
         )}
