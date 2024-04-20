@@ -42,15 +42,15 @@ const Footer = () => {
         </div>
         <div className="md:place-self-center md:justify-self-end ">
           <div className="flex flex-row gap-4 justify-center">
-            <a href="#">
+            <span>
               <FaTwitter className="w-6 h-6" />
-            </a>
-            <a href="#">
+            </span>
+            <span>
               <FaYoutube className="w-6 h-6" />
-            </a>
-            <a href="#">
+            </span>
+            <span>
               <FaFacebook className="w-6 h-6" />
-            </a>
+            </span>
           </div>
         </div>
       </div>

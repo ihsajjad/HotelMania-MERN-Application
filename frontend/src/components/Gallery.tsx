@@ -14,7 +14,7 @@ const Gallery = () => {
   );
   return (
     <div className="custom-container bg-slate-100 py-10">
-      <h3 className="section-title">Hotel&apos;s Gallery</h3>
+      <h2 className="section-title">Hotel&apos;s Gallery</h2>
       <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 items-center justify-center gap-6 mt-10 min-full">
         {galleryLoading ? (
           <GallerySkeleton />

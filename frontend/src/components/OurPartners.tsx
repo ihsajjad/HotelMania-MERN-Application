@@ -26,7 +26,7 @@ const OurPartners = () => {
 
   return (
     <section className="min-h-fit py-10">
-      <h3 className="section-title">Our Patners</h3>
+      <h2 className="section-title">Our Patners</h2>
 
       <Marquee>
         <div className="flex my-10 space-x-8">
