@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { useQuery } from "react-query";
-import { HotelDataType } from "../../../../../backend/src/shared/types";
+import { TableHotelType } from "../../../../../backend/src/shared/types";
 import * as apiClient from "../../../api-client";
 import PageTitle from "../../../components/PageTitle";
 import TableSkeletonRow from "../../../components/skeletons/TableSkeletonRow";
@@ -17,7 +17,7 @@ const AllHotels = () => {
     () => apiClient.fetchAllHotels(pageNumber, itemsPerPage)
   );
 
-  let hotels: HotelDataType[] = [];
+  let hotels: TableHotelType[] = [];
   let pagination: Pagination = { total: 0, page: 0, pages: 0 };
 
   if (data) {

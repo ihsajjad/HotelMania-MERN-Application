@@ -7,6 +7,7 @@ import {
   HotelDataType,
   HotelOwnerType,
   StatisticsDataType,
+  TableHotelType,
 } from "../../backend/src/shared/types";
 import { LoginType } from "./pages/Login";
 
@@ -14,6 +15,7 @@ import {
   AllBookingsResponse,
   AllPartnersResponse,
   HotelsResponse,
+  Pagination,
   PaymentIntentResType,
   SearchParams,
 } from "./shared/Types";
@@ -211,7 +213,7 @@ export const fetchMyBookings = async (): Promise<BookingType[]> => {
 export const fetchAllHotels = async (
   pageNumber: number,
   itemsPerPage: number
-): Promise<HotelsResponse> => {
+): Promise<{ data: TableHotelType[]; pagination: Pagination }> => {
   const queryParams = new URLSearchParams();
 
   queryParams.append("pageNumber", pageNumber.toString());

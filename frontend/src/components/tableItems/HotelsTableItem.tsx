@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
-import { HotelDataType } from "../../../../backend/src/shared/types";
+import { TableHotelType } from "../../../../backend/src/shared/types";
 
-const HotelsTableItem = ({ hotel, i }: { hotel: HotelDataType; i: number }) => {
+const HotelsTableItem = ({
+  hotel,
+  i,
+}: {
+  hotel: TableHotelType;
+  i: number;
+}) => {
   return (
     <tr className="hover ">
       <th>{i + 1}</th>

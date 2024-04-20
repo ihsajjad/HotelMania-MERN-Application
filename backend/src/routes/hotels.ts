@@ -7,7 +7,7 @@ import { upload, uploadProfile } from "../shared/utils";
 
 const router = express.Router();
 
-// getting all hotels
+// getting searh hotels
 router.get("/search", async (req: Request, res: Response) => {
   try {
     const query = await constructSearchQuery(req.query);
@@ -104,7 +104,7 @@ router.get(
 router.get("/top-5", async (req: Request, res: Response) => {
   try {
     const hotels = await Hotel.find()
-      .select("-adultCount -childCount -lastUpdated -userId")
+      .select("-adultCount -childCount -userId")
       .sort({ starRating: -1 })
       .limit(5);
 
@@ -317,6 +317,7 @@ router.post(
   }
 );
 
+// processing the find hotels query
 const constructSearchQuery = (queryParams: any) => {
   const constructedQuery: any = {};
 
@@ -355,6 +356,7 @@ const constructSearchQuery = (queryParams: any) => {
   return constructedQuery;
 };
 
+// removing unnecessary properties for hotel's card
 const hotelCardData = (hotels: HotelDataType[]) => {
   const allHotels = hotels?.map((hotel) => {
     let url = "";
@@ -374,6 +376,7 @@ const hotelCardData = (hotels: HotelDataType[]) => {
       pricePerNight: hotel.pricePerNight,
       facilities: hotel.facilities,
       description: hotel.description.slice(0, 300),
+      lastUpdated: hotel.lastUpdated,
     };
   });
 

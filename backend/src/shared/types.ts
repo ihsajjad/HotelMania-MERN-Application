@@ -82,4 +82,16 @@ export type HotelCardType = {
   pricePerNight: number;
   facilities: string[];
   description: string;
+  lastUpdated?: Date;
+};
+
+export type TableHotelType = {
+  _id: string;
+  name: string;
+  city: string;
+  country: string;
+  pricePerNight: number;
+  type: string;
+  lastUpdated: Date;
+  userId?: string;
 };
