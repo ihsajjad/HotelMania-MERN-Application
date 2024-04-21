@@ -24,7 +24,6 @@ const LeftSideBar = () => {
         link: "/dashboard/my-bookings",
         icon: <MdOutlineBookmarkAdded />,
       },
-      //   { label: "Dashboard", link: "/dashboard", icon: <RxDashboard /> },
     ];
   } else if (user.role === "Admin") {
     navLinks = [
@@ -61,7 +60,6 @@ const LeftSideBar = () => {
         link: `/dashboard/partners/${user?._id}`,
         icon: <CgProfile size={18} />,
       },
-      //   { label: "Dashboard", link: "/dashboard", icon: <RxDashboard /> },
     ];
   }
 

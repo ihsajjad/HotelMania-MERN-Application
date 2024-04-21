@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import * as apiClient from "../api-client";
 import BookingCard from "./BookingCard";
+import EmptyMsgContainer from "./EmptyMsgContainer";
 import BookingSkeleton from "./skeletons/BookingSkeleton";
 const CurrentBookings = () => {
   const { data: bookings, isLoading } = useQuery(
@@ -17,11 +18,16 @@ const CurrentBookings = () => {
             <BookingSkeleton />
             <BookingSkeleton />
           </>
-        ) : (
-          bookings &&
+        ) : bookings?.length ? (
           bookings?.map((booking) => (
             <BookingCard booking={booking} key={booking._id} />
           ))
+        ) : (
+          <EmptyMsgContainer>
+            <span className="text-xl font-bold">
+              You don&apos;t have any current booking
+            </span>
+          </EmptyMsgContainer>
         )}
       </div>
     </div>

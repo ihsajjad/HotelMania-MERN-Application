@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useMutation } from "react-query";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -23,7 +24,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { mutate: loginUser } = useMutation(apiClient.userLogin, {
+  const { mutate: loginUser, isLoading } = useMutation(apiClient.userLogin, {
     onSuccess: (data) => {
       setUser(data);
       successToast("Login successful");
@@ -64,7 +65,7 @@ const Login = () => {
               <span className="label-text">Password</span>
             </label>
             <input
-              type={`${show ? "password" : "text"}`}
+              type={`${show ? "text" : "password"}`}
               placeholder="Password"
               {...register("password", { required: "This field is required" })}
               className="input input-bordered"
@@ -79,7 +80,7 @@ const Login = () => {
               onClick={() => setShow(!show)}
               className="absolute right-4 top-[52px] text-xl"
             >
-              {show ? <FaEye /> : <FaEyeSlash />}
+              {show ? <FaEyeSlash /> : <FaEye />}
             </span>
 
             <label className="label">
@@ -89,8 +90,15 @@ const Login = () => {
             </label>
           </div>
           <div className="form-control">
-            <button type="submit" className="custom-btn text-xl">
-              Login
+            <button type="submit" className={`custom-btn text-xl`}>
+              {isLoading ? (
+                <AiOutlineLoading3Quarters
+                  size={24}
+                  className="animate-spin mx-auto my-0.5"
+                />
+              ) : (
+                "Login"
+              )}
             </button>
           </div>
         </form>

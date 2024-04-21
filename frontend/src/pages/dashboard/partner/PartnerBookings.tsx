@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import * as apiClient from "../../../api-client";
 import BookingCard from "../../../components/BookingCard";
+import EmptyMsgContainer from "../../../components/EmptyMsgContainer";
 import PageTitle from "../../../components/PageTitle";
 import BookingSkeleton from "../../../components/skeletons/BookingSkeleton";
 
@@ -23,11 +24,16 @@ const PartnerBookings = () => {
               <BookingSkeleton />
               <BookingSkeleton />
             </>
-          ) : (
-            bookings &&
+          ) : bookings?.length ? (
             bookings?.map((booking) => (
               <BookingCard booking={booking} key={booking._id} />
             ))
+          ) : (
+            <EmptyMsgContainer>
+              <span className="text-xl font-bold">
+                You did&apos;t get any bookings yet
+              </span>
+            </EmptyMsgContainer>
           )}
         </div>
       </div>

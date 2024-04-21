@@ -66,6 +66,8 @@ router.post(
     try {
       const { email, password } = req.body;
 
+      let userData: AuthUserType;
+
       const user = await User.findOne({ email });
 
       if (!user)
@@ -77,12 +79,17 @@ router.post(
 
       const token = generateToken(user._id);
 
-      const data = {
+      userData = {
         _id: user._id,
         email: user.email,
         role: user.role,
         profile: user.profile || "",
       };
+
+      const partner = await Partner.findById(user._id);
+      if (partner) {
+        userData.isVerified = partner.isVerified;
+      }
 
       res
         .cookie("auth_token", token, {
@@ -90,7 +97,7 @@ router.post(
           secure: process.env.NODE_ENV === "production",
           maxAge: 86400000,
         })
-        .json(data);
+        .json(userData);
     } catch (error) {
       console.log(__filename, error);
       res.status(500).json({ message: "Internal server error" });

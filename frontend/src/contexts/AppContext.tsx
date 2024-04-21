@@ -34,7 +34,6 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
     name: "",
   });
 
-  // todo: fix the unnecessary fetching
   const { refetch: refetchUser, isLoading } = useQuery(
     "fetchUserData",
     apiClient.fetchMe,
@@ -51,7 +50,6 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
           name: "",
         });
       },
-      retry: false,
     }
   );
 

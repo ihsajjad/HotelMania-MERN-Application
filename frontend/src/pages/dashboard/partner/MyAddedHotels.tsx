@@ -13,6 +13,7 @@ import UpdateHotelModal from "../../../components/UpdateHotelModal";
 import MyHotelCardSkeleton from "../../../components/skeletons/MyHotelCardSkeleton";
 import { useAppContext } from "../../../contexts/UseContexts";
 import { errorToast, successToast } from "../../../shared/utils";
+import EmptyMsgContainer from "./../../../components/EmptyMsgContainer";
 
 const MyAddedHotels = () => {
   const { user } = useAppContext() || {};
@@ -67,8 +68,7 @@ const MyAddedHotels = () => {
               <MyHotelCardSkeleton />
               <MyHotelCardSkeleton />
             </>
-          ) : (
-            hotels &&
+          ) : hotels?.length ? (
             hotels.map((hotel) => (
               <div
                 key={hotel._id}
@@ -133,6 +133,12 @@ const MyAddedHotels = () => {
                 </span>
               </div>
             ))
+          ) : (
+            <EmptyMsgContainer>
+              <span className="text-xl font-bold">
+                You did&apos;t add any hotel yet{" "}
+              </span>
+            </EmptyMsgContainer>
           )}
         </div>
       </div>

@@ -41,7 +41,6 @@ const ImagesSection = () => {
   const handleUploadImage = async (e: FileList) => {
     setImage({ url: "", label: "", err: "" });
     const formData = new FormData();
-    formData.append("file", e[0]);
     if (e[0]?.size > 1024 * 1024) {
       return setImage({
         err: "Maximum 1 MB",
@@ -49,6 +48,7 @@ const ImagesSection = () => {
         label: "",
       });
     }
+    formData.append("file", e[0]);
 
     uploadImage(formData);
   };

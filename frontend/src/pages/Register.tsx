@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useMutation } from "react-query";
 import { Link } from "react-router-dom";
 import * as apiClient from "../api-client";
@@ -20,7 +21,7 @@ const Register = () => {
     watch,
   } = useForm<RegisterFormDataType>();
 
-  const { mutate: saveUser } = useMutation(apiClient.userRegister, {
+  const { mutate: saveUser, isLoading } = useMutation(apiClient.userRegister, {
     onSuccess: () => {
       successToast("Registration successful");
     },
@@ -118,18 +119,31 @@ const Register = () => {
               </label>
               <input
                 type="file"
-                className="file-input w-full max-w-xs"
+                className="border p-2 rounded-md border-slate-300"
                 multiple
                 accept="image/*"
-                {...register("profile")}
+                {...register("profile", {
+                  validate: (files: FileList) => {
+                    if (files[0]?.size > 1024 * 1024) {
+                      return "Maximum file size 1 MB";
+                    }
+                  },
+                })}
               />
-              {/* {errors.image && (
-                <span className="text-red-500">Image is required</span>
-              )} */}
+              {errors.profile && showInputError(errors.profile.message)}
             </div>
           </div>
           <div className="form-control mb-0">
-            <button className="custom-btn text-xl">Register</button>
+            <button className="custom-btn text-xl">
+              {isLoading ? (
+                <AiOutlineLoading3Quarters
+                  size={24}
+                  className="animate-spin mx-auto my-0.5"
+                />
+              ) : (
+                "Register"
+              )}
+            </button>
           </div>
         </form>
 
@@ -137,6 +151,15 @@ const Register = () => {
           Already have an account? please{" "}
           <Link to="/login" className="underline text-[var(--main-color)]">
             Login
+          </Link>
+        </p>
+        <p className="text-center mb-4 text-sm">
+          Want to become a partner?{" "}
+          <Link
+            to="/partner/register"
+            className="underline text-[var(--main-color)]"
+          >
+            Register
           </Link>
         </p>
       </div>

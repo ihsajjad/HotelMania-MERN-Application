@@ -1,6 +1,8 @@
 import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
 import * as apiClient from "../../../api-client";
 import BookingCard from "../../../components/BookingCard";
+import EmptyMsgContainer from "../../../components/EmptyMsgContainer";
 import PageTitle from "../../../components/PageTitle";
 import BookingSkeleton from "../../../components/skeletons/BookingSkeleton";
 const MyBookings = () => {
@@ -23,11 +25,22 @@ const MyBookings = () => {
               <BookingSkeleton />
               <BookingSkeleton />
             </>
-          ) : (
-            bookings &&
+          ) : bookings?.length ? (
             bookings?.map((booking) => (
               <BookingCard booking={booking} key={booking._id} />
             ))
+          ) : (
+            <EmptyMsgContainer>
+              <span className="text-xl font-bold">
+                You don&apos;t have any bookings yet{" "}
+                <Link
+                  to="/search"
+                  className="border-b-2 border-[var(--main-color)] text-[var(--main-color)]"
+                >
+                  Book One
+                </Link>
+              </span>
+            </EmptyMsgContainer>
           )}
         </div>
       </div>

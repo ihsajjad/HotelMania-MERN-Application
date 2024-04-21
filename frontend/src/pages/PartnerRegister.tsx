@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useMutation } from "react-query";
 import { Link } from "react-router-dom";
 import * as apiClient from "../api-client";
@@ -14,14 +15,17 @@ const PartnerRegister = () => {
     watch,
   } = useForm<PartnerFormData>();
 
-  const { mutate: registerPartner } = useMutation(apiClient.partnerRegister, {
-    onSuccess: (result) => {
-      successToast(result.message);
-    },
-    onError: (error: Error) => {
-      errorToast(error.message);
-    },
-  });
+  const { mutate: registerPartner, isLoading } = useMutation(
+    apiClient.partnerRegister,
+    {
+      onSuccess: (result) => {
+        successToast(result.message);
+      },
+      onError: (error: Error) => {
+        errorToast(error.message);
+      },
+    }
+  );
 
   const onSubmit = handleSubmit((data: PartnerFormData) => {
     const formData = new FormData();
@@ -44,9 +48,8 @@ const PartnerRegister = () => {
   return (
     <div className="hero min-h-screen bg-base-200 md:py-12 p-5">
       <div className="card md:w-2/3 w-full shadow-2xl bg-base-100 border-[var(--main-color)] border-2">
-        <h2 className="text-3xl font-bold text-center mt-8 text-slate-500">
-          Register as
-          <span className="text-[var(--main-color)]"> Partner</span>
+        <h2 className="text-3xl font-bold text-center mt-8 text-[var(--bg-color)]">
+          Register as Partner
         </h2>
         <form
           onSubmit={onSubmit}
@@ -182,13 +185,29 @@ const PartnerRegister = () => {
                 type="file"
                 className="file-input w-full max-w-xs"
                 accept="image/*"
-                {...register("profile", { required: true })}
+                {...register("profile", {
+                  validate: (files: FileList) => {
+                    if (files[0]?.size > 1024 * 1024) {
+                      return "Maximum file size 1 MB";
+                    }
+                  },
+                  required: true,
+                })}
               />
-              {errors?.profile && showInputError()}
+              {errors?.profile && showInputError(errors?.profile.message)}
             </div>
           </div>
           <div className="form-control mb-0">
-            <button className="custom-btn text-xl">Register</button>
+            <button className="custom-btn text-xl">
+              {isLoading ? (
+                <AiOutlineLoading3Quarters
+                  size={24}
+                  className="animate-spin mx-auto my-0.5"
+                />
+              ) : (
+                "Register"
+              )}
+            </button>
           </div>
         </form>
 

@@ -25,7 +25,6 @@ router.post(
     try {
       const userData: UserType = { ...req.body, profile: "", role: "User" };
       const file = req.file as Express.Multer.File;
-      // todo: validate the file type and secure it
 
       const haveUser = await User.findOne({ email: req.body.email });
       if (haveUser)

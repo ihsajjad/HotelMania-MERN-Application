@@ -69,7 +69,6 @@ router.post(
   upload.single("profile"),
   async (req: Request, res: Response) => {
     const file = req.file as Express.Multer.File;
-    // todo: validate the file type and secure it
 
     const result = validationResult(req.body);
     if (!result.isEmpty()) {

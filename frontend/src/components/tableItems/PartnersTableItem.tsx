@@ -13,7 +13,6 @@ const PartnersTableItem = ({ partner, i }: Props) => {
       <td>
         <div className="avatar">
           <div className="mask mask-squircle w-12 h-12">
-            {/* todo: change the default image */}
             <img
               src={
                 partner?.profile ||
