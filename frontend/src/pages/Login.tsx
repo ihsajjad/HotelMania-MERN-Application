@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { useMutation } from "react-query";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import * as apiClient from "../api-client";
 import { useAppContext } from "../contexts/UseContexts";
+import { errorToast, successToast } from "../shared/utils";
 
 export interface LoginType {
   email: string;
@@ -16,11 +19,23 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginType>();
-  const { loginUser } = useAppContext();
+  const { setUser } = useAppContext();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const { mutate: loginUser } = useMutation(apiClient.userLogin, {
+    onSuccess: (data) => {
+      setUser(data);
+      successToast("Login successful");
+      navigate(location.state?.from || "", { replace: true });
+    },
+    onError: (error: Error) => {
+      errorToast(error.message);
+    },
+  });
 
   const onSubmit = handleSubmit(async (data: LoginType) => {
     loginUser(data);
-    // todo: fix the navigate user
   });
 
   return (

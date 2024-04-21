@@ -11,19 +11,26 @@ const router = express.Router();
 
 router.get("/me", async (req: Request, res: Response) => {
   try {
+    let userData: AuthUserType = {
+      email: "",
+      name: "",
+      role: "",
+      profile: "",
+      _id: "",
+    };
+
     const token = req.cookies["auth_token"];
-    if (!token) return res.status(401).json({ message: "Unauthorized access" });
+    if (!token) return res.json(userData);
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string);
-    // todo: fix the mongoose error
+
     const userId = await (decoded as JwtPayload)?.userId;
-    if (!userId)
-      return res.status(401).json({ message: "Unauthorized access" });
+    if (!userId) return res.json(userData);
 
     const user = await User.findById(userId).select("-password");
-    if (!user) return res.status(400).json({ message: "Something went wrong" });
+    if (!user) return res.json(userData);
 
-    let userData: AuthUserType = {
+    userData = {
       email: user.email,
       name: user.name,
       role: user.role,

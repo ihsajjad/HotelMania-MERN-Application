@@ -1,24 +1,22 @@
 import { Stripe, loadStripe } from "@stripe/stripe-js";
-import { ReactNode, createContext, useState } from "react";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useState,
+} from "react";
 import { useMutation, useQuery } from "react-query";
 import { AuthUserType } from "../../../backend/src/shared/types";
 import * as apiClient from "../api-client";
-import { LoginType } from "../pages/Login";
-import { errorToast, successToast } from "../shared/utils";
+import { successToast } from "../shared/utils";
 
-// interface UserType {
-//   _id: string;
-//   email: string;
-//   profile?: string | undefined;
-//   role: string;
-//   isVerified?: boolean;
-// }
 export type ContextType = {
   user: AuthUserType;
+  setUser: Dispatch<SetStateAction<AuthUserType>>;
   isLogin: boolean;
   isLoading?: boolean;
   logOut: () => void;
-  loginUser: (data: LoginType) => void;
   refetchUser?: () => void;
   stripePromise: Promise<Stripe | null>;
 };
@@ -36,9 +34,14 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
     name: "",
   });
 
+  const authToken = document?.cookie
+    ?.split("; ")
+    ?.find((row) => row?.startsWith("auth_token="))
+    ?.split("=")[1];
+
   // todo: fix the unnecessary fetching
   const { refetch: refetchUser, isLoading } = useQuery(
-    "fetchUserData",
+    ["fetchUserData", authToken],
     apiClient.fetchMe,
     {
       onSuccess: (data) => {
@@ -54,6 +57,7 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
         });
       },
       retry: false,
+      enabled: !!authToken,
     }
   );
 
@@ -70,25 +74,15 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
     },
   });
 
-  const { mutate: loginUser } = useMutation(apiClient.userLogin, {
-    onSuccess: (data) => {
-      setUser(data);
-      successToast("Login successful");
-    },
-    onError: (error: Error) => {
-      errorToast(error.message);
-    },
-  });
-
   return (
     <AppContext.Provider
       value={{
         user,
+        setUser,
         isLogin: !!user.email,
         refetchUser,
         isLoading,
         logOut,
-        loginUser,
         stripePromise,
       }}
     >

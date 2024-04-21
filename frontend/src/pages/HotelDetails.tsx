@@ -14,9 +14,7 @@ const HotelDetails = () => {
   const [currImage, setCurrImage] = useState<ImageType>();
   const [images, setImages] = useState<ImageType[]>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  // const { id } = useParams();
 
-  // const { data: hotel, isLoading } = useGetHotelById(id as string);
   const hotel = useLoaderData() as HotelDataType;
 
   // changing the image requesting url for low quality image
@@ -110,7 +108,6 @@ const HotelDetails = () => {
               dangerouslySetInnerHTML={{ __html: description as string }}
             ></div>
             <GuestInfoForm
-              // hotelId={id as string}
               hotelId={hotel._id as string}
               price={hotel?.pricePerNight as number}
             />
