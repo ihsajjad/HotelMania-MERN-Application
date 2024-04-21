@@ -1,5 +1,6 @@
 import { useAppContext } from "../../contexts/UseContexts";
 import AdminDashboard from "./admin/AdminDashboard";
+import PartnerDashboard from "./partner/PartnerDashboard";
 import UserDashboard from "./user/UserDashboard";
 
 const Dashboard = () => {
@@ -9,6 +10,8 @@ const Dashboard = () => {
     return <UserDashboard />;
   }
   if (user.role === "Admin") return <AdminDashboard />;
+
+  if (user.role === "Hotel") return <PartnerDashboard />;
   return <div>none</div>;
 };
 

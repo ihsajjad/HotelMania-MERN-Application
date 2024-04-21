@@ -34,10 +34,12 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
     name: "",
   });
 
-  const authToken = document?.cookie
+  let authToken: string | boolean | undefined = document?.cookie
     ?.split("; ")
     ?.find((row) => row?.startsWith("auth_token="))
     ?.split("=")[1];
+  console.log(document?.cookie, authToken);
+  if (import.meta.env.MODE === "development") authToken = true;
 
   // todo: fix the unnecessary fetching
   const { refetch: refetchUser, isLoading } = useQuery(

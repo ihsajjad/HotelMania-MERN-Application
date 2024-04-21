@@ -1,21 +1,14 @@
 import Lottie from "lottie-react";
 import { ReactNode } from "react";
-import { FaRegSadTear } from "react-icons/fa";
 import pending from "../assets/pending.json";
+import Unauthorized from "../components/Unauthorized";
 import { useAppContext } from "../contexts/UseContexts";
 
 const PartnerRoute = ({ children }: { children: ReactNode }) => {
   const { user } = useAppContext();
 
   if (user.role !== "Hotel") {
-    return (
-      <div className="flex flex-col items-center justify-center gap-3 h-[80vh] ">
-        <FaRegSadTear size={80} color="var(--main-color)" />
-        <h2 className="text-4xl font-bold text-center text-slate-600">
-          Unauthorized Access
-        </h2>
-      </div>
-    );
+    return <Unauthorized />;
   }
 
   if (user.isVerified) {

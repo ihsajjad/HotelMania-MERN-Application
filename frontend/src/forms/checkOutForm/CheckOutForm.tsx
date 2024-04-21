@@ -108,13 +108,15 @@ const CheckOutForm = ({
           </span>
         </div>
         <PaymentElement className="mt-3" />
-        <button
-          type="submit"
-          disabled={!stripe && !loading}
-          className="custom-btn mt-5 w-fit mx-auto"
-        >
-          Confirm Payment
-        </button>
+        <div className="text-center mt-5">
+          <button
+            type="submit"
+            disabled={!stripe && !loading}
+            className="custom-btn"
+          >
+            Confirm Payment
+          </button>
+        </div>
       </div>
     </form>
   );

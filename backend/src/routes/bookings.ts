@@ -53,6 +53,21 @@ router.get(
   }
 );
 
+router.get(
+  "/partner/my-bookings",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    try {
+      const bookings = await Booking.find({ hotelOwner: req.userId });
+
+      res.json(bookings);
+    } catch (error) {
+      console.log(__filename, error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
 // get all bookings for individual user's
 router.get("/my-bookings", verifyToken, async (req: Request, res: Response) => {
   try {

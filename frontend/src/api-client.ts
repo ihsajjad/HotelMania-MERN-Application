@@ -304,6 +304,16 @@ export const fetchMyHotels = async (): Promise<HotelDataType[]> => {
   return res.json();
 };
 
+export const fetchPartnerBookings = async (): Promise<BookingType[]> => {
+  const res = await fetch(`${API_BASE_URL}/partner/my-bookings`, {
+    credentials: "include",
+  });
+
+  if (!res.ok) throw new Error("Something went wrong");
+
+  return res.json();
+};
+
 export const fetchPartnerData = async (
   userId: string
 ): Promise<HotelOwnerType> => {
