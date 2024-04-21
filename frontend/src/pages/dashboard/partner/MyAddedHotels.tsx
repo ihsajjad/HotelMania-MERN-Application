@@ -10,6 +10,7 @@ import * as apiClient from "../../../api-client";
 import AddHotelModal from "../../../components/AddHotelModal";
 import PageTitle from "../../../components/PageTitle";
 import UpdateHotelModal from "../../../components/UpdateHotelModal";
+import MyHotelCardSkeleton from "../../../components/skeletons/MyHotelCardSkeleton";
 import { useAppContext } from "../../../contexts/UseContexts";
 import { errorToast, successToast } from "../../../shared/utils";
 
@@ -22,15 +23,18 @@ const MyAddedHotels = () => {
     { enabled: !!user._id }
   );
 
-  const { mutate: deleteHotel } = useMutation(apiClient.deleteSingleHotel, {
-    onSuccess: () => {
-      refetchHotels();
-      successToast("Hotel deleted successfully");
-    },
-    onError: (err: Error) => {
-      errorToast(err.message);
-    },
-  });
+  const { mutate: deleteHotel, isLoading } = useMutation(
+    apiClient.deleteSingleHotel,
+    {
+      onSuccess: () => {
+        refetchHotels();
+        successToast("Hotel deleted successfully");
+      },
+      onError: (err: Error) => {
+        errorToast(err.message);
+      },
+    }
+  );
 
   const handleShowModal = document.getElementById(
     "add_hotel_modal"
@@ -58,7 +62,14 @@ const MyAddedHotels = () => {
       <div className="p-4">
         <h2 className="text-xl">You have added {hotels?.length} hotels</h2>
         <div className="flex flex-col gap-6 items-center py-5">
-          {hotels &&
+          {isLoading ? (
+            <>
+              <MyHotelCardSkeleton />
+              <MyHotelCardSkeleton />
+              <MyHotelCardSkeleton />
+            </>
+          ) : (
+            hotels &&
             hotels.map((hotel) => (
               <div
                 key={hotel._id}
@@ -122,7 +133,8 @@ const MyAddedHotels = () => {
                   </Link>
                 </span>
               </div>
-            ))}
+            ))
+          )}
         </div>
       </div>
     </div>
