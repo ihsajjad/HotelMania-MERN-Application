@@ -27,7 +27,7 @@ const Login = () => {
     onSuccess: (data) => {
       setUser(data);
       successToast("Login successful");
-      navigate(location.state?.from || "", { replace: true });
+      navigate(location.state?.from || "/", { replace: true });
     },
     onError: (error: Error) => {
       errorToast(error.message);

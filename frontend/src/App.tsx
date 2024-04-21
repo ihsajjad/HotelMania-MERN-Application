@@ -19,6 +19,7 @@ import HotelDetails from "./pages/HotelDetails.tsx";
 import MyAddedHotels from "./pages/dashboard/partner/MyAddedHotels.tsx";
 import PartnerBookings from "./pages/dashboard/partner/PartnerBookings.tsx";
 import MyBookings from "./pages/dashboard/user/MyBookings";
+import AdminRoute from "./routes/AdminRoute.tsx";
 import PartnerRoute from "./routes/PartnerRoute";
 import PrivateRoute from "./routes/PrivateRoute";
 
@@ -66,9 +67,30 @@ export const routes = createBrowserRouter([
       },
 
       // Admin's routes
-      { path: "/dashboard/partners", element: <Partners /> },
-      { path: "/dashboard/all-bookings", element: <AllBookings /> },
-      { path: "/dashboard/all-hotels", element: <AllHotels /> },
+      {
+        path: "/dashboard/partners",
+        element: (
+          <AdminRoute>
+            <Partners />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all-bookings",
+        element: (
+          <AdminRoute>
+            <AllBookings />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all-hotels",
+        element: (
+          <AdminRoute>
+            <AllHotels />
+          </AdminRoute>
+        ),
+      },
 
       // Partner's routes
       {
