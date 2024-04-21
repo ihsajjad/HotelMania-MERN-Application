@@ -38,7 +38,7 @@ const NavBar = () => {
           </label>
           <ul
             tabIndex={0}
-            className=" dropdown-content mt-4 z-10 p-2 space-y-2 shadow bg-[var(--bg-color)] w-40"
+            className=" dropdown-content mt-4 z-10 p-2 space-y-2 shadow bg-[var(--bg-color)] w-40 text-right"
           >
             {options}
           </ul>
@@ -74,7 +74,10 @@ const NavBar = () => {
                 <a>Settings</a>
               </li>
               <li>
-                <button onClick={() => logOut()} className="custom-btn ">
+                <button
+                  onClick={() => logOut()}
+                  className="py-0.5 px-2 text-[var(--bg-color)] bg-[var(--main-color)] rounded font-bold text-sm mt-1"
+                >
                   Logout
                 </button>
               </li>

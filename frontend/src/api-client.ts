@@ -328,6 +328,17 @@ export const fetchPartnerData = async (
   return result;
 };
 
+export const fetchCurrentBookingsPartner = async (): Promise<BookingType[]> => {
+  const res = await fetch(
+    `${API_BASE_URL}/api/bookings/partner/current_bookings`,
+    { credentials: "include" }
+  );
+
+  if (!res) throw new Error("Something went wrong");
+
+  return res.json();
+};
+
 export const addMyHotel = async (formData: HotelDataType) => {
   const res = await fetch(`${API_BASE_URL}/api/hotels/add-hotel`, {
     method: "POST",

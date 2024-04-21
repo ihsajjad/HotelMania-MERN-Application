@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-900 text-base-200">
+    <footer className="bg-[var(--bg-color)] text-base-200">
       <div className="footer p-10 custom-container">
         <div>
           <Link to="/" className=" text-xl font-bold text-[var(--main-color)]">

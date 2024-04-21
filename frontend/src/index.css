@@ -3,14 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --bg-color: #1f244d;
+  /* --bg-color: #1f244d; */
+  --bg-color: #282e66;
   --second-bg-color: #323946;
   --text-color: #fff;
   --main-color: #8bcf17;
 }
 
 .custom-btn {
-  @apply py-1 px-2 text-[var(--bg-color)] bg-[var(--main-color)] duration-500 rounded font-bold  cursor-pointer;
+  @apply py-1 px-2 text-[var(--bg-color)] bg-[var(--main-color)] duration-500 rounded font-bold cursor-pointer;
 }
 .custom-btn-outline {
   @apply py-1 px-2 border-2 text-white hover:bg-transparent text-[var(--main-color)] border-[var(--main-color)] hover:text-[var(--main-color)] duration-500 rounded;

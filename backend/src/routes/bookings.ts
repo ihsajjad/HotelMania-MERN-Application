@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
 import Stripe from "stripe";
-import { verifyAdmin, verifyToken } from "../middleware/auth";
+import { verifyAdmin, verifyHotelOwner, verifyToken } from "../middleware/auth";
 import Booking from "../models/booking";
 import Hotel from "../models/hotel";
 
@@ -57,6 +57,7 @@ router.get(
 router.get(
   "/partner/my-bookings",
   verifyToken,
+  verifyHotelOwner,
   async (req: Request, res: Response) => {
     try {
       const bookings = await Booking.find({ hotelOwner: req.userId }).populate(
@@ -114,12 +115,13 @@ router.get(
 router.get(
   "/partner/current_bookings",
   verifyToken,
+  verifyHotelOwner,
   async (req: Request, res: Response) => {
     const currentDate = new Date();
 
     try {
       const query = {
-        userId: req.userId,
+        hotelOwner: req.userId,
         checkOut: { $gte: currentDate },
       };
 

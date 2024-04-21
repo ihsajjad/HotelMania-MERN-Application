@@ -2,9 +2,10 @@ import { useQuery } from "react-query";
 import * as apiClient from "../../../api-client";
 import BookingCard from "../../../components/BookingCard";
 import PageTitle from "../../../components/PageTitle";
+import BookingSkeleton from "../../../components/skeletons/BookingSkeleton";
 
 const PartnerBookings = () => {
-  const { data: bookings } = useQuery(
+  const { data: bookings, isLoading } = useQuery(
     "fetchPartnerBookings",
     apiClient.fetchPartnerBookings
   );
@@ -16,10 +17,18 @@ const PartnerBookings = () => {
           You have got {bookings?.length} bookings
         </h3>
         <div className="grid grid-cols-1 gap-4">
-          {bookings &&
+          {isLoading ? (
+            <>
+              <BookingSkeleton />
+              <BookingSkeleton />
+              <BookingSkeleton />
+            </>
+          ) : (
+            bookings &&
             bookings?.map((booking) => (
               <BookingCard booking={booking} key={booking._id} />
-            ))}
+            ))
+          )}
         </div>
       </div>
     </div>

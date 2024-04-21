@@ -1,5 +1,11 @@
+import CurrentBookingsPartner from "../../../components/CurrentBookingsPartner";
+
 const PartnerDashboard = () => {
-  return <div>partner dashboard</div>;
+  return (
+    <div className="">
+      <CurrentBookingsPartner />
+    </div>
+  );
 };
 
 export default PartnerDashboard;
