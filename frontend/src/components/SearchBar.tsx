@@ -43,7 +43,7 @@ const SearchBar = () => {
   return (
     <form
       onSubmit={handleSeach}
-      className="bg-[var(--bg-color)] lg:-mt-10 md:-mt-16 -mt-20 grid lg:grid-cols-4 md:grid-cols-2 gap-2 p-2"
+      className="bg-[var(--bg-color)] lg:-mt-10 md:-mt-16 -mt-20 grid lg:grid-cols-4 md:grid-cols-2 gap-2 p-3"
     >
       <input
         type="text"

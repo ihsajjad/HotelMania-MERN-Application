@@ -305,7 +305,7 @@ export const fetchMyHotels = async (): Promise<HotelDataType[]> => {
 };
 
 export const fetchPartnerBookings = async (): Promise<BookingType[]> => {
-  const res = await fetch(`${API_BASE_URL}/partner/my-bookings`, {
+  const res = await fetch(`${API_BASE_URL}/api/bookings/partner/my-bookings`, {
     credentials: "include",
   });
 

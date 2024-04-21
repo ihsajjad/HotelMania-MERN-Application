@@ -53,13 +53,16 @@ router.get(
   }
 );
 
+// get bookings for partner
 router.get(
   "/partner/my-bookings",
   verifyToken,
   async (req: Request, res: Response) => {
     try {
-      const bookings = await Booking.find({ hotelOwner: req.userId });
-
+      const bookings = await Booking.find({ hotelOwner: req.userId }).populate(
+        "hotel",
+        "images _id pricePerNight name type city country"
+      );
       res.json(bookings);
     } catch (error) {
       console.log(__filename, error);
