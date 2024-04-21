@@ -18,6 +18,7 @@ import EmptyMsgContainer from "./../../../components/EmptyMsgContainer";
 const MyAddedHotels = () => {
   const { user } = useAppContext() || {};
   const [hotelData, setHotelData] = useState<HotelDataType>();
+
   const {
     data: hotels,
     refetch: refetchHotels,
@@ -56,8 +57,8 @@ const MyAddedHotels = () => {
         >
           Add Hotel
         </button>
-        <AddHotelModal />
-        <UpdateHotelModal hotel={hotelData} />
+        <AddHotelModal refetchHotels={refetchHotels} />
+        <UpdateHotelModal hotel={hotelData} refetchHotels={refetchHotels} />
       </div>
       <div className="p-4">
         <h2 className="text-xl">You have added {hotels?.length} hotels</h2>

@@ -84,10 +84,7 @@ const ImagesSection = () => {
       <h2 className="text-2xl font-bold mb-3">Images</h2>
       <div className="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 w-full gap-4">
         <div className="flex flex-col gap-2">
-          <label
-            // htmlFor="image"
-            className="border border-slate-300 flex items-center rounded"
-          >
+          <label className="border border-slate-300 flex items-center rounded">
             <input
               type="file"
               id="image"
@@ -126,12 +123,8 @@ const ImagesSection = () => {
             key={item.image}
             className="flex flex-col gap-4 border border-[var(--main-color)] bg-slate-200 rounded h-fit relative cursor-pointer"
           >
-            <img
-              src={item.image}
-              alt=""
-              className="h-40 object-cover object-center"
-            />
-            <span className="font-bold text-slate-600 text-center text-xl pb-1">
+            <img src={item.image} className="h-40 object-cover object-center" />
+            <span className="font-bold text-slate-600 text-center px-2 pb-1">
               {item.label}
             </span>
             <div

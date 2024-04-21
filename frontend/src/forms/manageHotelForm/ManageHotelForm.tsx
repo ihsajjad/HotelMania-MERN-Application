@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { HotelDataType } from "../../../../backend/src/shared/types";
 import DetailsSection from "./DetailsSection";
 import FacitiliesSection from "./FacitiliesSection";
@@ -19,7 +20,7 @@ const ManageHotelForm = ({ onSave, hotel, isLoading }: ManageHotelProps) => {
   const { reset, handleSubmit } = methods;
 
   useEffect(() => {
-    reset(hotel);
+    if (hotel) reset(hotel);
   }, [hotel, reset]);
 
   const onSubmit = handleSubmit((formData: HotelDataType) => {
@@ -39,7 +40,7 @@ const ManageHotelForm = ({ onSave, hotel, isLoading }: ManageHotelProps) => {
     }
 
     onSave(hotelData);
-    // methods.reset();
+    methods.reset();
   });
 
   return (
@@ -51,17 +52,24 @@ const ManageHotelForm = ({ onSave, hotel, isLoading }: ManageHotelProps) => {
         <GuestsSection />
         <ImagesSection />
         <div className="flex justify-center mt-4">
-          <button
-            className="custom-btn w-full text-xl disabled:bg-orange-400"
-            disabled={isLoading}
-          >
-            {hotel?._id
-              ? isLoading
-                ? "Updating..."
-                : "Update"
-              : isLoading
-                ? "Adding..."
-                : "Add"}
+          <button className="custom-btn w-full text-xl" disabled={isLoading}>
+            {hotel?._id ? (
+              isLoading ? (
+                <AiOutlineLoading3Quarters
+                  size={24}
+                  className="animate-spin mx-auto my-0.5"
+                />
+              ) : (
+                "Update"
+              )
+            ) : isLoading ? (
+              <AiOutlineLoading3Quarters
+                size={24}
+                className="animate-spin mx-auto my-0.5"
+              />
+            ) : (
+              "Add"
+            )}
           </button>
         </div>
       </form>

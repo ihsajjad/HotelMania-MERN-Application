@@ -5,13 +5,20 @@ import * as apiClient from "../api-client";
 import ManageHotelForm from "../forms/manageHotelForm/ManageHotelForm";
 import { errorToast, successToast } from "../shared/utils";
 
-const UpdateHotelModal = ({ hotel }: { hotel?: HotelDataType }) => {
+const UpdateHotelModal = ({
+  hotel,
+  refetchHotels,
+}: {
+  hotel?: HotelDataType;
+  refetchHotels: () => void;
+}) => {
   const { mutate: updateHotel, isLoading } = useMutation(
     apiClient.updateHotel,
     {
       onSuccess: () => {
         const btn = document.getElementById(`update-modal-close-btn`);
         btn?.click();
+        refetchHotels();
         successToast("Hotel updated successfully");
       },
       onError: (error: Error) => {

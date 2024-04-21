@@ -3,11 +3,12 @@ import * as apiClient from "../api-client";
 import ManageHotelForm from "../forms/manageHotelForm/ManageHotelForm";
 import { errorToast, successToast } from "../shared/utils";
 
-const AddHotelModal = () => {
+const AddHotelModal = ({ refetchHotels }: { refetchHotels: () => void }) => {
   const { mutate: addHotel, isLoading } = useMutation(apiClient.addMyHotel, {
     onSuccess: () => {
       const btn = document.getElementById("modal-close-btn");
       btn?.click();
+      refetchHotels();
       successToast("Hotel added successfully");
     },
     onError: (error: Error) => {
