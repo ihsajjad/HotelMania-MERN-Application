@@ -17,6 +17,7 @@ import Partners from "./pages/dashboard/admin/Partners";
 import { API_BASE_URL } from "./api-client.ts";
 import HotelDetails from "./pages/HotelDetails.tsx";
 import MyAddedHotels from "./pages/dashboard/partner/MyAddedHotels.tsx";
+import PartnerBookings from "./pages/dashboard/partner/PartnerBookings.tsx";
 import MyBookings from "./pages/dashboard/user/MyBookings";
 import PartnerRoute from "./routes/PartnerRoute";
 import PrivateRoute from "./routes/PrivateRoute";
@@ -75,6 +76,14 @@ export const routes = createBrowserRouter([
         element: (
           <PartnerRoute>
             <MyAddedHotels />
+          </PartnerRoute>
+        ),
+      },
+      {
+        path: "/dashboard/partner/my-bookings",
+        element: (
+          <PartnerRoute>
+            <PartnerBookings />
           </PartnerRoute>
         ),
       },

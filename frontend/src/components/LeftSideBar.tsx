@@ -1,6 +1,5 @@
 import { CgProfile } from "react-icons/cg";
-import { CiBookmarkCheck } from "react-icons/ci";
-import { MdOutlineHotel } from "react-icons/md";
+import { MdOutlineBookmarkAdded, MdOutlineHotel } from "react-icons/md";
 import { PiUsersThreeBold } from "react-icons/pi";
 import { RiHotelLine } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
@@ -23,7 +22,7 @@ const LeftSideBar = () => {
       {
         label: "My Bookings",
         link: "/dashboard/my-bookings",
-        icon: <CiBookmarkCheck />,
+        icon: <MdOutlineBookmarkAdded />,
       },
       //   { label: "Dashboard", link: "/dashboard", icon: <RxDashboard /> },
     ];
@@ -42,7 +41,7 @@ const LeftSideBar = () => {
       {
         label: "All Bookings",
         link: "/dashboard/all-bookings",
-        icon: <CiBookmarkCheck />,
+        icon: <MdOutlineBookmarkAdded />,
       },
     ];
   } else if (user.role === "Hotel") {
@@ -51,6 +50,11 @@ const LeftSideBar = () => {
         label: "My Hotels",
         link: "/dashboard/my-hotels",
         icon: <RiHotelLine size={18} />,
+      },
+      {
+        label: "My Bookings",
+        link: "/dashboard/partner/my-bookings",
+        icon: <MdOutlineBookmarkAdded size={18} />,
       },
       {
         label: "My Profile",
