@@ -110,6 +110,31 @@ router.get(
   }
 );
 
+// get current bookings for partner
+router.get(
+  "/partner/current_bookings",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    const currentDate = new Date();
+
+    try {
+      const query = {
+        userId: req.userId,
+        checkOut: { $gte: currentDate },
+      };
+
+      const bookings = await Booking.find(query).populate(
+        "hotel",
+        "images _id pricePerNight name type city country"
+      );
+
+      res.json(bookings);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
 // create stripe payment
 router.post(
   "/:hotelId/payment_intent",
