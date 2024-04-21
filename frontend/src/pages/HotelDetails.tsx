@@ -1,22 +1,48 @@
+import { isArray } from "chart.js/helpers";
 import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import HotelDetailsSkeleton from "../components/skeletons/HotelDetailsSkeleton";
 import GuestInfoForm from "../forms/GuestInfoForm";
 import { useGetHotelById } from "../shared/CommonHooks";
+
+interface ImageType {
+  image: string;
+  label: string;
+}
 const HotelDetails = () => {
-  const [currImage, setCurrImage] = useState<{
-    image: string;
-    label: string;
-  }>();
+  const [currImage, setCurrImage] = useState<ImageType>();
+  const [images, setImages] = useState<ImageType[]>();
   const { id } = useParams();
 
   const { data: hotel, isLoading } = useGetHotelById(id as string);
 
+  // changing the image requesting url for low quality image
   useEffect(() => {
-    setCurrImage(hotel?.images[0]);
+    if (isArray(hotel?.images) && hotel?.images?.length > 0) {
+      const firstImage = hotel?.images[0];
+      const initialImage = firstImage?.image?.replace(
+        "upload",
+        "upload/h_450,w_1000/q_90"
+      );
+      setCurrImage({
+        image: initialImage as string,
+        label: firstImage?.label as string,
+      });
+
+      const images = hotel.images.map((item) => {
+        const url = item?.image?.replace("upload", "upload/h_150,w_200/q_60");
+        return { image: url, label: item.label };
+      });
+
+      setImages(images);
+    }
   }, [hotel?.images]);
 
+  const changeCurrentImage = ({ image, label }: ImageType) => {
+    const url = image.replace("/h_150,w_200/q_60", "/h_450,w_1000/q_90");
+    setCurrImage({ image: url, label });
+  };
   const description = hotel?.description?.replace(/\n/g, "<br />");
 
   return (
@@ -52,15 +78,16 @@ const HotelDetails = () => {
             </div>
 
             <div className="flex flex-wrap gap-4">
-              {hotel?.images.map((item) => (
-                <img
-                  key={item?.image}
-                  src={item?.image}
-                  alt={item?.label}
-                  className={`${currImage?.image === item.image ? "border-[var(--main-color)]" : "opacity-60"} hover:border-[var(--main-color)] hover:opacity-100 border-4 cursor-pointer rounded duration-150 md:h-28 md:w-40 h-20 w-32`}
-                  onClick={() => setCurrImage(item)}
-                />
-              ))}
+              {images &&
+                images?.map((item) => (
+                  <img
+                    key={item?.image}
+                    src={item?.image}
+                    alt={item?.label}
+                    className={`${currImage?.image === item.image ? "border-[var(--main-color)]" : "opacity-60"} hover:border-[var(--main-color)] hover:opacity-100 border-4 cursor-pointer rounded duration-150 md:h-28 md:w-40 h-20 w-32`}
+                    onClick={() => changeCurrentImage(item)}
+                  />
+                ))}
             </div>
           </div>
 
