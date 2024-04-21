@@ -17,24 +17,23 @@ import { errorToast, successToast } from "../../../shared/utils";
 const MyAddedHotels = () => {
   const { user } = useAppContext() || {};
   const [hotelData, setHotelData] = useState<HotelDataType>();
-  const { data: hotels, refetch: refetchHotels } = useQuery(
-    "fetchMyHotels",
-    apiClient.fetchMyHotels,
-    { enabled: !!user._id }
-  );
+  const {
+    data: hotels,
+    refetch: refetchHotels,
+    isLoading,
+  } = useQuery("fetchMyHotels", apiClient.fetchMyHotels, {
+    enabled: !!user._id,
+  });
 
-  const { mutate: deleteHotel, isLoading } = useMutation(
-    apiClient.deleteSingleHotel,
-    {
-      onSuccess: () => {
-        refetchHotels();
-        successToast("Hotel deleted successfully");
-      },
-      onError: (err: Error) => {
-        errorToast(err.message);
-      },
-    }
-  );
+  const { mutate: deleteHotel } = useMutation(apiClient.deleteSingleHotel, {
+    onSuccess: () => {
+      refetchHotels();
+      successToast("Hotel deleted successfully");
+    },
+    onError: (err: Error) => {
+      errorToast(err.message);
+    },
+  });
 
   const handleShowModal = document.getElementById(
     "add_hotel_modal"
