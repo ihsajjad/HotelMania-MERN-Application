@@ -1,10 +1,10 @@
 import { isArray } from "chart.js/helpers";
 import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
-import { useParams } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
+import { HotelDataType } from "../../../backend/src/shared/types";
 import HotelDetailsSkeleton from "../components/skeletons/HotelDetailsSkeleton";
 import GuestInfoForm from "../forms/GuestInfoForm";
-import { useGetHotelById } from "../shared/CommonHooks";
 
 interface ImageType {
   image: string;
@@ -13,12 +13,15 @@ interface ImageType {
 const HotelDetails = () => {
   const [currImage, setCurrImage] = useState<ImageType>();
   const [images, setImages] = useState<ImageType[]>();
-  const { id } = useParams();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  // const { id } = useParams();
 
-  const { data: hotel, isLoading } = useGetHotelById(id as string);
+  // const { data: hotel, isLoading } = useGetHotelById(id as string);
+  const hotel = useLoaderData() as HotelDataType;
 
   // changing the image requesting url for low quality image
   useEffect(() => {
+    if (hotel) setIsLoading(false);
     if (isArray(hotel?.images) && hotel?.images?.length > 0) {
       const firstImage = hotel?.images[0];
       const initialImage = firstImage?.image?.replace(
@@ -37,7 +40,7 @@ const HotelDetails = () => {
 
       setImages(images);
     }
-  }, [hotel?.images]);
+  }, [hotel, hotel?.images]);
 
   const changeCurrentImage = ({ image, label }: ImageType) => {
     const url = image.replace("/h_150,w_200/q_60", "/h_450,w_1000/q_90");
@@ -107,7 +110,8 @@ const HotelDetails = () => {
               dangerouslySetInnerHTML={{ __html: description as string }}
             ></div>
             <GuestInfoForm
-              hotelId={id as string}
+              // hotelId={id as string}
+              hotelId={hotel._id as string}
               price={hotel?.pricePerNight as number}
             />
           </div>

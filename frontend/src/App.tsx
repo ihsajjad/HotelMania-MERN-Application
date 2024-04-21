@@ -5,7 +5,6 @@ import Booking from "./pages/Booking";
 import Error from "./pages/Error";
 import FindHotels from "./pages/FindHotels";
 import Home from "./pages/Home";
-import HotelDetails from "./pages/HotelDetails";
 import Login from "./pages/Login";
 import PartnerProfile from "./pages/PartnerProfile";
 import PartnerRegister from "./pages/PartnerRegister";
@@ -15,6 +14,8 @@ import AllBookings from "./pages/dashboard/admin/AllBookings";
 import AllHotels from "./pages/dashboard/admin/AllHotels";
 import Partners from "./pages/dashboard/admin/Partners";
 // import MyAddedHotels from "./pages/dashboard/partner/MyAddedHotels";
+import { API_BASE_URL } from "./api-client.ts";
+import HotelDetails from "./pages/HotelDetails.tsx";
 import MyAddedHotels from "./pages/dashboard/partner/MyAddedHotels.tsx";
 import MyBookings from "./pages/dashboard/user/MyBookings";
 import PartnerRoute from "./routes/PartnerRoute";
@@ -28,7 +29,12 @@ export const routes = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/search", element: <FindHotels /> },
-      { path: "/details/:id", element: <HotelDetails /> },
+      {
+        path: "/details/:id",
+        loader: ({ params }): Promise<Response> =>
+          fetch(`${API_BASE_URL}/api/hotels/${params?.id}`),
+        element: <HotelDetails />,
+      },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
       { path: "/partner/register", element: <PartnerRegister /> },
