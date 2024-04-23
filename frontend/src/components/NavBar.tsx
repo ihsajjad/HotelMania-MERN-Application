@@ -38,7 +38,7 @@ const NavBar = () => {
           </label>
           <ul
             tabIndex={0}
-            className=" dropdown-content mt-4 z-10 p-2 space-y-2 shadow bg-[var(--bg-color)] w-40 text-right"
+            className="dropdown-content mt-4 z-10 p-2 space-y-2 shadow bg-[var(--bg-color)] w-40"
           >
             {options}
           </ul>
