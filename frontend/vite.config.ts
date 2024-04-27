@@ -24,18 +24,6 @@ export default defineConfig({
           ) {
             return "adminDashboard"; // Separate dashboard components into their own chunk
           } else if (
-            /\/src\/pages\/dashboard\/partner\/PartnerDashboard\.tsx$/.test(
-              id
-            ) &&
-            !/node_modules/.test(id)
-          ) {
-            return "partnerDashboard"; // Separate dashboard components into their own chunk
-          } else if (
-            /\/src\/pages\/dashboard\/user\/UserDashobard\.tsx$/.test(id) &&
-            !/node_modules/.test(id)
-          ) {
-            return "userDashboard"; // Separate dashboard components into their own chunk
-          } else if (
             /\/src\/pages\/HotelDetails\.tsx$/.test(id) &&
             !/node_modules/.test(id)
           ) {
