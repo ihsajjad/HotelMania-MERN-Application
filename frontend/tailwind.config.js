@@ -4,6 +4,4 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [require("daisyui")],
-  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
 };

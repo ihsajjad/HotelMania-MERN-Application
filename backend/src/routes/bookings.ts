@@ -99,10 +99,9 @@ router.get(
         checkOut: { $gte: currentDate },
       };
 
-      const bookings = await Booking.find(query).populate(
-        "hotel",
-        "-description -adultCount -childCount -facilities"
-      );
+      const bookings = await Booking.find(query)
+        .sort({ bookedAt: -1 })
+        .populate("hotel", "-description -adultCount -childCount -facilities");
 
       res.json(bookings);
     } catch (error) {
