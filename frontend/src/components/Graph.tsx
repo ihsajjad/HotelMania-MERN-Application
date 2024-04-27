@@ -42,9 +42,8 @@ const Graph = () => {
   };
 
   const data = {
-    type: "line",
     labels: statistics?.map((statistic) =>
-      new Date(statistic.date).toDateString()
+      new Date(statistic.date).toLocaleDateString()
     ),
     datasets: [
       {
@@ -67,8 +66,8 @@ const Graph = () => {
     statistics?.reduce((total, current) => total + current.quantity, 0) || 0;
 
   return (
-    <div className="">
-      <div className="grid md:grid-cols-4 gap-6">
+    <div className="w-full flex md:flex-col flex-col-reverse">
+      <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-6">
         <div className="from-sky-500 graph-card border-sky-500">
           <h3 className="text-xl font-bold">Total Amount</h3>
           <span className="text-4xl font-bold">${totalAmount}</span>
@@ -91,7 +90,9 @@ const Graph = () => {
           <span className="text-4xl font-bold">${totalAmount * 0.1}</span>
         </div>
       </div>
-      <Bar options={options} data={data} />
+      <div className="w-full">
+        <Bar {...{ options: options, data: data }} />
+      </div>
     </div>
   );
 };

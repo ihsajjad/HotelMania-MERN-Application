@@ -40,7 +40,7 @@ const Login = () => {
   });
 
   return (
-    <div className="hero bg-base-200 py-12">
+    <div className="hero bg-base-200 py-12 px-5">
       <div className="card w-full max-w-sm shadow-2xl bg-base-100 border-[var(--main-color)] border-2">
         <form onSubmit={onSubmit} className="card-body">
           <h2 className="text-3xl font-bold text-center">Please Login!</h2>

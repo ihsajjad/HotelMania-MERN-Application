@@ -116,7 +116,7 @@ router.get("/top-5", async (req: Request, res: Response) => {
   }
 });
 
-// get all the hotels for individual user
+// get all the hotels for individual hotel partner
 router.get(
   "/my-hotels",
   verifyToken,

@@ -44,14 +44,14 @@ const Register = () => {
   });
 
   return (
-    <div className="hero bg-base-200 py-12 px-4">
-      <div className="card md:w-1/3 w-full shadow-2xl bg-base-100 border-[var(--main-color)] border-2">
+    <div className="hero bg-base-200 py-12 px-5">
+      <div className="card w-full max-w-sm shadow-2xl bg-base-100 border-[var(--main-color)] border-2">
         <h2 className="text-3xl font-bold text-center mt-8">
           Please Register!
         </h2>
         <form
           onSubmit={onSubmit}
-          className="card-body"
+          className="card-body overflow-x-hidden"
           encType="multipart/form-data"
         >
           <div className="flex flex-col ">
@@ -113,23 +113,25 @@ const Register = () => {
             </div>
             {errors.confirmPassword &&
               showInputError(errors.confirmPassword.message as string)}
-            <div className="form-control">
+            <div className="form-control overflow-x-hidden">
               <label className="label">
                 <span className="label-text">Select Profile</span>
               </label>
-              <input
-                type="file"
-                className="border p-2 rounded-md border-slate-300"
-                multiple
-                accept="image/*"
-                {...register("profile", {
-                  validate: (files: FileList) => {
-                    if (files[0]?.size > 1024 * 1024) {
-                      return "Maximum file size 1 MB";
-                    }
-                  },
-                })}
-              />
+              <div className="border p-2 rounded-md border-slate-300">
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="w-[250px]"
+                  {...register("profile", {
+                    validate: (files: FileList) => {
+                      if (files[0]?.size > 1024 * 1024) {
+                        return "Maximum file size 1 MB";
+                      }
+                    },
+                  })}
+                />
+              </div>
+
               {errors.profile && showInputError(errors.profile.message)}
             </div>
           </div>
