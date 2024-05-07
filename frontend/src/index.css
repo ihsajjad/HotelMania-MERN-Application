@@ -3,11 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --bg-color: #1f244d;
-  /* --bg-color: #282e66; */
+  /* --bg-color: #1f244d; */
+  --bg-color: #00396b;
   --second-bg-color: #323946;
   --text-color: #fff;
-  --main-color: #8bcf17;
+  --main-color: #47e97b;
+  /* --main-color: #8bcf17; */
 }
 
 .custom-btn {
