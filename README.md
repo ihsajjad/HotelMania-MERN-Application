@@ -1,5 +1,9 @@
 # Hotel Mania
-![Alt text](https://res.cloudinary.com/dvsc5qwql/image/upload/h_350,w_500/q_90/v1715099001/zntjvpbnp7jlm1vrgfqk.webp)
+Home Page View
+![Hotel Mania Home](https://i.ibb.co/LNy5bNn/Screenshot-2024-05-08-104321.png)
+
+Admin Dashboard View
+![Hotel Mania Admin Dashboard](https://i.ibb.co/X8Dz9tj/Screenshot-2024-05-08-104708.png)
 
 ### Technologies:
 
