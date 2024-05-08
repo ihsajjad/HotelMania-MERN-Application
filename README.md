@@ -1,4 +1,5 @@
 # Hotel Mania
+![Alt text](https://res.cloudinary.com/dvsc5qwql/image/upload/h_350,w_500/q_90/v1715099001/zntjvpbnp7jlm1vrgfqk.webp)
 
 ### Technologies:
 
