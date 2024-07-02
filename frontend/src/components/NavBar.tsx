@@ -1,6 +1,7 @@
 import { FaBars } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import { useAppContext } from "../contexts/UseContexts";
+
 const NavBar = () => {
   const { isLogin, user, logOut } = useAppContext() || {};
 
@@ -45,7 +46,8 @@ const NavBar = () => {
         </div>
         {/* text-main */}
         <Link to="/" className="text-[var(--main-color)] text-xl font-bold">
-          Hotel<span>Mania</span>
+          Hotel<span className="text-white/90">Mania</span>
+          {/* <img src={logo} className="h-auto w-40" /> */}
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -84,8 +86,8 @@ const NavBar = () => {
             </ul>
           </div>
         ) : (
-          <Link to="/login" className="font-bold">
-            Login
+          <Link to="/register" className="custom-btn ">
+            Get Started
           </Link>
         )}
       </div>

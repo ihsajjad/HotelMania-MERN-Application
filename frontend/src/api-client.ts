@@ -20,7 +20,10 @@ import {
   SearchParams,
 } from "./shared/Types";
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+export const API_BASE_URL =
+  import.meta.env.MODE === "production"
+    ? ""
+    : import.meta.env.VITE_FRONTEND_URL;
 
 export const fetchSearchHotels = async (
   searchParams: SearchParams
