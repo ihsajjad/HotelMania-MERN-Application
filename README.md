@@ -1,4 +1,11 @@
 # Hotel Mania
+This is a single-page, multi-role, and hotel booking web application. The roles are Admin, Hotel Partners, and Users.
+
+Home Page View
+![Hotel Mania Home](https://i.ibb.co/LNy5bNn/Screenshot-2024-05-08-104321.png)
+
+Admin Dashboard View
+![Hotel Mania Admin Dashboard](https://i.ibb.co/X8Dz9tj/Screenshot-2024-05-08-104708.png)
 
 ### Technologies:
 
@@ -21,8 +28,6 @@
 - Multer (file upload handler)
 - JWT
 - Cloudinary (Image uploading platform)
-
-This is a single-page, multi-role, and hotel booking web application. The roles are Admin, Hotel Partners, and Users.
 
 ### Features
 
